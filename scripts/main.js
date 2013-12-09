@@ -14,8 +14,6 @@ helpers.hide(splashDiv);
 formDiv.innerHTML= domElements.loginForm;
 };
 
-signUp.onclick = signUpClick;
 
-login.onclick = loginClick;
 
 
