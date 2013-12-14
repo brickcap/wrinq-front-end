@@ -12,6 +12,20 @@ var helpers = {
     },
     clearHtml :function(element){
 	element.innerHTML = '';
+    },
+
+    serializeTextFields : function(form){
+	
+	var i=0;
+	var length= form.elements.length -1;
+	var data = "";
+	for(i;i<length;i++){
+	    var name = form.elements[i].name;
+	    var value = form.elements[i].value;
+	    var pair = name+'='+value+'&';
+	    data = data+encodeURI(pair); 
+	}
+	return data;	
     }
 
 };
@@ -19,9 +33,9 @@ var helpers = {
 
 var domElements = {
 
-    'signUpForm' :'<form action="" method = "post" id ="signUpForm"><p><input type="text" name="username" value="" placeholder= "username" required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="email" name="email" value="" placeholder="email"/></p><p><input type="submit"  value="sign up"/></p></form><p><span class ="underline-spans" onclick = "loginClick()">or login<span></p>',
+    'signUpForm' :'<form  method = "POST" id ="signUpForm"><p><input type="text" name="username" value="" placeholder= "username" required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="email" name="email" value="" placeholder="email"/></p><p><input type="submit"  value="sign up"/></p></form><p><span class ="underline-spans" onclick = "loginClick()">or login<span></p>',
 
-    'loginForm': '<form action="" method="post" id="loginForm"><p><input type="text" name="username" value="" placeholder="username"  required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="submit" name="" value="login"/></p></form><p ><span class ="underline-spans" onclick ="signUpClick()">or sign-up<span></p>'
+    'loginForm': '<form  method="POST" id="loginForm"><p><input type="text" name="username" value="" placeholder="username"  required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="submit" name="" value="login"/></p></form><p ><span class ="underline-spans" onclick ="signUpClick()">or sign-up<span></p>'
 
 };
 
