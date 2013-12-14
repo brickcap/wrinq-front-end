@@ -69,6 +69,11 @@ helpers.hide(splashDiv);
 formDiv.innerHTML= domElements.loginForm;
 };
 
+var submitAjax = function(event,form){
+    var formData = helpers.serializeTextFields(helpers.id("form.id"));
+    event.preventDefault();
+    console.log(formData);
 
+};
 
 
