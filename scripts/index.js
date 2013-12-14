@@ -26,6 +26,16 @@ var helpers = {
 	    data = data+encodeURI(pair); 
 	}
 	return data;	
+    },
+    ajaxPost: function(options){
+	var request = new XMLHttpRequest();
+	request.open("POST",options.url,true);
+	request.setRequestHeaders("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+	request.send(options.data);
+	request.onreadystatechange = function(){
+	    if(request.state!=4||request.status!=200)return;
+	    options.callback(request.responseText);
+	};
     }
 
 };
