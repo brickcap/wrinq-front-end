@@ -30,12 +30,12 @@ var helpers = {
     ajaxPost: function(options){
 	var request = new XMLHttpRequest();
 	request.open("POST",options.url,true);
-	request.setRequestHeaders("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-	request.send(options.data);
 	request.onreadystatechange = function(){
-	    if(request.state!=4||request.status!=200)return;
+	    if(request.status!=200||request.readyState!=4)return;
+
 	    options.callback(request.responseText);
 	};
+	request.send(options.data);
     }
 
 };
@@ -43,7 +43,7 @@ var helpers = {
 
 var domElements = {
 
-    'signUpForm' :'<form  method = "POST" id ="signUpForm"><p><input type="text" name="username" value="" placeholder= "username" required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="email" name="email" value="" placeholder="email"/></p><p><input type="submit"  value="sign up"/></p></form><p><span class ="underline-spans" onclick = "loginClick()">or login<span></p>',
+    'signUpForm' :'<form  id ="signUpForm" onsubmit="submitAjax(event,this)"><p><input type="text" name="username" value="" placeholder= "username" required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="email" name="email" value="" placeholder="email"/></p><p><input type="submit"  value="sign up"/></p></form><p><span class ="underline-spans" onclick = "loginClick()">or login<span></p>',
 
     'loginForm': '<form  method="POST" id="loginForm"><p><input type="text" name="username" value="" placeholder="username"  required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="submit" name="" value="login"/></p></form><p ><span class ="underline-spans" onclick ="signUpClick()">or sign-up<span></p>'
 
@@ -70,9 +70,18 @@ formDiv.innerHTML= domElements.loginForm;
 };
 
 var submitAjax = function(event,form){
-    var formData = helpers.serializeTextFields(helpers.id("form.id"));
-    event.preventDefault();
-    console.log(formData);
+    event.preventDefault();    
+    console.log(event);
+     var formData = helpers.serializeTextFields(form);
+    
+    var ajaxObject = {
+	url: "/createuser",
+	data : formData,
+	callback: function(response){
+	   //web sockets go here
+	}
+    };
+    helpers.ajaxPost(ajaxObject);
 
 };
 

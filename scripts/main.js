@@ -15,9 +15,18 @@ formDiv.innerHTML= domElements.loginForm;
 };
 
 var submitAjax = function(event,form){
-    var formData = helpers.serializeTextFields(helpers.id("form.id"));
-    event.preventDefault();
-    console.log(formData);
+    event.preventDefault();    
+    console.log(event);
+     var formData = helpers.serializeTextFields(form);
+    
+    var ajaxObject = {
+	url: "/createuser",
+	data : formData,
+	callback: function(response){
+	   //web sockets go here
+	}
+    };
+    helpers.ajaxPost(ajaxObject);
 
 };
 
