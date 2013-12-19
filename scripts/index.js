@@ -44,7 +44,7 @@ var helpers = {
 
 var domElements = {
 
-    'signUpForm' :'<form  id ="signUpForm" onsubmit="submitAjax(event,this)"><p><input type="text" name="username" value="" placeholder= "username" onfocusout="checkUser(this)" required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="email" name="email" value="" placeholder="email"/></p><p><input type="submit"  value="sign up"/></p></form><p><span class ="underline-spans" onclick = "loginClick()">or login<span></p>',
+    'signUpForm' :'<form  id ="signUpForm" onsubmit="submitAjax(event,this)"><p><input type="text" name="username" value="" placeholder= "username" onfocusout="checkUser(this)" onfocus = "clearMessages()" required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="submit" id="createButton"  value="sign up"/></p></form><p id ="message"></p><p><span class ="underline-spans" onclick = "loginClick()">or login<span></p>',
 
     'loginForm': '<form  method="POST" id="loginForm"><p><input type="text" name="username" value="" placeholder="username"  required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="submit" name="" value="login"/></p></form><p ><span class ="underline-spans" onclick ="signUpClick()">or sign-up<span></p>'
 
@@ -86,12 +86,26 @@ var submitAjax = function(event,form){
 };
 
 var checkUser = function(input){
+    var createButton = helpers.id("createButton");
+    var message = helpers.id("message");
     var ajaxObject = {
 	url: '/checkuser?name="'+input.value+'"',
 	method: 'GET',
 	callback:function(response){
-	    console.log(response);
+	    
+	    if(JSON.parse(response).available) return;
+	    else{
+		createButton.disabled = true;
+		message.innerHTML = "The username is taken";
+	    }
 	}
     };
     helpers.ajax(ajaxObject);
+};
+
+var clearMessages = function(){
+    var createButton = helpers.id("createButton");
+    var message = helpers.id("message");
+    message.innerHTML = '';
+    createButton.disabled = false;
 };
