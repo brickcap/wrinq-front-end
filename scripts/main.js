@@ -22,6 +22,7 @@ var submitAjax = function(event,form){
     var ajaxObject = {
 	url: "/createuser",
 	data : formData,
+	method: "POST",
 	callback: function(response){
 	   //web sockets go here
 	}
@@ -30,4 +31,5 @@ var submitAjax = function(event,form){
 
 };
 
-
+var checkUser = function(input){
+};

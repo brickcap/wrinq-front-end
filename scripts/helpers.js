@@ -29,13 +29,14 @@ var helpers = {
     },
     ajaxPost: function(options){
 	var request = new XMLHttpRequest();
-	request.open("POST",options.url,true);
+	request.open(options.method,options.url,true);
 	request.onreadystatechange = function(){
 	    if(request.status!=200||request.readyState!=4)return;
 
 	    options.callback(request.responseText);
 	};
-	request.send(options.data);
+	if(options.method==="POST"||options.method==="PUT")request.send(options.data);
+	request.send();
     }
 
 };
