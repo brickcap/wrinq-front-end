@@ -15,21 +15,27 @@ formDiv.innerHTML= domElements.loginForm;
 };
 
 var submitAjax = function(event,form){
-    event.preventDefault();    
-    console.log(event);
-     var formData = helpers.serializeTextFields(form);
+    var formData = helpers.serializeTextFields(form);
     
     var ajaxObject = {
 	url: "/createuser",
 	data : formData,
 	method: "POST",
 	callback: function(response){
-	   //web sockets go here
+	    //web sockets go here
 	}
     };
-    helpers.ajaxPost(ajaxObject);
+    helpers.ajax(ajaxObject);
 
 };
 
 var checkUser = function(input){
+    var ajaxObject = {
+	url: '/checkuser?name="'+input.value+'"',
+	method: 'GET',
+	callback:function(response){
+	    console.log(response);
+	}
+    };
+    helpers.ajax(ajaxObject);
 };

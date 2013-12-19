@@ -27,7 +27,7 @@ var helpers = {
 	}
 	return data;	
     },
-    ajaxPost: function(options){
+    ajax: function(options){
 	var request = new XMLHttpRequest();
 	request.open(options.method,options.url,true);
 	request.onreadystatechange = function(){
