@@ -32,12 +32,10 @@ var helpers = {
 	request.open(options.method,options.url,true);
 	request.onreadystatechange = function(){
 	    if(request.status!=200||request.readyState!=4)return;
-
 	    options.callback(request.responseText);
 	};
-	if(options.method==="POST"||options.method==="PUT")request.send(options.data);
-	request.send();
-    }
+	     request.send(options.data);
+   }
 
 };
 

@@ -14,14 +14,14 @@ formDiv.innerHTML= domElements.loginForm;
 };
 
 var submitAjax = function(event,form){
+    event.preventDefault();   
     var formData = helpers.serializeTextFields(form);
-    
     var ajaxObject = {
-	url: "/createuser",
+	url:form.id==='loginForm'?'/login':'/createUser',
 	data : formData,
 	method: "POST",
 	callback: function(response){
-	    //web sockets go here
+	   console.log(response);
 	}
     };
     helpers.ajax(ajaxObject);
