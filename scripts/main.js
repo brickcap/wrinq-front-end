@@ -1,4 +1,3 @@
-
 var signUp= helpers.id("signup");
 var login= helpers.id("login");
 var splashDiv = helpers.id("splash");
@@ -30,7 +29,7 @@ var submitAjax = function(event,form){
 };
 
 var checkUser = function(input){
-    var createButton = helpers.id("createButton");
+    var submitButton = helpers.id("submitButton");
     var message = helpers.id("message");
     var ajaxObject = {
 	url: '/checkuser?name="'+input.value+'"',
@@ -39,7 +38,7 @@ var checkUser = function(input){
 	    
 	    if(JSON.parse(response).available) return;
 	    else{
-		createButton.disabled = true;
+		submitButton.disabled = true;
 		message.innerHTML = "The username is taken";
 	    }
 	}
@@ -48,8 +47,8 @@ var checkUser = function(input){
 };
 
 var clearMessages = function(){
-    var createButton = helpers.id("createButton");
+    var submitButton = helpers.id("submitButton");
     var message = helpers.id("message");
     message.innerHTML = '';
-    createButton.disabled = false;
+    submitButton.disabled = false;
 };
