@@ -31,8 +31,9 @@ var helpers = {
 	var request = new XMLHttpRequest();
 	request.open(options.method,options.url,true);
 	request.onreadystatechange = function(){
+	    if(request.status===404)options.errorCallback();
 	    if(request.status!=200||request.readyState!=4)return;
-	    options.callback(request.responseText);
+	    options.successCallback(request.responseText);
 	};
 	     request.send(options.data);
    }

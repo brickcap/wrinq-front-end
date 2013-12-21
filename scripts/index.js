@@ -52,6 +52,12 @@ var domElements = {
 
 
 
+var logincallback = function(response){
+};
+
+var createcallback = function(response){
+};
+
 var signUp= helpers.id("signup");
 var login= helpers.id("login");
 var splashDiv = helpers.id("splash");

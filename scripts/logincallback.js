@@ -1,2 +1,9 @@
-var logincallback = function(response){
+var logincallback = {
+    successCallback: function(responseText){
+	splashDiv.display = none;
+    },
+    errorCallback : function(){
+	var message = helpers.id("message");
+	message.innerHTML = "Login failed.";
+    }
 };
