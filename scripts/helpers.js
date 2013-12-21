@@ -27,6 +27,24 @@ var helpers = {
 	}
 	return data;	
     },
+    buildAjaxPostObject :function(form,formData){
+	var ajaxObject = {
+	    data : formData,
+	    method:"POST"
+	};
+	if(form.id==='loginForm'){
+	    ajaxObject.url = '/login';
+	    ajaxObject.successCallback = logincallback.successCallback;
+	    ajaxObject.errorCallback = logincallback.errorCallback;
+	}
+	if(form.id==='signUpForm'){
+	    ajaxObject.url = '/createuser';
+	    ajaxObject.successCallback = createcallback.successCallback;
+	    ajaxObject.errorCallback = createcallback.errorCallback;
+	    
+	}
+	return ajaxObject;
+    },
     ajax: function(options){
 	var request = new XMLHttpRequest();
 	request.open(options.method,options.url,true);

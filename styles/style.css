@@ -1,16 +1,19 @@
 body {
     font-family: monospace;
-    margin-left: 10%;
     font-size: 16px;
     line-height: 2;
-  
+    background-color:whitesmoke;
 }
 
-
+#splash,#formDiv{
+text-align: center;
+}
 
 #about{
     margin: 10% 10% 10% 0;
 }
+
+
 
 .underline-spans{
 text-decoration: underline;

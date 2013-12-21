@@ -1,3 +1,23 @@
+var logincallback = {
+    successCallback: function(responseText){
+	splashDiv.display = none;
+    },
+    errorCallback : function(){
+	var message = helpers.id("message");
+	message.innerHTML = "Login failed.";
+    }
+};
+
+var createcallback = {
+    successCallback: function(responseText){
+	splashDiv.display = none;
+    },
+    errorCallback : function(){
+	var message = helpers.id("message");
+	message.innerHTML = "Login failed.";
+    }
+};
+
 var helpers = {
 
     id : function(id){
@@ -27,12 +47,31 @@ var helpers = {
 	}
 	return data;	
     },
+    buildAjaxPostObject :function(form,formData){
+	var ajaxObject = {
+	    data : formData,
+	    method:"POST"
+	};
+	if(form.id==='loginForm'){
+	    ajaxObject.url = '/login';
+	    ajaxObject.successCallback = logincallback.successCallback;
+	    ajaxObject.errorCallback = logincallback.errorCallback;
+	}
+	if(form.id==='signUpForm'){
+	    ajaxObject.url = '/createuser';
+	    ajaxObject.successCallback = createcallback.successCallback;
+	    ajaxObject.errorCallback = createcallback.errorCallback;
+	    
+	}
+	return ajaxObject;
+    },
     ajax: function(options){
 	var request = new XMLHttpRequest();
 	request.open(options.method,options.url,true);
 	request.onreadystatechange = function(){
+	    if(request.status===404)options.errorCallback();
 	    if(request.status!=200||request.readyState!=4)return;
-	    options.callback(request.responseText);
+	    options.successCallback(request.responseText);
 	};
 	     request.send(options.data);
    }
@@ -52,12 +91,6 @@ var domElements = {
 
 
 
-var logincallback = function(response){
-};
-
-var createcallback = function(response){
-};
-
 var signUp= helpers.id("signup");
 var login= helpers.id("login");
 var splashDiv = helpers.id("splash");
@@ -76,15 +109,8 @@ formDiv.innerHTML= domElements.loginForm;
 var submitAjax = function(event,form){
     event.preventDefault();   
     var formData = helpers.serializeTextFields(form);
-    var ajaxObject = {
-	url:form.id==='loginForm'?'/login':'/createUser',
-	data : formData,
-	method: "POST",
-	callback: function(response){
-	   console.log(response);
-	}
-    };
-    helpers.ajax(ajaxObject);
+   
+    helpers.ajax(helpers.buildAjaxPostObject(form,formData));
 
 };
 
@@ -94,7 +120,7 @@ var checkUser = function(input){
     var ajaxObject = {
 	url: '/checkuser?name="'+input.value+'"',
 	method: 'GET',
-	callback:function(response){
+	successCallback:function(response){
 	    
 	    if(JSON.parse(response).available) return;
 	    else{

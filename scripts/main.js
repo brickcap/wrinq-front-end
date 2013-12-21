@@ -16,15 +16,8 @@ formDiv.innerHTML= domElements.loginForm;
 var submitAjax = function(event,form){
     event.preventDefault();   
     var formData = helpers.serializeTextFields(form);
-    var ajaxObject = {
-	url:form.id==='loginForm'?'/login':'/createUser',
-	data : formData,
-	method: "POST",
-	callback: function(response){
-	   console.log(response);
-	}
-    };
-    helpers.ajax(ajaxObject);
+   
+    helpers.ajax(helpers.buildAjaxPostObject(form,formData));
 
 };
 
@@ -34,7 +27,7 @@ var checkUser = function(input){
     var ajaxObject = {
 	url: '/checkuser?name="'+input.value+'"',
 	method: 'GET',
-	callback:function(response){
+	successCallback:function(response){
 	    
 	    if(JSON.parse(response).available) return;
 	    else{

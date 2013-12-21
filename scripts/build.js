@@ -1,10 +1,10 @@
 var buildify = require('buildify');
 var scripts = [
-
-    'helpers.js',
-    'html.js',
+    
     'logincallback.js',
     'createcallback.js',
+    'helpers.js',
+    'html.js',    
     'main.js'
 ];
 
