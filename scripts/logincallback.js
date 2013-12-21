@@ -1,0 +1,2 @@
+var logincallback = function(response){
+};
