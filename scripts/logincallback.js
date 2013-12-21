@@ -1,6 +1,6 @@
 var logincallback = {
     successCallback: function(responseText){
-	splashDiv.display = none;
+	helpers.hide(formDiv);
     },
     errorCallback : function(){
 	var message = helpers.id("message");

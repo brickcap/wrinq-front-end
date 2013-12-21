@@ -1,6 +1,6 @@
 var logincallback = {
     successCallback: function(responseText){
-	splashDiv.display = none;
+	helpers.hide(formDiv);
     },
     errorCallback : function(){
 	var message = helpers.id("message");
@@ -10,11 +10,11 @@ var logincallback = {
 
 var createcallback = {
     successCallback: function(responseText){
-	splashDiv.display = none;
+	helpers.hide(formDiv);
     },
     errorCallback : function(){
 	var message = helpers.id("message");
-	message.innerHTML = "Login failed.";
+	message.innerHTML = "This action could not be completed";
     }
 };
 
@@ -81,7 +81,7 @@ var helpers = {
 
 var domElements = {
 
-    'signUpForm' :'<form  id ="signUpForm" onsubmit="submitAjax(event,this)"><p><input type="text" name="username" value="" placeholder= "username" onfocusout="checkUser(this)" onfocus = "clearMessages()" required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="submit" id="submitButton"  value="sign up"/></p></form><p id ="message"></p><p><span class ="underline-spans" onclick = "loginClick()">or login<span></p>',
+    'signUpForm' :'<form  id ="signUpForm" onsubmit="submitAjax(event,this)"><p><input type="text" name="username" value="" placeholder= "username" onfocusout="checkUser(this)" onfocus = "clearMessages()" required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="submit" id="submitButton"  value="sign up" disabled/></p></form><p id ="message"></p><p><span class ="underline-spans" onclick = "loginClick()">or login<span></p>',
 
     'loginForm': '<form  method="POST" id="loginForm" onsubmit="submitAjax(event,this)"><p><input type="text" name="username" value="" placeholder="username"  required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="submit" id="submitButton" name="" value="login"/></p></form><p id= "message"></p><p ><span class ="underline-spans" onclick ="signUpClick()">or sign-up<span></p>'
 
@@ -122,7 +122,10 @@ var checkUser = function(input){
 	method: 'GET',
 	successCallback:function(response){
 	    
-	    if(JSON.parse(response).available) return;
+	    if(JSON.parse(response).available){
+		submitButton.disabled = false;
+		return;
+	    } 
 	    else{
 		submitButton.disabled = true;
 		message.innerHTML = "The username is taken";
@@ -136,5 +139,5 @@ var clearMessages = function(){
     var submitButton = helpers.id("submitButton");
     var message = helpers.id("message");
     message.innerHTML = '';
-    submitButton.disabled = false;
+   
 };

@@ -29,7 +29,10 @@ var checkUser = function(input){
 	method: 'GET',
 	successCallback:function(response){
 	    
-	    if(JSON.parse(response).available) return;
+	    if(JSON.parse(response).available){
+		submitButton.disabled = false;
+		return;
+	    } 
 	    else{
 		submitButton.disabled = true;
 		message.innerHTML = "The username is taken";
@@ -43,5 +46,5 @@ var clearMessages = function(){
     var submitButton = helpers.id("submitButton");
     var message = helpers.id("message");
     message.innerHTML = '';
-    submitButton.disabled = false;
+   
 };

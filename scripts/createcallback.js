@@ -1,9 +1,9 @@
 var createcallback = {
     successCallback: function(responseText){
-	splashDiv.display = none;
+	helpers.hide(formDiv);
     },
     errorCallback : function(){
 	var message = helpers.id("message");
-	message.innerHTML = "Login failed.";
+	message.innerHTML = "This action could not be completed";
     }
 };
