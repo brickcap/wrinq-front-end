@@ -117,6 +117,7 @@ var submitAjax = function(event,form){
 var checkUser = function(input){
     var submitButton = helpers.id("submitButton");
     var message = helpers.id("message");
+    submitButton.disabled = true;
     var ajaxObject = {
 	url: '/checkuser?name="'+input.value+'"',
 	method: 'GET',
