@@ -25,6 +25,7 @@ var checkUser = function(input){
     var submitButton = helpers.id("submitButton");
     var message = helpers.id("message");
     submitButton.disabled = true;
+    if(!input.value) return;
     var ajaxObject = {
 	url: '/checkuser?name="'+input.value+'"',
 	method: 'GET',
@@ -40,11 +41,11 @@ var checkUser = function(input){
 	    }
 	}
     };
+
     helpers.ajax(ajaxObject);
 };
 
 var clearMessages = function(){
-    var submitButton = helpers.id("submitButton");
     var message = helpers.id("message");
     message.innerHTML = '';
    
