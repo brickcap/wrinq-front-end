@@ -1,10 +1,10 @@
-var openRequest = indexedDb.open("wrinq", 1);
+var openRequest = indexedDB.open("wrinq", 1);
 var database;
 openRequest.onupgradeneeded = function(e){
     database = e.target.result;
-    addObjectStore("profile");
-    addObjectStore("messages");
-    addObjectStore("application");
+     addObjectStore(database,"profile");
+     addObjectStore(database,"messages");
+     addObjectStore(database,"application");
 };
 
 openRequest.onsuccess = function(e){
@@ -16,6 +16,6 @@ console.log(e);
 };
 
 function addObjectStore(database,name){
-    if(database.objectstoreNames.contains(name))return;
+    if(database.objectStoreNames.contains(name))return;
     database.createObjectStore(name);
 };
