@@ -1,6 +1,7 @@
 var buildify = require('buildify');
 var scripts = [
     'database.js',
+    'checksession.js',
     'logincallback.js',
     'createcallback.js',
     'helpers.js',
