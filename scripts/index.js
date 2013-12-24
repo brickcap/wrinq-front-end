@@ -70,10 +70,6 @@ var socketManager  = function(sess){
     var socket = new WebSocket('ws://localhost:3000/websocket/'+sess);
     socket.onopen = function(data){
 	console.log(data);
-	
-		socket.send(JSON.stringify({"register":"channel1"}));
-	    
-	
     };
     socket.onmessage = function(e){
     };
@@ -88,7 +84,7 @@ var logincallback = {
     successCallback: function(responseText){
 	helpers.hide(formDiv);
 	addToAppStore({"session":responseText},"sess");
-	checkSession();
+	socketManager(responseText);
     },
     errorCallback : function(){
 	var message = helpers.id("message");

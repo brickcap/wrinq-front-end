@@ -2,7 +2,7 @@ var logincallback = {
     successCallback: function(responseText){
 	helpers.hide(formDiv);
 	addToAppStore({"session":responseText},"sess");
-	checkSession();
+	socketManager(responseText);
     },
     errorCallback : function(){
 	var message = helpers.id("message");
