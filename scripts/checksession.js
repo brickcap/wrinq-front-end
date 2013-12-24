@@ -1,6 +1,6 @@
 var checkSession = function(){
     var storeApp = getStore('application','readonly');
-    var result =  storeApp.get(1);
+    var result =  storeApp.get("sess");
     
     result.onsuccess = function(e){
 	
@@ -8,9 +8,8 @@ var checkSession = function(){
 	    helpers.show(splashDiv);
 	    return;
 	}
-	console.log(e.target.result);
 	helpers.hide(splashDiv);
-	socketManager(e.target.result);
+	socketManager(e.target.result.session);
     };
     
 };

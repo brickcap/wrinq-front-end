@@ -41,7 +41,7 @@ function addObjectStore(database,name,key){
 
     if(key){
 
-	database.createObjectStore(name,key);
+	database.createObjectStore(name);
     }
 
     if(!key){
@@ -51,7 +51,7 @@ function addObjectStore(database,name,key){
 
 var checkSession = function(){
     var storeApp = getStore('application','readonly');
-    var result =  storeApp.get(1);
+    var result =  storeApp.get("sess");
     
     result.onsuccess = function(e){
 	
@@ -59,9 +59,8 @@ var checkSession = function(){
 	    helpers.show(splashDiv);
 	    return;
 	}
-	console.log(e.target.result);
 	helpers.hide(splashDiv);
-	socketManager(e.target.result);
+	socketManager(e.target.result.session);
     };
     
 };
@@ -84,7 +83,8 @@ var socketManager  = function(sess){
 var logincallback = {
     successCallback: function(responseText){
 	helpers.hide(formDiv);
-	addToAppStore({"session":responseText});
+	addToAppStore({"session":responseText},"sess");
+	checkSession();
     },
     errorCallback : function(){
 	var message = helpers.id("message");
