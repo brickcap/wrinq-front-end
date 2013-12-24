@@ -2,9 +2,9 @@ var openRequest = indexedDB.open("wrinq", 1);
 var database;
 openRequest.onupgradeneeded = function(e){
     database = e.target.result;
-    addObjectStore(database,"profile");
-    addObjectStore(database,"messages");
-    addObjectStore(database,"application");
+    addObjectStore(database,"profile",false);
+    addObjectStore(database,"messages",false);
+    addObjectStore(database,"application",true);
 };
 
 openRequest.onsuccess = function(e){
@@ -22,14 +22,31 @@ function getStore(objectStore,permission){
     return storeApp;
 };
 
-function addToAppStore(item){
+function addToAppStore(item,key){
     var storeApp = getStore("application","readwrite");
-    storeApp.add(item);
+    
+    if(key){    
+	storeApp.add(item,key);
+    }
+
+    if(!key){
+
+	storeApp.add(item);
+    }
+
 };
 
-function addObjectStore(database,name){
+function addObjectStore(database,name,key){
     if(database.objectStoreNames.contains(name))return;
-    database.createObjectStore(name,{autoIncrement:true});
+
+    if(key){
+
+	database.createObjectStore(name,key);
+    }
+
+    if(!key){
+	database.createObjectStore(name,{autoIncrement:true});
+    }
 };
 
 var checkSession = function(){
@@ -42,8 +59,9 @@ var checkSession = function(){
 	    helpers.show(splashDiv);
 	    return;
 	}
+	console.log(e.target.result);
 	helpers.hide(splashDiv);
-	socketManager(e.targe.result);
+	socketManager(e.target.result);
     };
     
 };
@@ -51,9 +69,13 @@ var checkSession = function(){
 var socketManager  = function(sess){
 
     var socket = new WebSocket('ws://localhost:3000/websocket/'+sess);
+    socket.onopen = function(data){
+	console.log(data);
+    };
     socket.onmessage = function(e){
     };
     socket.onerror = function(e){
+	console.log(e);
 	helpers.show(splashDiv);
     };
     return socket;

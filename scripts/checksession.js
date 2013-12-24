@@ -8,8 +8,9 @@ var checkSession = function(){
 	    helpers.show(splashDiv);
 	    return;
 	}
+	console.log(e.target.result);
 	helpers.hide(splashDiv);
-	socketManager(e.targe.result);
+	socketManager(e.target.result);
     };
     
 };
