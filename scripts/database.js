@@ -41,7 +41,7 @@ function addObjectStore(database,name,key){
 
     if(key){
 
-	database.createObjectStore(name,key);
+	database.createObjectStore(name);
     }
 
     if(!key){
