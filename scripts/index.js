@@ -38,7 +38,10 @@ var checkSession = function(){
     
     result.onsuccess = function(e){
 	
-	if(!e.target.result) helpers.show(splashDiv);
+	if(!e.target.result) {
+	    helpers.show(splashDiv);
+	    return;
+	}
 	helpers.hide(splashDiv);
 	socketManager(e.targe.result);
     };
