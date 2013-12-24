@@ -4,6 +4,7 @@ var socketManager  = function(sess){
     socket.onmessage = function(e){
     };
     socket.onerror = function(e){
+	helpers.show(splashDiv);
     };
     return socket;
 };

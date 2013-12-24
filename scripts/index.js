@@ -32,18 +32,28 @@ function addObjectStore(database,name){
     database.createObjectStore(name,{autoIncrement:true});
 };
 
-
-
 var checkSession = function(){
     var storeApp = getStore('application','readonly');
     var result =  storeApp.get(1);
-   
-   result.onsuccess = function(e){
-       console.log(e);
-       if(!e.target.result) helpers.show(splashDiv);
-       else helpers.hide(splashDiv);
-   };
     
+    result.onsuccess = function(e){
+	
+	if(!e.target.result) helpers.show(splashDiv);
+	helpers.hide(splashDiv);
+	socketManager(e.targe.result);
+    };
+    
+};
+
+var socketManager  = function(sess){
+
+    var socket = new WebSocket('ws://localhost:3000/websocket/'+sess);
+    socket.onmessage = function(e){
+    };
+    socket.onerror = function(e){
+	helpers.show(splashDiv);
+    };
+    return socket;
 };
 
 var logincallback = {

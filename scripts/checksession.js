@@ -3,9 +3,10 @@ var checkSession = function(){
     var result =  storeApp.get(1);
     
     result.onsuccess = function(e){
-	console.log(e);
+	
 	if(!e.target.result) helpers.show(splashDiv);
-	else helpers.hide(splashDiv);
+	helpers.hide(splashDiv);
+	socketManager(e.targe.result);
     };
     
 };

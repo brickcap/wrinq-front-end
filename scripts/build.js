@@ -2,6 +2,7 @@ var buildify = require('buildify');
 var scripts = [
     'database.js',
     'checksession.js',
+    'websockets.js',
     'logincallback.js',
     'createcallback.js',
     'helpers.js',
