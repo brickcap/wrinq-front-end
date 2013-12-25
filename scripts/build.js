@@ -1,5 +1,6 @@
 var buildify = require('buildify');
 var scripts = [
+    
     'database.js',
     'checksession.js',
     'websockets.js',
@@ -7,7 +8,8 @@ var scripts = [
     'createcallback.js',
     'helpers.js',
     'html.js',    
-    'main.js'
+    'main.js',
+    'var.js'
 ];
 
 buildify().concat(scripts).save('./index.js').uglify().save('./index.min.js');
