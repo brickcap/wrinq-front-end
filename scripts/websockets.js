@@ -8,8 +8,7 @@ var socketManager  = function(sess){
     };
     socket.onerror = function(e){
 
-	messageDiv.innerHTML='<p>Could not connect to the server</p>';
-	console.log(messageDiv);
+	messageDiv.innerHTML +='<p id="error-message">Could not connect to the server.Try refreshing.</p>';
+	return socket;
     };
-    return socket;
 };

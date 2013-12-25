@@ -5,7 +5,7 @@ body {
     background-color:whitesmoke;
 }
 
-#splash,#formDiv{
+.center-div{
 text-align: center;
 }
 
@@ -20,8 +20,12 @@ text-decoration: underline;
 cursor: pointer;
 }
 
-.margin-div{
+.top-div-10{
 margin-top: 10%;
+}
+
+.top-div-2{
+margin-top : 2%;
 }
 
 a{
