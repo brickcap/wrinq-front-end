@@ -2,11 +2,13 @@
 var signUpClick = function(){
 helpers.hide(splashDiv);
 formDiv.innerHTML = domElements.signUpForm;
+helpers.show(formDiv);
 };
 
 var loginClick = function(){
 helpers.hide(splashDiv);
 formDiv.innerHTML= domElements.loginForm;
+helpers.show(formDiv);
 };
 
 var submitAjax = function(event,form){

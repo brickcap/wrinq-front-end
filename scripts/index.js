@@ -60,6 +60,13 @@ var checkSession = function(){
 	    return;
 	}
 	helpers.hide(splashDiv);
+	helpers.hide(formDiv);
+	var profile = storeApp.get("profile");
+	profile.onsuccess = function(e){
+	    if(!e.target.result){
+		messageDiv.innerHTML = '<p class="underline-spans">create a profile</p>';
+	    }
+	};
 	socketManager(e.target.result.session);
     };
     
@@ -76,8 +83,9 @@ var socketManager  = function(sess){
     socket.onerror = function(e){
 
 	messageDiv.innerHTML +='<p id="error-message">Could not connect to the server.Try refreshing.</p>';
-	return socket;
+	
     };
+    return socket;
 };
 
 var logincallback = {
@@ -179,11 +187,13 @@ var domElements = {
 var signUpClick = function(){
 helpers.hide(splashDiv);
 formDiv.innerHTML = domElements.signUpForm;
+helpers.show(formDiv);
 };
 
 var loginClick = function(){
 helpers.hide(splashDiv);
 formDiv.innerHTML= domElements.loginForm;
+helpers.show(formDiv);
 };
 
 var submitAjax = function(event,form){
