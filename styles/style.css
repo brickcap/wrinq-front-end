@@ -3,6 +3,7 @@ body {
     font-size: 16px;
     line-height: 2;
     background-color:whitesmoke;
+    margin:0px 0px 0px 0px; 
 }
 
 .center-div{
@@ -16,6 +17,7 @@ text-align: center;
 .menu{
 color:#08c;
 font-weight: bold;
+background-color:white;
 }
 .menu span{
 cursor:pointer;
@@ -23,7 +25,9 @@ font-size: 150%;
 padding:0px 2% 0px 2%; 
 
 }
-
+#messageDiv{
+font-size:12px;
+}
 .underline-spans{
 text-decoration: underline;
 cursor: pointer;
@@ -33,9 +37,6 @@ cursor: pointer;
 margin-top: 10%;
 }
 
-.top-div-2{
-margin-top : 2%;
-}
 
 a{
 color: #08c;

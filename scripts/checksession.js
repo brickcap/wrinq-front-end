@@ -14,6 +14,7 @@ var checkSession = function(){
 	profile.onsuccess = function(e){
 	    if(!e.target.result){
 		messageDiv.innerHTML = '<p class="underline-spans">create a profile</p>';
+		
 	    }
 	};
 	socketManager(e.target.result.session);
