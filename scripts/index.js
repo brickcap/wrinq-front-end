@@ -2,9 +2,9 @@ var openRequest = indexedDB.open("wrinq", 1);
 var database;
 openRequest.onupgradeneeded = function(e){
     database = e.target.result;
-    addObjectStore(database,"profile",false);
-    addObjectStore(database,"messages",false);
-    addObjectStore(database,"application",true);
+    createObjectStore(database,"profile",false);
+    createObjectStore(database,"messages",false);
+    createObjectStore(database,"application",true);
 };
 
 openRequest.onsuccess = function(e){
@@ -18,8 +18,8 @@ openRequest.onerror = function(e){
 
 function getStore(objectStore,permission){
     var tranApp = database.transaction([objectStore],permission);
-    var storeApp = tranApp.objectStore(objectStore);    
-    return storeApp;
+    var store = tranApp.objectStore(objectStore);    
+    return store;
 };
 
 function addToAppStore(item,key){
@@ -36,7 +36,7 @@ function addToAppStore(item,key){
 
 };
 
-function addObjectStore(database,name,key){
+function createObjectStore(database,name,key){
     if(database.objectStoreNames.contains(name))return;
 
     if(key){
@@ -52,9 +52,9 @@ function addObjectStore(database,name,key){
 var checkSession = function(){
     var storeApp = getStore('application','readonly');
     var result =  storeApp.get("sess");
-    
+     
     result.onsuccess = function(e){
-	
+
 	if(!e.target.result) {
 	    helpers.show(splashDiv);
 	    return;
@@ -67,6 +67,18 @@ var checkSession = function(){
 		messageDiv.innerHTML = '<p class="underline-spans">create a profile</p>';
 		
 	    }
+	};
+	var messageStore = getStore('messages','readonly');
+	messageStore.openCursor(null,'prev').onsuccess = function(event){
+	    var cursor = event.target.result;
+	    var count = 0;
+	    if(!cursor||count===10){
+		appMessage.innerHTML = '<p>No recent activity</p>';
+		helpers.show(appMessage);
+		return;
+	    }
+	    count++;
+	   cursor.continue();
 	};
 	socketManager(e.target.result.session);
     };
@@ -242,3 +254,4 @@ var splashDiv = helpers.id("splash");
 var formDiv = helpers.id("formDiv");
 var messageDiv = helpers.id("messageDiv");
 var app = helpers.id("app");
+var appMessage = helpers.id("appMessage");
