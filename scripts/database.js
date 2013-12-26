@@ -2,9 +2,9 @@ var openRequest = indexedDB.open("wrinq", 1);
 var database;
 openRequest.onupgradeneeded = function(e){
     database = e.target.result;
-    addObjectStore(database,"profile",false);
-    addObjectStore(database,"messages",false);
-    addObjectStore(database,"application",true);
+    createObjectStore(database,"profile",false);
+    createObjectStore(database,"messages",false);
+    createObjectStore(database,"application",true);
 };
 
 openRequest.onsuccess = function(e){
@@ -18,8 +18,8 @@ openRequest.onerror = function(e){
 
 function getStore(objectStore,permission){
     var tranApp = database.transaction([objectStore],permission);
-    var storeApp = tranApp.objectStore(objectStore);    
-    return storeApp;
+    var store = tranApp.objectStore(objectStore);    
+    return store;
 };
 
 function addToAppStore(item,key){
@@ -36,7 +36,7 @@ function addToAppStore(item,key){
 
 };
 
-function addObjectStore(database,name,key){
+function createObjectStore(database,name,key){
     if(database.objectStoreNames.contains(name))return;
 
     if(key){
