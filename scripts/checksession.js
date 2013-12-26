@@ -10,7 +10,7 @@ var checkSession = function(){
 	helpers.hide(splashDiv);
 	helpers.hide(formDiv);
 	var profileStore = getStore("profile",'readonly');
-	profile = profileStore.get("userProfile"); 
+	var profile = profileStore.get("userProfile"); 
 	profile.onsuccess = function(e){
 	    if(!e.target.result){
 		messageDiv.innerHTML = '<p class="underline-spans">create a profile</p>';

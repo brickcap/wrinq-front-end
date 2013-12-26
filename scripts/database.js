@@ -1,5 +1,4 @@
-var openRequest = indexedDB.open("wrinq", 1);
-var database;
+
 openRequest.onupgradeneeded = function(e){
     database = e.target.result;
     createObjectStore(database,"profile",false);

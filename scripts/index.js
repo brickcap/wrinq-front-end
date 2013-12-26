@@ -1,5 +1,81 @@
+var helpers = {
+
+    id : function(id){
+	return document.getElementById(id);
+    },
+    show : function(element){
+	element.style.display="block";
+    },
+
+    hide : function(element){
+	element.style.display = "none";
+    },
+    clearHtml :function(element){
+	element.innerHTML = '';
+    },
+
+    serializeTextFields : function(form){
+	
+	var i=0;
+	var length= form.elements.length -1;
+	var data = "";
+	for(i;i<length;i++){
+	    var name = form.elements[i].name;
+	    var value = form.elements[i].value;
+	    var pair = name+'='+value+'&';
+	    data = data+encodeURI(pair); 
+	}
+	return data;	
+    },
+    buildAjaxPostObject :function(form,formData){
+	var ajaxObject = {
+	    data : formData,
+	    method:"POST"
+	};
+	if(form.id==='loginForm'){
+	    ajaxObject.url = '/login';
+	    ajaxObject.successCallback =logincallback.successCallback;
+	    ajaxObject.errorCallback = logincallback.errorCallback;
+	}
+	if(form.id==='signUpForm'){
+	    ajaxObject.url = '/createuser';
+	    ajaxObject.successCallback = createcallback.successCallback;
+	    ajaxObject.errorCallback = createcallback.errorCallback;
+	    
+	}
+	return ajaxObject;
+    },
+    ajax: function(options){
+	var request = new XMLHttpRequest();
+	request.open(options.method,options.url,true);
+	request.onreadystatechange = function(){
+	    if(request.status===404)options.errorCallback();
+	    if(request.status!=200||request.readyState!=4)return;
+	    options.successCallback(request.responseText);
+	};
+	     request.send(options.data);
+   },
+
+    successCallback : function(responseText){
+	var storeObject = addToStore({"session":responseText},"sess","application");
+	storeObject.transaction.oncomplete = function(){
+	    checkSession();
+	};
+    }
+};
+
+
+var signUp= helpers.id("signup");
+var login= helpers.id("login");
+var splashDiv = helpers.id("splash");
+var formDiv = helpers.id("formDiv");
+var messageDiv = helpers.id("messageDiv");
+var app = helpers.id("app");
+var appMessage = helpers.id("appMessage");
 var openRequest = indexedDB.open("wrinq", 1);
 var database;
+
+
 openRequest.onupgradeneeded = function(e){
     database = e.target.result;
     createObjectStore(database,"profile",false);
@@ -61,7 +137,7 @@ var checkSession = function(){
 	helpers.hide(splashDiv);
 	helpers.hide(formDiv);
 	var profileStore = getStore("profile",'readonly');
-	profile = profileStore.get("userProfile"); 
+	var profile = profileStore.get("userProfile"); 
 	profile.onsuccess = function(e){
 	    if(!e.target.result){
 		messageDiv.innerHTML = '<p class="underline-spans">create a profile</p>';
@@ -103,13 +179,7 @@ var socketManager  = function(sess){
 };
 
 var logincallback = {
-    successCallback: function(responseText){
-	var storeObject = addToStore({"session":responseText},"sess","application");
-	storeObject.transaction.oncomplete = function(){
-	    checkSession();
-	};
-	
-    },
+    successCallback: helpers.successCallback,
     errorCallback : function(){
 	var message = helpers.id("message");
 	message.innerHTML = "Login failed.";
@@ -117,78 +187,12 @@ var logincallback = {
 };
 
 var createcallback = {
-    successCallback: function(responseText){
-	var storeObject = addToStore({"session":responseText},"sess","application");
-	storeObject.transaction.oncomplete = function(){
-	    checkSession();
-	};
-    },
+    successCallback: helpers.successCallback,
     errorCallback : function(){
 	var message = helpers.id("message");
 	message.innerHTML = "This action could not be completed";
     }
 };
-
-var helpers = {
-
-    id : function(id){
-	return document.getElementById(id);
-    },
-    show : function(element){
-	element.style.display="block";
-    },
-
-    hide : function(element){
-	element.style.display = "none";
-    },
-    clearHtml :function(element){
-	element.innerHTML = '';
-    },
-
-    serializeTextFields : function(form){
-	
-	var i=0;
-	var length= form.elements.length -1;
-	var data = "";
-	for(i;i<length;i++){
-	    var name = form.elements[i].name;
-	    var value = form.elements[i].value;
-	    var pair = name+'='+value+'&';
-	    data = data+encodeURI(pair); 
-	}
-	return data;	
-    },
-    buildAjaxPostObject :function(form,formData){
-	var ajaxObject = {
-	    data : formData,
-	    method:"POST"
-	};
-	if(form.id==='loginForm'){
-	    ajaxObject.url = '/login';
-	    ajaxObject.successCallback = logincallback.successCallback;
-	    ajaxObject.errorCallback = logincallback.errorCallback;
-	}
-	if(form.id==='signUpForm'){
-	    ajaxObject.url = '/createuser';
-	    ajaxObject.successCallback = createcallback.successCallback;
-	    ajaxObject.errorCallback = createcallback.errorCallback;
-	    
-	}
-	return ajaxObject;
-    },
-    ajax: function(options){
-	var request = new XMLHttpRequest();
-	request.open(options.method,options.url,true);
-	request.onreadystatechange = function(){
-	    if(request.status===404)options.errorCallback();
-	    if(request.status!=200||request.readyState!=4)return;
-	    options.successCallback(request.responseText);
-	};
-	     request.send(options.data);
-   }
-
-};
-
 
 var domElements = {
 
@@ -252,11 +256,3 @@ var clearMessages = function(){
     message.innerHTML = '';
    
 };
-
-var signUp= helpers.id("signup");
-var login= helpers.id("login");
-var splashDiv = helpers.id("splash");
-var formDiv = helpers.id("formDiv");
-var messageDiv = helpers.id("messageDiv");
-var app = helpers.id("app");
-var appMessage = helpers.id("appMessage");

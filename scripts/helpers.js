@@ -34,7 +34,7 @@ var helpers = {
 	};
 	if(form.id==='loginForm'){
 	    ajaxObject.url = '/login';
-	    ajaxObject.successCallback = logincallback.successCallback;
+	    ajaxObject.successCallback =logincallback.successCallback;
 	    ajaxObject.errorCallback = logincallback.errorCallback;
 	}
 	if(form.id==='signUpForm'){
@@ -54,7 +54,13 @@ var helpers = {
 	    options.successCallback(request.responseText);
 	};
 	     request.send(options.data);
-   }
+   },
 
+    successCallback : function(responseText){
+	var storeObject = addToStore({"session":responseText},"sess","application");
+	storeObject.transaction.oncomplete = function(){
+	    checkSession();
+	};
+    }
 };
 
