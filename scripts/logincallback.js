@@ -1,7 +1,7 @@
 var logincallback = {
     successCallback: function(responseText){
 	storeObject = addToStore({"session":responseText},"sess","application");
-	storeObject.oncomplete = function(){
+	storeObject.transaction.oncomplete = function(){
 	    checkSession();
 	};
 	
