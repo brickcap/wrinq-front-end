@@ -17,8 +17,8 @@ openRequest.onerror = function(e){
 };
 
 function getStore(objectStore,permission){
-    var tranApp = database.transaction([objectStore],permission);
-    var store = tranApp.objectStore(objectStore);    
+    var tran = database.transaction([objectStore],permission);
+    var store = tran.objectStore(objectStore);    
     return store;
 };
 
@@ -105,8 +105,8 @@ var socketManager  = function(sess){
 var logincallback = {
     successCallback: function(responseText){
 	helpers.hide(formDiv);
-	addToAppStore({"session":responseText},"sess","application");
-	socketManager(responseText);
+	addStore({"session":responseText},"sess","application");
+	checkSession();
     },
     errorCallback : function(){
 	var message = helpers.id("message");
