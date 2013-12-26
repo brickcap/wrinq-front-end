@@ -17,8 +17,8 @@ openRequest.onerror = function(e){
 };
 
 function getStore(objectStore,permission){
-    var tranApp = database.transaction([objectStore],permission);
-    var store = tranApp.objectStore(objectStore);    
+    var tran = database.transaction([objectStore],permission);
+    var store = tran.objectStore(objectStore);    
     return store;
 };
 

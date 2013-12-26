@@ -51,8 +51,7 @@ function createObjectStore(database,name,key){
 
 var checkSession = function(){
     var appStore = getStore('application','readonly');
-    var result =  appStore.get("sess");
-     
+    var result =  appStore.get("sess");     
     result.onsuccess = function(e){
 
 	if(!e.target.result) {
@@ -61,7 +60,8 @@ var checkSession = function(){
 	}
 	helpers.hide(splashDiv);
 	helpers.hide(formDiv);
-	var profile = appStore.get("profile");
+	var profileStore = getStore("profile",'readonly');
+	profile = profileStore.get("userProfile"); 
 	profile.onsuccess = function(e){
 	    if(!e.target.result){
 		messageDiv.innerHTML = '<p class="underline-spans">create a profile</p>';
