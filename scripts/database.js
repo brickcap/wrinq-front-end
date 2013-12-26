@@ -22,16 +22,16 @@ function getStore(objectStore,permission){
     return store;
 };
 
-function addToAppStore(item,key){
-    var storeApp = getStore("application","readwrite");
+function addToStore(item,key,store){
+    var storeObject = getStore(store,"readwrite");
     
     if(key){    
-	storeApp.add(item,key);
+	storeObject.add(item,key);
     }
 
     if(!key){
 
-	storeApp.add(item);
+	storeObject.add(item);
     }
 
 };

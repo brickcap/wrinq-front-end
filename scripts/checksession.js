@@ -1,7 +1,6 @@
 var checkSession = function(){
     var appStore = getStore('application','readonly');
-    var result =  appStore.get("sess");
-     
+    var result =  appStore.get("sess");     
     result.onsuccess = function(e){
 
 	if(!e.target.result) {
