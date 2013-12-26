@@ -33,7 +33,7 @@ function addToStore(item,key,store){
 
 	storeObject.add(item);
     }
-
+    return storeObject;
 };
 
 function createObjectStore(database,name,key){

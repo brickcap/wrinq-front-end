@@ -33,7 +33,7 @@ function addToStore(item,key,store){
 
 	storeObject.add(item);
     }
-
+    return storeObject;
 };
 
 function createObjectStore(database,name,key){
@@ -104,9 +104,11 @@ var socketManager  = function(sess){
 
 var logincallback = {
     successCallback: function(responseText){
-	helpers.hide(formDiv);
-	addStore({"session":responseText},"sess","application");
-	checkSession();
+	storeObject = addToStore({"session":responseText},"sess","application");
+	storeObject.oncomplete = function(){
+	    checkSession();
+	};
+	
     },
     errorCallback : function(){
 	var message = helpers.id("message");
