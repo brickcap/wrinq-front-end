@@ -5,7 +5,7 @@ openRequest.onupgradeneeded = function(e){
     createObjectStore(database,"profile",false);
     createObjectStore(database,"messages",false);
     createObjectStore(database,"application",true);
-};
+ };
 
 openRequest.onsuccess = function(e){
     database = e.target.result;

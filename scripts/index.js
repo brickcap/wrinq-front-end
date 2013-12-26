@@ -5,7 +5,7 @@ openRequest.onupgradeneeded = function(e){
     createObjectStore(database,"profile",false);
     createObjectStore(database,"messages",false);
     createObjectStore(database,"application",true);
-};
+ };
 
 openRequest.onsuccess = function(e){
     database = e.target.result;
@@ -104,7 +104,7 @@ var socketManager  = function(sess){
 
 var logincallback = {
     successCallback: function(responseText){
-	storeObject = addToStore({"session":responseText},"sess","application");
+	var storeObject = addToStore({"session":responseText},"sess","application");
 	storeObject.transaction.oncomplete = function(){
 	    checkSession();
 	};
@@ -118,7 +118,10 @@ var logincallback = {
 
 var createcallback = {
     successCallback: function(responseText){
-	helpers.hide(formDiv);
+	var storeObject = addToStore({"session":responseText},"sess","application");
+	storeObject.transaction.oncomplete = function(){
+	    checkSession();
+	};
     },
     errorCallback : function(){
 	var message = helpers.id("message");
