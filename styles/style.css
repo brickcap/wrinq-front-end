@@ -18,11 +18,23 @@ text-align: center;
 text-align: left;
 }
 
-#messageBody{
-margin : 1% 10% 5% 10%;
+.messageBody{
+margin : 1% 10% 0% 10%;
 font-size:110%;
 }
-
+.img-span
+{
+height:44px;
+width:44px;
+border-radius:100%;
+-webkit-border-radius: 100%;
+-moz-border-radius: 100%;
+text-align:center;
+}
+.action-item{
+cursor:pointer;
+color:#08c;
+}
 
 #search,#search input:focus{
 background-color:#F5F5F5;
@@ -31,6 +43,8 @@ text-align:center;
 border:none;
 font-size:16px;
 outline:none;
+margin-left:auto;
+margin-right:auto;
 }
 
 .menu{
