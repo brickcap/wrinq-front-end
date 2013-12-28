@@ -4,8 +4,11 @@ function autoGrow (oField) {
   }
 };
 
-function replaceURLWithHTMLLinks(text)
-    {
-      var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-      return text.replace(exp,"<a href='$1'>$1</a>"); 
-    };
+function createImage(text){
+    text.autoLink({
+	callback: function(url) {
+	    return /\.(gif|png|jpe?g)$/i.test(url) ? '<img src="' + url + '">' : null;
+	}
+    });
+};
+
