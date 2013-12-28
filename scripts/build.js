@@ -13,5 +13,5 @@ var scripts = [
 ];
 
 buildify().concat(scripts).save('./index.js').uglify().save('./index.min.js');
-buildify().concat(['profile.js']).uglify().save('./profile.min.js');
+buildify().concat(['autolink.js','profile.js']).uglify().save('./profile.min.js');
 buildify().load('../styles/style.css').cssmin().save('../styles/styles.min.css');
