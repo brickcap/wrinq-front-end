@@ -141,7 +141,7 @@ var checkSession = function(){
 	var profile = profileStore.get("userProfile"); 
 	profile.onsuccess = function(e){
 	    if(!e.target.result){
-		messageDiv.innerHTML = '<a href="/editProfile">create a profile</a>';
+		messageDiv.innerHTML = '<a href="/editprofile.html">create a profile</a>';
 		
 	    }
 	};
