@@ -4,9 +4,42 @@
     <meta charset="UTF-8"/>
     <title>Edit profile</title>
     <link href="/styles/styles.min.css" rel="stylesheet"/>
-    </head>
-    <body>
+    <style>      
+      input,input input:focus,textarea,textarea:focus{
+      background-color:#F5F5F5;
+      width:100%;
+      border:none;
+      font-size:16px;
+      outline:none;
+      margin-left:auto;
+      margin-right:auto;
+      }
+      textarea{
+      background-color:#ddd;
+      }
+      textarea:focus{
+      background-color:#F5F5F5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="center-div"><strong>w r i n q</strong></div>
+    
+    <div id="profilediv" class="top-div-10" style="margin-left:20%; margin-right:10%">
+      <h1>Edit profile</h1>
+      <p>
+        <input type="text" name="profilepic" placeholder="url of your profile pic" autofocus="autofocus"/>
+      </p>
+      <div id="imagepreview"></div>
+      <p>      
+	<input type="text" name="name" placeholder="your name"/>
+      </p>
       
-    </body>
-    <script src="/scripts/profile.js"> </script>
+	<textarea rows="10"  style ="overflow: hidden; width:100%" name="about"
+		  id="abouttext" placeholder="about" onkeyup = "autoGrow(this)"></textarea>
+      
+      <p><button>Save</button></p>
+    </div>
+  </body>
+  <script src="/scripts/profile.js"> </script>
 </html>
