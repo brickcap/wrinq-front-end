@@ -28,11 +28,11 @@
     <div id="profilediv" class="top-div-10" style="margin-left:20%; margin-right:10%">
       <h1>Edit profile</h1>
       <p>
-        <input type="text" name="profilepic" placeholder="url of your profile pic" autofocus="autofocus" onfocusout="this.value"/>
+        <input type="text" name="profilepic" placeholder="url of your profile pic" autofocus="autofocus" onfocusout="createImage(this.value)"/>
       </p>
       <div id="imagepreview"></div>
       <p>      
-	<input type="text" name="name" placeholder="your name"/>
+	<input type="text" id="name" name="name" placeholder="your name"/>
       </p>
       
 	<textarea rows="10"  style ="overflow: hidden; width:100%" name="about"
