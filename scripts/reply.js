@@ -11,3 +11,9 @@ e.parentNode.innerHTML = domElements.commentBox;
 function removeCommentBox(e){
     e.parentNode.parentNode.innerHTML = '<span  class="action-item" title="reply" onclick = "addCommentBox(this)">&lt;\\&gt;</span>';
 }
+
+
+function parseText(element){
+var userRegex = /\B(@[^ ]+)/g;
+var hashRegex = /\B(#[^ ]+)/g;
+}
