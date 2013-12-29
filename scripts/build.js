@@ -10,7 +10,8 @@ var scripts = [
     'createcallback.js',
     'html.js',    
     'main.js',
-    'reply.js'
+    'reply.js',
+    'contact.js'
     
 ];
 

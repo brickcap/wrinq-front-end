@@ -104,8 +104,8 @@ var signUp= helpers.id("signup");
 var login= helpers.id("login");
 var splashDiv = helpers.id("splash");
 var formDiv = helpers.id("formDiv");
-var messageDiv = helpers.id("messageDiv");
 var app = helpers.id("app");
+var appBOdy = helpers.id("appBody");
 var appMessage = helpers.id("appMessage");
 var mesage = helpers.id("message");
 var openRequest = indexedDB.open("wrinq", 1);
@@ -308,3 +308,7 @@ e.parentNode.innerHTML = domElements.commentBox;
 function removeCommentBox(e){
     e.parentNode.parentNode.innerHTML = '<span  class="action-item" title="reply" onclick = "addCommentBox(this)">&lt;\\&gt;</span>';
 }
+
+var showContacts = function(){
+console.log("in a moment");
+};
