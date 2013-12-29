@@ -19,7 +19,6 @@ function createImage(text){
 };
 
 function addImage(url){
-    preview.display = 'block';
     preview.innerHTML = '<img id ="profileimage" src="' + url + '">';
     userName.focus();
 }
