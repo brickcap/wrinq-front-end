@@ -1,5 +1,6 @@
 var buildify = require('buildify');
 var scripts = [
+    'autolink.js',
     'helpers.js',    
     'var.js',
     'database.js',
@@ -8,7 +9,8 @@ var scripts = [
     'logincallback.js',
     'createcallback.js',
     'html.js',    
-    'main.js'
+    'main.js',
+    'reply.js'
     
 ];
 
