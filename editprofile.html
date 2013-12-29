@@ -14,8 +14,8 @@
       margin-left:auto;
       margin-right:auto;
       }
-     
-     input:focus, textarea:focus{
+      
+      input:focus, textarea:focus{
       background-color:#F5F5F5;
       width:100%;
       border:none;
@@ -43,10 +43,11 @@
 	<input type="text" id="name" name="name" placeholder="your name"/>
       </p>
       
-	<textarea rows="10"  style ="overflow: hidden; width:100%" name="about"
-		  id="abouttext" placeholder="about" onkeyup = "autoGrow(this)"></textarea>
+      <textarea rows="10"  style ="overflow: hidden; width:100%" name="about"
+		id="abouttext" placeholder="about" onkeyup = "autoGrow(this)"></textarea>
       
-      <p><button>Save</button></p>
+      <p><button onclick="updateProfile()">Save</button></p>
+      <p id="notification"></p>
     </div>
   </body>
   <script src="/scripts/profile.index.js"> </script>

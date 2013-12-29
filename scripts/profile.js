@@ -1,6 +1,7 @@
 var preview = document.getElementById("imagepreview");
 var userName = document.getElementById("name");
-var about = document.getElementById("about");
+var about = document.getElementById("abouttext");
+var notification = document.getElementById("notification");
 var openRequest = indexedDB.open("wrinq", 1);
 var database;
 
@@ -27,7 +28,7 @@ openRequest.onsuccess = function(e){
     database = e.target.result;
     var  profileStore = getStore('profile','readonly');
     var result = profileStore.get('master');
-    profileStore.onsuccess = function(e){
+    result.onsuccess = function(e){
 	var profile = e.target.result;
 	if(!profile) return;
 	preview.value = profile.pic;
@@ -45,7 +46,8 @@ function getStore(objectStore,permission){
 };
 
 function updateProfile(){
-var profileStore = getStore('profile','readwrite');
+    notification.innerHTML = "";
+    var profileStore = getStore('profile','readwrite');
     var image = document.getElementById("profileimage");
     var item = {
 	"pic" :image? image.src:"",
@@ -53,5 +55,12 @@ var profileStore = getStore('profile','readwrite');
 	"name" : userName.value,
 	"upgraded":true
     };
-    profileStore.add("item","master");
+    var request = profileStore.put(item,"master");
+    request.onsuccess = function(){
+	notification.innerHTML = "Profile saved";
+    };
+    request.onerror = function(e){
+	notification.innerHTML = "Could not save profile";
+    };
 };
+
