@@ -1,3 +1,4 @@
 var showContacts = function(){
-console.log("in a moment");
+appMessage.innerHTML="";
+appBody.innerHTML =domElements.contact();
 };
