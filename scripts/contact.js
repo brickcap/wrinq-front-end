@@ -6,5 +6,6 @@ appBody.innerHTML =domElements.contact();
 
 
 var addContact = function(element){
-
-}
+appMessage.innerHTML = "";
+appBody.innerHTML=domElements.addContact; 
+};

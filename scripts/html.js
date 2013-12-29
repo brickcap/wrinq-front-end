@@ -9,7 +9,8 @@ var domElements = {
     'contact' : function(o){
 	var temp = '<div class="contacts"><h1 style="text-align:center;">contacts</h1></div>';
 	return temp;
-    }
+    },
+'addContact' : '<div class="center-div"><input type="text" placeholder="username of the contact"/><p><button>send request</button></p></div>'
 };
 
 

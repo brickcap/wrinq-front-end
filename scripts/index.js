@@ -241,7 +241,8 @@ var domElements = {
     'contact' : function(o){
 	var temp = '<div class="contacts"><h1 style="text-align:center;">contacts</h1></div>';
 	return temp;
-    }
+    },
+'addContact' : '<div class="center-div"><input type="text" placeholder="username of the contact"/><p><button>send request</button></p></div>'
 };
 
 
@@ -314,7 +315,20 @@ function removeCommentBox(e){
     e.parentNode.parentNode.innerHTML = '<span  class="action-item" title="reply" onclick = "addCommentBox(this)">&lt;\\&gt;</span>';
 }
 
+
+function parseText(element){
+var userRegex = /\B(@[^ ]+)/g;
+var hashRegex = /\B(#[^ ]+)/g;
+}
+
 var showContacts = function(){
+var profileStore = getStore("profile",'readonly');
 appMessage.innerHTML="";
 appBody.innerHTML =domElements.contact();
+};
+
+
+var addContact = function(element){
+appMessage.innerHTML = "";
+appBody.innerHTML=domElements.addContact; 
 };
