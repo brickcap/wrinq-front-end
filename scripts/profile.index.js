@@ -35,6 +35,7 @@
 
 var preview = document.getElementById("imagepreview");
 var userName = document.getElementById("name");
+var profilePic = document.getElementById("profilepic");
 var about = document.getElementById("abouttext");
 var notification = document.getElementById("notification");
 var openRequest = indexedDB.open("wrinq", 1);
@@ -66,9 +67,10 @@ openRequest.onsuccess = function(e){
     result.onsuccess = function(e){
 	var profile = e.target.result;
 	if(!profile) return;
-	preview.value = profile.pic;
+	profilePic.value = profile.pic;
 	userName.value = profile.name;
 	about.value = profile.about;
+	if(profilePic.value)addImage(profilePic.value);
     };
 };
 
