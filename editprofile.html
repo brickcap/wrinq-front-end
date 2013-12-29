@@ -30,7 +30,7 @@
       }
     </style>
   </head>
-  <body>
+  <body style="display:none">
     <div class="center-div"><strong><a href="/" class="wrinq">w r i n q</a></strong></div>
     
     <div id="profilediv" class="top-div-10" style="margin-left:20%; margin-right:10%">
@@ -45,9 +45,9 @@
       
       <textarea rows="10"  style ="overflow: hidden; width:100%" name="about"
 		id="abouttext" placeholder="about" onkeyup = "autoGrow(this)"></textarea>
-      
-      <p><button onclick="updateProfile()">Save</button></p>
       <p id="notification"></p>
+      <p><button onclick="updateProfile()">Save</button></p>
+      
     </div>
   </body>
   <script src="/scripts/profile.index.js"> </script>

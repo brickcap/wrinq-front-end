@@ -31,12 +31,14 @@ openRequest.onsuccess = function(e){
     var result = profileStore.get('master');
     result.onsuccess = function(e){
 	var profile = e.target.result;
+	document.getElementsByTagName("body")[0].style.display = 'block';	
 	if(!profile) return;
 	profilePic.value = profile.pic;
 	userName.value = profile.name;
 	about.value = profile.about;
 	if(profilePic.value)addImage(profilePic.value);
     };
+   
 };
 
 
