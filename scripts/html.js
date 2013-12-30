@@ -12,7 +12,7 @@ var domElements = {
     },
     'addContact' : '<div class="center-div"><input type="text" placeholder="username of the contact"/><p><button>send request</button></p></div>',
 
-    'sendMessage' : '<textarea rows="10"  style ="overflow: hidden; width:100%" id="sendMessageBox" placeholder="@to message #tag" onkeyup = "autoGrow(this)"></textarea><span><button type="button">post</button></span>'
+    'sendMessage' : '<textarea rows="10" id="messageBox"  style ="overflow: hidden; width:100%" placeholder="reply" onkeyup = "autoGrow(this)"></textarea><div id="previewDiv"></div><span><button type="button">post</button></span><span><button onclick="previewText(this)"  id="preview">preview</button></span><span><button id="showEdit" onclick="showEdit(this)" disabled>edit</button></span>'
 
 };
 

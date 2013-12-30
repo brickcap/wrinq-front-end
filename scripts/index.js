@@ -178,7 +178,7 @@ var checkSession = function(){
 	profile.onsuccess = function(e){
 	    if(!e.target.result){
 		messageDiv.innerHTML = '<a href="/editprofile.html">create a profile</a>';
-		
+		return;
 	    }
 	};
 	var messageStore = getStore('messages','readonly');
@@ -245,7 +245,7 @@ var domElements = {
     },
     'addContact' : '<div class="center-div"><input type="text" placeholder="username of the contact"/><p><button>send request</button></p></div>',
 
-    'sendMessage' : '<textarea rows="10"  style ="overflow: hidden; width:100%" id="sendMessageBox" placeholder="@to message #tag" onkeyup = "autoGrow(this)"></textarea><span><button type="button">post</button></span>'
+    'sendMessage' : '<textarea rows="10" id="messageBox"  style ="overflow: hidden; width:100%" placeholder="reply" onkeyup = "autoGrow(this)"></textarea><div id="previewDiv"></div><span><button type="button">post</button></span><span><button onclick="previewText(this)"  id="preview">preview</button></span><span><button id="showEdit" onclick="showEdit(this)" disabled>edit</button></span>'
 
 };
 
@@ -309,10 +309,11 @@ function autoGrow (oField) {
     if (oField.scrollHeight > oField.clientHeight) {
 	oField.style.height = oField.scrollHeight + "px";
     }
+   
 };
 
 function addCommentBox(e){
-e.parentNode.innerHTML = domElements.commentBox;
+    e.parentNode.innerHTML = domElements.commentBox;
 };
 
 function removeCommentBox(e){
@@ -320,10 +321,29 @@ function removeCommentBox(e){
 }
 
 
-function parseText(element){
-var userRegex = /\B(@[^ ]+)/g;
-var hashRegex = /\B(#[^ ]+)/g;
-}
+function previewText(e){
+    var messageBox =helpers.id("messageBox");
+    if(!messageBox.value)return;
+    var userRegex = /\B(@[^ ]+)/g;
+    var hashRegex = /\B(#[^ ]+)/g;
+    var newline = /(\n)/g;
+   var output = messageBox.value.replace(userRegex,'<span class="underline-spans">$1</span> ').replace(hashRegex,'<span class="underline-spans">$1</span> ').replace(newline,"<br/>");
+    helpers.hide(messageBox);
+    helpers.id("preview").disabled = true;
+    helpers.id("showEdit").disabled=false;
+    helpers.id("previewDiv").innerHTML = output;
+    return;
+};
+
+function showEdit(e){
+    var mb = helpers.id("messageBox");    
+    var previewDiv = document.getElementById("previewDiv");
+    helpers.hide(previewDiv);
+    helpers.id("showEdit").disabled = true;
+    helpers.id("preview").disabled=false;
+    helpers.show(mb);
+    return;
+};
 
 function messageBox(){
 helpers.hide(appMessage);
