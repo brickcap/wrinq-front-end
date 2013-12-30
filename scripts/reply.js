@@ -20,11 +20,15 @@ function previewText(e){
     var userRegex = /\B(@[^ ]+)/g;
     var hashRegex = /\B(#[^ ]+)/g;
     var newline = /(\n)/g;
-   var output = messageBox.value.replace(userRegex,'<span class="underline-spans">$1</span> ').replace(hashRegex,'<span class="underline-spans">$1</span> ').replace(newline,"<br/>");
+    var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    var previewDiv = helpers.id("previewDiv");
+    var output = messageBox.value.replace(userRegex,'<span class="underline-spans">$1</span> ').replace(hashRegex,'<span class="underline-spans">$1</span> ').replace(newline,"<br/>").replace(urlRegex,checkImages);
     helpers.hide(messageBox);
     helpers.id("preview").disabled = true;
     helpers.id("showEdit").disabled=false;
-    helpers.id("previewDiv").innerHTML = output;
+    helpers.show(previewDiv);
+   previewDiv.innerHTML = output;
+
     return;
 };
 
@@ -36,4 +40,15 @@ function showEdit(e){
     helpers.id("preview").disabled=false;
     helpers.show(mb);
     return;
+};
+
+function checkImages(url){
+
+    if (( url.indexOf(".jpg") > 0 )||(url.indexOf(".jpeg") > 0 ) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) {
+        return '<img src="' + url + '">' + '<br/>';
+    } else {
+        return '<a href="' + url + '">' + url + '</a>' + '<br/>';
+    }
+    
+
 };
