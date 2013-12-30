@@ -21,7 +21,7 @@ text-align: center;
 }
 
 
-.messageBody,.contacts{
+.messageBody,.contacts,#sendMessage{
 margin : 1% 10% 0% 10%;
 font-size:110%;
 }
@@ -51,7 +51,7 @@ margin-right:auto;
 }
 
 
-#commentbox{
+#commentbox,#sendMessage>textarea{
 background-color:#ddd;
 width:100%;
 border:none;

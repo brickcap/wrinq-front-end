@@ -174,7 +174,7 @@ var checkSession = function(){
 	helpers.hide(splashDiv);
 	helpers.hide(formDiv);
 	var profileStore = getStore("profile",'readonly');
-	var profile = profileStore.get("userProfile"); 
+	var profile = profileStore.get("master"); 
 	profile.onsuccess = function(e){
 	    if(!e.target.result){
 		messageDiv.innerHTML = '<a href="/editprofile.html">create a profile</a>';
@@ -237,13 +237,16 @@ var domElements = {
 
     'loginForm': '<form  method="POST" id="loginForm" onsubmit="submitAjax(event,this)"><p><input type="text" name="username" value="" placeholder="username"  required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="submit" id="submitButton" name="" value="login"/></p></form><p id= "message"></p><p ><span class ="underline-spans" onclick ="signUpClick()">or sign-up<span></p>',
 
-'commentBox':'<textarea rows="10"  style ="overflow: hidden; width:100%" id="commentbox" placeholder="reply" onkeyup = "autoGrow(this)"></textarea><span><button type="button">post</button></span><span><button type="button" onclick="removeCommentBox(this)">cancel</button></span>',
+    'commentBox':'<textarea rows="10"  style ="overflow: hidden; width:100%" id="commentbox" placeholder="reply" onkeyup = "autoGrow(this)"></textarea><span><button type="button">post</button></span><span><button type="button" onclick="removeCommentBox(this)">cancel</button></span>',
 
     'contact' : function(o){
 	var temp = '<div class="contacts"><h1 style="text-align:center;">contacts</h1></div>';
 	return temp;
     },
-'addContact' : '<div class="center-div"><input type="text" placeholder="username of the contact"/><p><button>send request</button></p></div>'
+    'addContact' : '<div class="center-div"><input type="text" placeholder="username of the contact"/><p><button>send request</button></p></div>',
+
+    'sendMessage' : '<textarea rows="10"  style ="overflow: hidden; width:100%" id="sendMessageBox" placeholder="@to message #tag" onkeyup = "autoGrow(this)"></textarea><span><button type="button">post</button></span>'
+
 };
 
 
@@ -325,6 +328,9 @@ var hashRegex = /\B(#[^ ]+)/g;
 function messageBox(){
 helpers.hide(appMessage);
 helpers.hide(messages);
+sendMessage.innerHTML = domElements.sendMessage;
+console.log(sendMessage);
+helpers.show(sendMessage);
 };
 
 function  showActivity(){
