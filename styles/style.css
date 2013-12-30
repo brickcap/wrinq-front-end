@@ -51,7 +51,7 @@ margin-right:auto;
 }
 
 
-#commentbox,#sendMessage>textarea{
+.messageBox{
 background-color:#ddd;
 width:100%;
 border:none;

@@ -15,16 +15,16 @@ function removeCommentBox(e){
 
 
 function previewText(e){
-    var messageBox =helpers.id("messageBox");
+    var messageBox = e.parentNode.parentNode.getElementsByTagName("textarea")[0];
     if(!messageBox.value)return;
     var userRegex = /\B(@[^ ]+)/g;
     var hashRegex = /\B(#[^ ]+)/g;
     var newline = /(\n)/g;
     var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-    var previewDiv = helpers.id("previewDiv");
+    var previewDiv =e.parentNode.parentNode.getElementsByTagName("div")[0];
     var output = messageBox.value.replace(userRegex,'<span class="underline-spans">$1</span> ').replace(hashRegex,'<span class="underline-spans">$1</span> ').replace(newline,"<br/>").replace(urlRegex,checkImages);
     helpers.hide(messageBox);
-    helpers.id("preview").disabled = true;
+    e.disabled = true;
     helpers.id("showEdit").disabled=false;
     helpers.show(previewDiv);
    previewDiv.innerHTML = output;
@@ -33,10 +33,10 @@ function previewText(e){
 };
 
 function showEdit(e){
-    var mb = helpers.id("messageBox");    
-    var previewDiv = document.getElementById("previewDiv");
+    var mb = e.parentNode.parentNode.getElementsByTagName("textarea")[0];    
+    var previewDiv =e.parentNode.parentNode.getElementsByTagName("div")[0];
     helpers.hide(previewDiv);
-    helpers.id("showEdit").disabled = true;
+    e.disabled = true;
     helpers.id("preview").disabled=false;
     helpers.show(mb);
     return;

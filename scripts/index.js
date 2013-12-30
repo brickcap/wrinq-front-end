@@ -237,7 +237,7 @@ var domElements = {
 
     'loginForm': '<form  method="POST" id="loginForm" onsubmit="submitAjax(event,this)"><p><input type="text" name="username" value="" placeholder="username"  required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="submit" id="submitButton" name="" value="login"/></p></form><p id= "message"></p><p ><span class ="underline-spans" onclick ="signUpClick()">or sign-up<span></p>',
 
-    'commentBox':'<textarea rows="10"  style ="overflow: hidden; width:100%" id="commentbox" placeholder="reply" onkeyup = "autoGrow(this)"></textarea><span><button type="button">post</button></span><span><button type="button" onclick="removeCommentBox(this)">cancel</button></span>',
+    'commentBox':'<textarea rows="10"  style ="overflow: hidden; width:100%" class="messageBox" placeholder="reply" onkeyup = "autoGrow(this)"></textarea><div></div><span><button type="button">post</button></span><span><button type="button" onclick="removeCommentBox(this)">cancel</button></span><span><button onclick="previewText(this)"  id="preview">preview</button></span><span><button id="showEdit" onclick="showEdit(this)" disabled>edit</button></span>',
 
     'contact' : function(o){
 	var temp = '<div class="contacts"><h1 style="text-align:center;">contacts</h1></div>';
@@ -322,16 +322,16 @@ function removeCommentBox(e){
 
 
 function previewText(e){
-    var messageBox =helpers.id("messageBox");
+    var messageBox = e.parentNode.parentNode.getElementsByTagName("textarea")[0];
     if(!messageBox.value)return;
     var userRegex = /\B(@[^ ]+)/g;
     var hashRegex = /\B(#[^ ]+)/g;
     var newline = /(\n)/g;
     var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-    var previewDiv = helpers.id("previewDiv");
+    var previewDiv =e.parentNode.parentNode.getElementsByTagName("div")[0];
     var output = messageBox.value.replace(userRegex,'<span class="underline-spans">$1</span> ').replace(hashRegex,'<span class="underline-spans">$1</span> ').replace(newline,"<br/>").replace(urlRegex,checkImages);
     helpers.hide(messageBox);
-    helpers.id("preview").disabled = true;
+    e.disabled = true;
     helpers.id("showEdit").disabled=false;
     helpers.show(previewDiv);
    previewDiv.innerHTML = output;
@@ -340,10 +340,10 @@ function previewText(e){
 };
 
 function showEdit(e){
-    var mb = helpers.id("messageBox");    
-    var previewDiv = document.getElementById("previewDiv");
+    var mb = e.parentNode.parentNode.getElementsByTagName("textarea")[0];    
+    var previewDiv =e.parentNode.parentNode.getElementsByTagName("div")[0];
     helpers.hide(previewDiv);
-    helpers.id("showEdit").disabled = true;
+    e.disabled = true;
     helpers.id("preview").disabled=false;
     helpers.show(mb);
     return;
