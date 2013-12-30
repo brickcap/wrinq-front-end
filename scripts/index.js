@@ -237,7 +237,7 @@ var domElements = {
 
     'loginForm': '<form  method="POST" id="loginForm" onsubmit="submitAjax(event,this)"><p><input type="text" name="username" value="" placeholder="username"  required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="submit" id="submitButton" name="" value="login"/></p></form><p id= "message"></p><p ><span class ="underline-spans" onclick ="signUpClick()">or sign-up<span></p>',
 
-    'commentBox':'<textarea rows="10"  style ="overflow: hidden; width:100%" class="messageBox" placeholder="reply" onkeyup = "autoGrow(this)"></textarea><div></div><span><button type="button">post</button></span><span><button type="button" onclick="removeCommentBox(this)">cancel</button></span><span><button onclick="previewText(this)"  id="preview">preview</button></span><span><button id="showEdit" onclick="showEdit(this)" disabled>edit</button></span>',
+    'commentBox':'<textarea rows="10"  style ="overflow: hidden; width:100%" class="messageBox" placeholder="reply" onkeyup = "autoGrow(this)"></textarea><div></div><span><button type="button">post</button></span><span><button type="button" onclick="removeCommentBox(this)">cancel</button></span><span><button onclick="previewText(this)"  class="preview">preview</button></span><span><button class="showEdit" onclick="showEdit(this)" disabled>edit</button></span>',
 
     'contact' : function(o){
 	var temp = '<div class="contacts"><h1 style="text-align:center;">contacts</h1></div>';
@@ -245,7 +245,7 @@ var domElements = {
     },
     'addContact' : '<div class="center-div"><input type="text" placeholder="username of the contact"/><p><button>send request</button></p></div>',
 
-    'sendMessage' : '<textarea rows="10" id="messageBox"  style ="overflow: hidden; width:100%" placeholder="reply" onkeyup = "autoGrow(this)"></textarea><div id="previewDiv"></div><span><button type="button">post</button></span><span><button onclick="previewText(this)"  id="preview">preview</button></span><span><button id="showEdit" onclick="showEdit(this)" disabled>edit</button></span>'
+    'sendMessage' : '<textarea rows="10" class="messageBox"  style ="overflow: hidden; width:100%" placeholder="reply" onkeyup = "autoGrow(this)"></textarea><div></div><span><button type="button">post</button></span><span><button onclick="previewText(this)"  class="preview">preview</button></span><span><button class="showEdit" onclick="showEdit(this)" disabled>edit</button></span>'
 
 };
 
@@ -332,7 +332,7 @@ function previewText(e){
     var output = messageBox.value.replace(userRegex,'<span class="underline-spans">$1</span> ').replace(hashRegex,'<span class="underline-spans">$1</span> ').replace(newline,"<br/>").replace(urlRegex,checkImages);
     helpers.hide(messageBox);
     e.disabled = true;
-    helpers.id("showEdit").disabled=false;
+    document.getElementsByClassName("showEdit")[0].disabled=false;
     helpers.show(previewDiv);
    previewDiv.innerHTML = output;
 
@@ -344,7 +344,7 @@ function showEdit(e){
     var previewDiv =e.parentNode.parentNode.getElementsByTagName("div")[0];
     helpers.hide(previewDiv);
     e.disabled = true;
-    helpers.id("preview").disabled=false;
+    document.getElementsByClassName("preview")[0].disabled=false;
     helpers.show(mb);
     return;
 };

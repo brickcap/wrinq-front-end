@@ -25,7 +25,7 @@ function previewText(e){
     var output = messageBox.value.replace(userRegex,'<span class="underline-spans">$1</span> ').replace(hashRegex,'<span class="underline-spans">$1</span> ').replace(newline,"<br/>").replace(urlRegex,checkImages);
     helpers.hide(messageBox);
     e.disabled = true;
-    helpers.id("showEdit").disabled=false;
+    document.getElementsByClassName("showEdit")[0].disabled=false;
     helpers.show(previewDiv);
    previewDiv.innerHTML = output;
 
@@ -37,7 +37,7 @@ function showEdit(e){
     var previewDiv =e.parentNode.parentNode.getElementsByTagName("div")[0];
     helpers.hide(previewDiv);
     e.disabled = true;
-    helpers.id("preview").disabled=false;
+    document.getElementsByClassName("preview")[0].disabled=false;
     helpers.show(mb);
     return;
 };
