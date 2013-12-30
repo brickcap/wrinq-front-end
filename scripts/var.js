@@ -5,6 +5,7 @@ var formDiv = helpers.id("formDiv");
 var app = helpers.id("app");
 var appBody = helpers.id("appBody");
 var appMessage = helpers.id("appMessage");
-var mesage = helpers.id("message");
+var messages = helpers.id("messages");
+var sendMessage = helpers.id("sendMessage");
 var openRequest = indexedDB.open("wrinq", 1);
 var database;

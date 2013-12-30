@@ -11,7 +11,9 @@ var scripts = [
     'html.js',    
     'main.js',
     'reply.js',
-    'contact.js'
+    'sendMessage.js',
+    'activity.js'
+    
     
 ];
 
