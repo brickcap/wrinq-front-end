@@ -1,6 +1,5 @@
 var buildify = require('buildify');
 var scripts = [
-    'autolink.js',
     'helpers.js',    
     'var.js',
     'database.js',
