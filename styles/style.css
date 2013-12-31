@@ -6,6 +6,25 @@ body {
     background-color:#F5F5F5;
     margin:0px 0px 0px 0px; 
 }
+.box>p>textarea{
+background-color:#ddd;
+width:100%;
+border:none;
+font-size:16px;
+outline:none;
+resize:none;
+overflow:hidden;
+}
+.box>p>input,.box>p>input:focus{
+background-color:#ddd;
+border:none;
+width:100%;
+font-size:16px;
+outline:none;
+margin-left:auto;
+margin-right:auto;
+}
+
 #appBody{
 text-align: left;
 }

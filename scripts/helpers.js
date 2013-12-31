@@ -53,14 +53,32 @@ var helpers = {
 	    if(request.status!=200||request.readyState!=4)return;
 	    options.successCallback(request.responseText);
 	};
-	     request.send(options.data);
-   },
+	request.send(options.data);
+    },
 
     successCallback : function(responseText){
 	var storeObject = addToStore({"session":responseText},"sess","application");
 	storeObject.transaction.oncomplete = function(){
 	    checkSession();
 	};
+    },
+    output: function(input){
+	var userRegex = /\B(@[^ ]+)\s/g;
+	var hashRegex = /\B(#[^ ]+)\s/g;
+	var newline = /(\n|\r)/g;
+	var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+	
+	var output=  input.replace(userRegex,'<span class="underline-spans">$1</span>').replace(hashRegex,'<span class="underline-spans">$1</span>').replace(newline,"<br/>").replace(urlRegex,function(url){
+	    if (( url.indexOf(".jpg") > 0 )||(url.indexOf(".jpeg") > 0 ) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) return '<img src="' + url + '">' + '<br/>';
+	    else 
+	    {
+		return '<a href="' + url + '">' + url + '</a>' + '<br/>';
+	    }
+	    
+
+	});
+console.log(output);
+return output;
     }
 };
 

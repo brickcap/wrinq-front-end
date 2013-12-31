@@ -88,14 +88,32 @@ var helpers = {
 	    if(request.status!=200||request.readyState!=4)return;
 	    options.successCallback(request.responseText);
 	};
-	     request.send(options.data);
-   },
+	request.send(options.data);
+    },
 
     successCallback : function(responseText){
 	var storeObject = addToStore({"session":responseText},"sess","application");
 	storeObject.transaction.oncomplete = function(){
 	    checkSession();
 	};
+    },
+    output: function(input){
+	var userRegex = /\B(@[^ ]+)\s/g;
+	var hashRegex = /\B(#[^ ]+)\s/g;
+	var newline = /(\n|\r)/g;
+	var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+	
+	var output=  input.replace(userRegex,'<span class="underline-spans">$1</span>').replace(hashRegex,'<span class="underline-spans">$1</span>').replace(newline,"<br/>").replace(urlRegex,function(url){
+	    if (( url.indexOf(".jpg") > 0 )||(url.indexOf(".jpeg") > 0 ) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) return '<img src="' + url + '">' + '<br/>';
+	    else 
+	    {
+		return '<a href="' + url + '">' + url + '</a>' + '<br/>';
+	    }
+	    
+
+	});
+console.log(output);
+return output;
     }
 };
 
@@ -237,7 +255,7 @@ var domElements = {
 
     'loginForm': '<form  method="POST" id="loginForm" onsubmit="submitAjax(event,this)"><p><input type="text" name="username" value="" placeholder="username"  required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="submit" id="submitButton" name="" value="login"/></p></form><p id= "message"></p><p ><span class ="underline-spans" onclick ="signUpClick()">or sign-up<span></p>',
 
-    'commentBox':'<textarea rows="10"  style ="overflow: hidden; width:100%" class="messageBox" placeholder="reply" onkeyup = "autoGrow(this)"></textarea><div></div><span><button type="button">post</button></span><span><button type="button" onclick="removeCommentBox(this)">cancel</button></span><span><button onclick="previewText(this)"  class="preview">preview</button></span><span><button class="showEdit" onclick="showEdit(this)" disabled>edit</button></span>',
+    'commentBox':'<div class="box"><p><input type="text" name="" placeholder="@to"/></p><p><textarea rows="5" name="" placeholder="message" onkeyup="autoGrow(this)"></textarea></p><p><input type="text" placeholder="optional #tag"/></p></div> <span><button type="button">post</button></span><span><button type="button" onclick="removeCommentBox(this)">cancel</button>',
 
     'contact' : function(o){
 	var temp = '<div class="contacts"><h1 style="text-align:center;">contacts</h1></div>';
@@ -245,7 +263,7 @@ var domElements = {
     },
     'addContact' : '<div class="center-div"><input type="text" placeholder="username of the contact"/><p><button>send request</button></p></div>',
 
-    'sendMessage' : '<textarea rows="10" class="messageBox"  style ="overflow: hidden; width:100%" placeholder="reply" onkeyup = "autoGrow(this)"></textarea><div></div><span><button type="button">post</button></span><span><button onclick="previewText(this)"  class="preview">preview</button></span><span><button class="showEdit" onclick="showEdit(this)" disabled>edit</button></span>'
+    'sendMessage' : '<div  class="box"><p><input type="text" name="" placeholder="@to"/></p><p><textarea rows="5" name="" placeholder="message" onkeyup="autoGrow(this)"></textarea></p><p><input type="text" placeholder="optional #tag"/></p></div> <span><button type="button">post</button></span>'
 
 };
 
@@ -321,44 +339,7 @@ function removeCommentBox(e){
 }
 
 
-function previewText(e){
-    var messageBox = e.parentNode.parentNode.getElementsByTagName("textarea")[0];
-    if(!messageBox.value)return;
-    var userRegex = /\B(@[^ ]+)/g;
-    var hashRegex = /\B(#[^ ]+)/g;
-    var newline = /(\n)/g;
-    var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-    var previewDiv =e.parentNode.parentNode.getElementsByTagName("div")[0];
-    var output = messageBox.value.replace(userRegex,'<span class="underline-spans">$1</span> ').replace(hashRegex,'<span class="underline-spans">$1</span> ').replace(newline,"<br/>").replace(urlRegex,checkImages);
-    helpers.hide(messageBox);
-    e.disabled = true;
-    document.getElementsByClassName("showEdit")[0].disabled=false;
-    helpers.show(previewDiv);
-   previewDiv.innerHTML = output;
 
-    return;
-};
-
-function showEdit(e){
-    var mb = e.parentNode.parentNode.getElementsByTagName("textarea")[0];    
-    var previewDiv =e.parentNode.parentNode.getElementsByTagName("div")[0];
-    helpers.hide(previewDiv);
-    e.disabled = true;
-    document.getElementsByClassName("preview")[0].disabled=false;
-    helpers.show(mb);
-    return;
-};
-
-function checkImages(url){
-
-    if (( url.indexOf(".jpg") > 0 )||(url.indexOf(".jpeg") > 0 ) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) {
-        return '<img src="' + url + '">' + '<br/>';
-    } else {
-        return '<a href="' + url + '">' + url + '</a>' + '<br/>';
-    }
-    
-
-};
 
 function messageBox(){
 helpers.hide(appMessage);
