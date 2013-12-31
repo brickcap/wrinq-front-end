@@ -94,6 +94,7 @@ var messages = helpers.id("messages");
 var sendMessage = helpers.id("sendMessage");
 var openRequest = indexedDB.open("wrinq", 1);
 var database;
+var socket;
 
 
 openRequest.onupgradeneeded = function(e){
@@ -174,9 +175,9 @@ var checkSession = function(){
 		return;
 	    }
 	    count++;
-	   cursor.continue();
+	    cursor.continue();
 	};
-	socketManager(e.target.result.session);
+	socket=	socketManager(e.target.result.session);
     };
     
 };
@@ -228,7 +229,7 @@ var domElements = {
     },
     'addContact' : '<div class="center-div"><input type="text" placeholder="username of the contact"/><p><button>send request</button></p></div>',
 
-    'sendMessage' : '<div  class="box"><p><input type="text" name="" placeholder="@to"/></p><p><textarea rows="5" name="" placeholder="message" onkeyup="autoGrow(this)"></textarea></p><p><input type="text" placeholder="optional #tag"/></p></div> <span><button type="button">post</button></span>'
+    'sendMessage' : '<div  class="box"><p><input type="text" name="to" placeholder="@to"/></p><p><textarea rows="5" placeholder="message" onkeyup="autoGrow(this)" name="message"></textarea></p><p><input type="text" name="tag" placeholder="optional #tag"/></p></div> <span><button type="button" onclick="send(this)">post</button></span>'
 
 };
 
@@ -304,6 +305,18 @@ function removeCommentBox(e){
 }
 
 
+function send(e){
+var sendError = helpers.id("sendError");
+if(sendError)helpers.hide(sendError);
+var to = document.getElementsByName("to")[0].value;
+var tags = document.getElementsByName("tag")[0].value;
+var message = document.getElementsByName("message")[0].value;
+if(!to||!message){
+e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';
+return;
+}
+console.log(to+' '+message+' '+tags);
+}
 
 
 function messageBox(){
@@ -313,6 +326,7 @@ sendMessage.innerHTML = domElements.sendMessage;
 console.log(sendMessage);
 helpers.show(sendMessage);
 };
+
 
 function  showActivity(){
 helpers.hide(sendMessage);

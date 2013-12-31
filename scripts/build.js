@@ -11,9 +11,7 @@ var scripts = [
     'main.js',
     'reply.js',
     'sendMessage.js',
-    'activity.js'
-    
-    
+    'activity.js'    
 ];
 
 buildify().concat(scripts).save('./index.js').uglify().save('./index.min.js');

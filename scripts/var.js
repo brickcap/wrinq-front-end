@@ -9,3 +9,4 @@ var messages = helpers.id("messages");
 var sendMessage = helpers.id("sendMessage");
 var openRequest = indexedDB.open("wrinq", 1);
 var database;
+var socket;

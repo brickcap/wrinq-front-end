@@ -5,3 +5,4 @@ sendMessage.innerHTML = domElements.sendMessage;
 console.log(sendMessage);
 helpers.show(sendMessage);
 };
+

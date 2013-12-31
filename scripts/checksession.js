@@ -27,9 +27,9 @@ var checkSession = function(){
 		return;
 	    }
 	    count++;
-	   cursor.continue();
+	    cursor.continue();
 	};
-	socketManager(e.target.result.session);
+	socket=	socketManager(e.target.result.session);
     };
     
 };
