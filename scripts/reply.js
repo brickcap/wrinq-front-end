@@ -15,15 +15,15 @@ function removeCommentBox(e){
 
 
 function send(e){
-var sendError = helpers.id("sendError");
-if(sendError)helpers.hide(sendError);
-var to = document.getElementsByName("to")[0].value;
-var tags = document.getElementsByName("tag")[0].value;
-var message = document.getElementsByName("message")[0].value;
-if(!to||!message){
-e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';
-return;
-}
-console.log(to+' '+message+' '+tags);
+    var sendError = helpers.id("sendError");
+    if(sendError)helpers.hide(sendError);
+    var to = document.getElementsByName("to")[0].value;
+    var tags = document.getElementsByName("tag")[0].value;
+    var message = document.getElementsByName("message")[0].value;
+    if(!to||!message){
+	e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';
+	return;
+    }
+    console.log(to+' '+message+' '+tags);
 }
 
