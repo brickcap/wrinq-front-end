@@ -38,5 +38,3 @@ var message = document.getElementsByName("message")[0].value;
 
 };
 
-function socketSend(message){
-};

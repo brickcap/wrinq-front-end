@@ -57,7 +57,7 @@ function updateProfile(){
 	"pic" :image? image.src:"",
 	"about" : about.value,
 	"name" : userName.value,
-	"upgraded":true
+	"sent":[]
     };
     var request = profileStore.put(item,"master");
     request.onsuccess = function(){

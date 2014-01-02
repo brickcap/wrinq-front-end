@@ -329,8 +329,6 @@ var message = document.getElementsByName("message")[0].value;
 
 };
 
-function socketSend(message){
-};
 
 function messageBox(){
 helpers.hide(appMessage);
