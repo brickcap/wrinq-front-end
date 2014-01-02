@@ -27,3 +27,5 @@ function send(e){
     console.log(to+' '+message+' '+tags);
 };
 
+function reply(e){
+};
