@@ -334,7 +334,7 @@ var message = document.getElementsByName("message")[0].value;
 };
 
 function buildProfile(to,messagePacket){
-    if(profile.sent.indexOf(to)>0){
+    if(profile && profile.sent.indexOf(to)>0){
 	var p = {"n":profile.name,"pic":profile.pic,"a":profile.about};
 	messagePacket.msg.p = p;
 	return messagePacket;
