@@ -24,8 +24,19 @@ function send(e){
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';
 	return;
     }
-    console.log(to+' '+message+' '+tags);
+    
 };
 
 function reply(e){
+var sendError = helpers.id("sendError");
+ if(sendError)helpers.hide(sendError);
+var message = document.getElementsByName("message")[0].value;
+    if(!message){
+	e.parentNode.parentNode.innerHTML += '<p id="sendError">The message can not be empty</p>';
+	return;
+    }
+
+};
+
+function socketSend(message){
 };

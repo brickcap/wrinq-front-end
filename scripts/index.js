@@ -221,7 +221,7 @@ var domElements = {
 
     'loginForm': '<form  method="POST" id="loginForm" onsubmit="submitAjax(event,this)"><p><input type="text" name="username" value="" placeholder="username"  required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="submit" id="submitButton" name="" value="login"/></p></form><p id= "message"></p><p ><span class ="underline-spans" onclick ="signUpClick()">or sign-up<span></p>',
 
-    'commentBox':'<div class="box"><p><textarea rows="5" name="message" placeholder="your message" onkeyup="autoGrow(this)"></textarea></p></div> <span><button type="button" onclick="send(this)">post</button></span><span><button type="button" onclick="removeCommentBox(this)">cancel</button>',
+    'commentBox':'<div class="box"><p><textarea rows="5" name="message" placeholder="your message" onkeyup="autoGrow(this)"></textarea></p></div> <span><button type="button" onclick="reply(this)">post</button></span><span><button type="button" onclick="removeCommentBox(this)">cancel</button>',
 
     'contact' : function(o){
 	var temp = '<div class="contacts"><h1 style="text-align:center;">contacts</h1></div>';
@@ -302,7 +302,7 @@ function addCommentBox(e){
 
 function removeCommentBox(e){
     e.parentNode.parentNode.innerHTML = '<span  class="action-item" title="reply" onclick = "addCommentBox(this)">&lt;\\&gt;</span>';
-}
+};
 
 
 function send(e){
@@ -315,9 +315,19 @@ function send(e){
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';
 	return;
     }
-    console.log(to+' '+message+' '+tags);
-}
+    
+};
 
+function reply(e){
+var sendError = helpers.id("sendError");
+ if(sendError)helpers.hide(sendError);
+var message = document.getElementsByName("message")[0].value;
+    if(!message){
+	e.parentNode.parentNode.innerHTML += '<p id="sendError">The message can not be empty</p>';
+	return;
+    }
+
+};
 
 function messageBox(){
 helpers.hide(appMessage);
