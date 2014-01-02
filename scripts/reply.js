@@ -42,8 +42,9 @@ var message = document.getElementsByName("message")[0].value;
 };
 
 function buildProfile(to,messagePacket){
-    if(profile && profile.sent.indexOf(to)>0){
-	var p = {"n":profile.name,"pic":profile.pic,"a":profile.about};
+    var result = profile.result;
+    if(result && result.sent.indexOf(to)>0){
+	var p = {"n":result.name,"pic":result.pic,"a":result.about};
 	messagePacket.msg.p = p;
 	return messagePacket;
     }
