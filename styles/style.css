@@ -1,10 +1,8 @@
-
 body {
     font-family: monospace;
     font-size: 16px;
     line-height: 2;
     background-color:#F5F5F5;
-    margin:0px 0px 0px 0px; 
 }
 .box>p>textarea{
 background-color:#ddd;
@@ -63,7 +61,6 @@ color:#08c;
 #search,#search input:focus{
 background-color:#F5F5F5;
 width:100%;
-padding:1% 1% 1% 1%;
 text-align:center;
 border:none;
 font-size:16px;
@@ -85,6 +82,7 @@ outline:none;
 color:#08c;
 font-weight: bold;
 background-color:#FEFEFE;
+width:100%;
 }
 .menu span{
 cursor:pointer;
