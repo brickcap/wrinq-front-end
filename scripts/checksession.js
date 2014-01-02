@@ -10,7 +10,7 @@ var checkSession = function(){
 	helpers.hide(splashDiv);
 	helpers.hide(formDiv);
 	var profileStore = getStore("profile",'readonly');
-	var profile = profileStore.get("master"); 
+	profile = profileStore.get("master"); 
 	profile.onsuccess = function(e){
 	    if(!e.target.result){
 		messageDiv.innerHTML = '<a href="/editprofile.html">create a profile</a>';

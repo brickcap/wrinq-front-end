@@ -95,6 +95,7 @@ var sendMessage = helpers.id("sendMessage");
 var openRequest = indexedDB.open("wrinq", 1);
 var database;
 var socket;
+var profile;
 
 
 openRequest.onupgradeneeded = function(e){
@@ -158,7 +159,7 @@ var checkSession = function(){
 	helpers.hide(splashDiv);
 	helpers.hide(formDiv);
 	var profileStore = getStore("profile",'readonly');
-	var profile = profileStore.get("master"); 
+	profile = profileStore.get("master"); 
 	profile.onsuccess = function(e){
 	    if(!e.target.result){
 		messageDiv.innerHTML = '<a href="/editprofile.html">create a profile</a>';
@@ -312,11 +313,14 @@ function send(e){
     var tags = document.getElementsByName("tag")[0].value;
     var message = document.getElementsByName("message")[0].value;
     if(!to||!message){
-	e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';
-	return;
-    }
-    
+	e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';   
+ }
+    var messagePacket = {"to":to, "msg":{'t':tags,m:message}};
+   
+    socket.send(buildProfile(to,messagePacket));
+    return;
 };
+
 
 function reply(e){
 var sendError = helpers.id("sendError");
@@ -329,6 +333,14 @@ var message = document.getElementsByName("message")[0].value;
 
 };
 
+function buildProfile(to,messagePacket){
+    if(profile.sent.indexOf(to)>0){
+	var p = {"n":profile.name,"pic":profile.pic,"a":profile.about};
+	messagePacket.msg.p = p;
+	return messagePacket;
+    }
+    return messagePacket;
+};
 
 function messageBox(){
 helpers.hide(appMessage);
