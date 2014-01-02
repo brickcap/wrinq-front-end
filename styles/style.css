@@ -9,6 +9,7 @@ body {
 .box>p>textarea{
 background-color:#ddd;
 width:100%;
+padding:1% 1% 1% 1%;
 border:none;
 font-size:16px;
 outline:none;
@@ -17,6 +18,7 @@ overflow:hidden;
 }
 .box>p>input,.box>p>input:focus{
 background-color:#ddd;
+padding:1% 1% 1% 1%;
 border:none;
 width:100%;
 font-size:16px;
@@ -61,6 +63,7 @@ color:#08c;
 #search,#search input:focus{
 background-color:#F5F5F5;
 width:100%;
+padding:1% 1% 1% 1%;
 text-align:center;
 border:none;
 font-size:16px;
