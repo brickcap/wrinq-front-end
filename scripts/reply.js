@@ -11,7 +11,7 @@ function addCommentBox(e){
 
 function removeCommentBox(e){
     e.parentNode.parentNode.innerHTML = '<span  class="action-item" title="reply" onclick = "addCommentBox(this)">&lt;\\&gt;</span>';
-}
+};
 
 
 function send(e){
@@ -25,5 +25,5 @@ function send(e){
 	return;
     }
     console.log(to+' '+message+' '+tags);
-}
+};
 
