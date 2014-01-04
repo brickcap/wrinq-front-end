@@ -12,7 +12,7 @@ var socketManager  = function(sess){
 		helpers.saveMessage(message);
 		return;
 	   }
-	  message.m.delete("p");
+	 delete message.m.p;
 	 helpers. saveMessage(message);
 	 helpers.saveContact(contactInfo);   
 	}
