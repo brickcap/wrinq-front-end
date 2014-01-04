@@ -7,7 +7,14 @@ var socketManager  = function(sess){
     socket.onmessage = function(e){
 	var message = JSON.parse(e.data);
 	if(message.hasOwnProperty("m")){
-	    console.log(message);
+	    var contactInfo = message.m.p; 
+	    if(!p){
+		helpers.saveMessage(m);
+		return;
+	   }
+	  message.m.delete("p");
+	 helpers. saveMessage(message);
+	 helpers.saveContact(contactInfo);   
 	}
     };
     socket.onerror = function(e){

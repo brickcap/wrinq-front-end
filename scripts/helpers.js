@@ -87,7 +87,8 @@ var helpers = {
 	request.onsuccess = function(){
 	    console.log("added message successfuly");
 	};
+    },
+    saveContact:function(contactInfo){
     }
-
 };
 
