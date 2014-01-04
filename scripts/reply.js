@@ -34,7 +34,7 @@ function send(e){
 function reply(e){
 var sendError = helpers.id("sendError");
  if(sendError)helpers.hide(sendError);
-var message = document.getElementsByName("message")[0].value;
+    var message = document.getElementsByName("message")[0].value;
     if(!message){
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">The message can not be empty</p>';
 	return;

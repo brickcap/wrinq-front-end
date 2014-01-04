@@ -88,6 +88,15 @@ var helpers = {
 	};
     },
     saveContact:function(contactInfo){
+	var sent = localStorage.getItem("sent");
+	if(!sent){
+	    sent = [];
+	}
+	if(sent){
+	    if(!sent.indexOf(contactInfo))sent.push(contactInfo);
+	    return;
+	}
+	
     }
 };
 
