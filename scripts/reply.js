@@ -49,7 +49,6 @@ function buildProfile(to,messagePacket){
 	
 	var p = {"n":result.name,"pic":result.pic,"a":result.about};
 	messagePacket.msg.p = p;
-	console.log(messagePacket);
 	return messagePacket;
     }
     return messagePacket;
