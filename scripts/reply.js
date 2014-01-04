@@ -44,10 +44,11 @@ var sendError = helpers.id("sendError");
 };
 
 function buildProfile(to,messagePacket){
-    var result = profile.result;
+    var result = localStorage.getItem("sent");
     
-    if(result && result.sent.indexOf(to)===-1){
-	
+    if(result){
+	var parsed = JSON.parse(result);
+	if(parsed.indexOf(to))return messagePacket;
 	var p = {"n":result.name,"pic":result.pic,"a":result.about};
 	messagePacket.msg.p = p;
 	return messagePacket;
