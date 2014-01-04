@@ -90,7 +90,8 @@ var helpers = {
     saveContact:function(contactInfo){
 	var sent = localStorage.getItem("sent");
 	if(!sent){
-	    sent = [];
+	    sent = [contactInfo];
+	    localStorage.setItem("sent",sent);
 	}
 	if(sent){
 	    if(!sent.indexOf(contactInfo)){
