@@ -51,6 +51,5 @@ function buildProfile(to,messagePacket){
 	console.log(messagePacket);
 	return messagePacket;
     }
-    console.log(messagePacket);
     return messagePacket;
 };
