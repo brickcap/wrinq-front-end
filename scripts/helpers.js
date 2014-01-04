@@ -82,8 +82,7 @@ var helpers = {
     },
 
     saveMessage : function(message){
-	var messageStore = getStore('messages','readwrite');
-	var request = addToStore(message,null,messageStore);
+	var request = addToStore(message,null,'messages');
 	request.onsuccess = function(){
 	    console.log("added message successfuly");
 	};
