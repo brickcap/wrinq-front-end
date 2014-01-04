@@ -8,8 +8,8 @@ var socketManager  = function(sess){
 	var message = JSON.parse(e.data);
 	if(message.hasOwnProperty("m")){
 	    var contactInfo = message.m.p; 
-	    if(!p){
-		helpers.saveMessage(m);
+	    if(!contactInfo){
+		helpers.saveMessage(message);
 		return;
 	   }
 	  message.m.delete("p");

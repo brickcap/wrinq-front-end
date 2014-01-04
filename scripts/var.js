@@ -7,6 +7,7 @@ var appBody = helpers.id("appBody");
 var appMessage = helpers.id("appMessage");
 var messages = helpers.id("messages");
 var sendMessage = helpers.id("sendMessage");
+var messageDiv = helpers.id("messageDiv");
 var openRequest = indexedDB.open("wrinq", 1);
 var database;
 var socket;

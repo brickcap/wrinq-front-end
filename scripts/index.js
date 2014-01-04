@@ -87,8 +87,9 @@ var helpers = {
 	request.onsuccess = function(){
 	    console.log("added message successfuly");
 	};
+    },
+    saveContact:function(contactInfo){
     }
-
 };
 
 
@@ -101,6 +102,7 @@ var appBody = helpers.id("appBody");
 var appMessage = helpers.id("appMessage");
 var messages = helpers.id("messages");
 var sendMessage = helpers.id("sendMessage");
+var messageDiv = helpers.id("messageDiv");
 var openRequest = indexedDB.open("wrinq", 1);
 var database;
 var socket;
@@ -201,9 +203,15 @@ var socketManager  = function(sess){
     socket.onmessage = function(e){
 	var message = JSON.parse(e.data);
 	if(message.hasOwnProperty("m")){
-	    console.log(message);
+	    var contactInfo = message.m.p; 
+	    if(!contactInfo){
+		helpers.saveMessage(message);
+		return;
+	   }
+	  message.m.delete("p");
+	 helpers. saveMessage(message);
+	 helpers.saveContact(contactInfo);   
 	}
-	console.log(message.hasOwnProperty("m"));
     };
     socket.onerror = function(e){
 
@@ -332,7 +340,7 @@ function send(e){
     var messagePacket = {"to":to, "msg":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
-  //  helpers.saveMessage(messagePacket);
+    helpers.saveMessage(messagePacket);
     return;
 };
 
