@@ -77,8 +77,17 @@ var helpers = {
 	    
 
 	});
-console.log(output);
-return output;
+	console.log(output);
+	return output;
+    },
+
+    saveMessage : function(message){
+	var messageStore = getStore('messages','readwrite');
+	var request = addToStore(message,null,messageStore);
+	request.onsuccess = function(){
+	    console.log("added message successfuly");
+	};
     }
+
 };
 

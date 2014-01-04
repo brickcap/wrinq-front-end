@@ -77,9 +77,18 @@ var helpers = {
 	    
 
 	});
-console.log(output);
-return output;
+	console.log(output);
+	return output;
+    },
+
+    saveMessage : function(message){
+	var messageStore = getStore('messages','readwrite');
+	var request = addToStore(message,null,messageStore);
+	request.onsuccess = function(){
+	    console.log("added message successfuly");
+	};
     }
+
 };
 
 
@@ -317,8 +326,9 @@ function send(e){
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';   
  }
     var messagePacket = {"to":to, "msg":{'t':tags,m:message}};
-   
-    socket.send(JSON.stringify(buildProfile(to,messagePacket)));
+    var messageProfile = buildProfile(to,messagePacket);
+    socket.send(JSON.stringify(messageProfile));
+    helpers.saveMessage(messagePacket);
     return;
 };
 
@@ -344,15 +354,14 @@ function buildProfile(to,messagePacket){
 	console.log(messagePacket);
 	return messagePacket;
     }
-    console.log(messagePacket);
     return messagePacket;
 };
+
 
 function messageBox(){
 helpers.hide(appMessage);
 helpers.hide(messages);
 sendMessage.innerHTML = domElements.sendMessage;
-console.log(sendMessage);
 helpers.show(sendMessage);
 };
 

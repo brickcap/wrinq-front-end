@@ -26,6 +26,7 @@ function send(e){
     var messagePacket = {"to":to, "msg":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
+    helpers.saveMessage(messagePacket);
     return;
 };
 
@@ -53,3 +54,4 @@ function buildProfile(to,messagePacket){
     }
     return messagePacket;
 };
+

@@ -40,9 +40,6 @@ openRequest.onsuccess = function(e){
     };
    
 };
-
-
-
 function getStore(objectStore,permission){
     var tran = database.transaction([objectStore],permission);
     var store = tran.objectStore(objectStore);    
