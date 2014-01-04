@@ -5,7 +5,10 @@ var socketManager  = function(sess){
 	helpers.show(app);
     };
     socket.onmessage = function(e){
-	console.log(e);
+	var message = JSON.parse(e.data);
+	if(message.hasOwnProperty("m")){
+	    console.log(message);
+	}
     };
     socket.onerror = function(e){
 

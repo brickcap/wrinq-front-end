@@ -199,7 +199,11 @@ var socketManager  = function(sess){
 	helpers.show(app);
     };
     socket.onmessage = function(e){
-	console.log(e);
+	var message = JSON.parse(e.data);
+	if(message.hasOwnProperty("m")){
+	    console.log(message);
+	}
+	console.log(message.hasOwnProperty("m"));
     };
     socket.onerror = function(e){
 
@@ -328,7 +332,7 @@ function send(e){
     var messagePacket = {"to":to, "msg":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
-    helpers.saveMessage(messagePacket);
+  //  helpers.saveMessage(messagePacket);
     return;
 };
 
