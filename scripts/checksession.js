@@ -18,16 +18,19 @@ var checkSession = function(){
 	    }
 	};
 	var messageStore = getStore('messages','readonly');
+	var count = 0;	
 	messageStore.openCursor(null,'prev').onsuccess = function(event){
 	    var cursor = event.target.result;
-	    var count = 0;
-	    if(!cursor||count===10){
-		appMessage.innerHTML = '<p>No recent activity</p>';
-		helpers.show(appMessage);
+	    if(count===10){		
 		return;
 	    }
-	    count++;
-	    cursor.continue();
+	    
+	    if(cursor){
+		console.log(count);
+		cursor.continue();
+		count++;
+	    }  
+	    
 	};
 	socket=	socketManager(e.target.result.session);
     };
