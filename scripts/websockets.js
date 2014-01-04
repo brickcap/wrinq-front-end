@@ -5,6 +5,7 @@ var socketManager  = function(sess){
 	helpers.show(app);
     };
     socket.onmessage = function(e){
+	console.log(e);
     };
     socket.onerror = function(e){
 

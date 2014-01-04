@@ -24,8 +24,8 @@ function send(e){
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';   
  }
     var messagePacket = {"to":to, "msg":{'t':tags,m:message}};
-   
-    socket.send(buildProfile(to,messagePacket));
+    var messageProfile = buildProfile(to,messagePacket);
+    socket.send(JSON.stringify(messageProfile));
     return;
 };
 
@@ -43,10 +43,14 @@ var message = document.getElementsByName("message")[0].value;
 
 function buildProfile(to,messagePacket){
     var result = profile.result;
-    if(result && result.sent.indexOf(to)>0){
+    
+    if(result && result.sent.indexOf(to)===-1){
+	
 	var p = {"n":result.name,"pic":result.pic,"a":result.about};
 	messagePacket.msg.p = p;
+	console.log(messagePacket);
 	return messagePacket;
     }
+    console.log(messagePacket);
     return messagePacket;
 };

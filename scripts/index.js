@@ -190,6 +190,7 @@ var socketManager  = function(sess){
 	helpers.show(app);
     };
     socket.onmessage = function(e){
+	console.log(e);
     };
     socket.onerror = function(e){
 
@@ -317,7 +318,7 @@ function send(e){
  }
     var messagePacket = {"to":to, "msg":{'t':tags,m:message}};
    
-    socket.send(buildProfile(to,messagePacket));
+    socket.send(JSON.stringify(buildProfile(to,messagePacket)));
     return;
 };
 
@@ -335,11 +336,15 @@ var message = document.getElementsByName("message")[0].value;
 
 function buildProfile(to,messagePacket){
     var result = profile.result;
-    if(result && result.sent.indexOf(to)>0){
+    
+    if(result && result.sent.indexOf(to)===-1){
+	
 	var p = {"n":result.name,"pic":result.pic,"a":result.about};
 	messagePacket.msg.p = p;
+	console.log(messagePacket);
 	return messagePacket;
     }
+    console.log(messagePacket);
     return messagePacket;
 };
 
