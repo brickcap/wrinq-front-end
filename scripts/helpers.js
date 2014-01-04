@@ -90,13 +90,16 @@ var helpers = {
     saveContact:function(contactInfo){
 	var sent = localStorage.getItem("sent");
 	if(!sent){
-	    sent = [contactInfo];
+	    sent = JSON.stringify([contactInfo]);
+	    console.log(sent);
 	    localStorage.setItem("sent",sent);
+	    return;
 	}
 	if(sent){
-	    if(!sent.indexOf(contactInfo)){
-		sent.push(contactInfo);
-		localStorage.setItem("sent",sent);
+	    var parsed = JSON.parse(sent);
+	    if(!parsed.indexOf(contactInfo)){
+		parsed.push(contactInfo);
+		localStorage.setItem("sent",JSON.stringify(sent));
 	    }
 	    return;
 	}

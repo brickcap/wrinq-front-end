@@ -27,6 +27,7 @@ function send(e){
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
     helpers.saveMessage(messagePacket);
+    helpers.saveContact(to);
     return;
 };
 
