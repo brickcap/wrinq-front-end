@@ -1,8 +1,8 @@
 
 openRequest.onupgradeneeded = function(e){
     database = e.target.result;
-    createObjectStore(database,"profile",false);
-    createObjectStore(database,"messages",false);
+    createObjectStore(database,"profile",false).createIndex("name","n",{unique:true});
+    createObjectStore(database,"messages",false).createIndex("tag","t",{unique:false});
     createObjectStore(database,"application",true);
  };
 
@@ -36,14 +36,15 @@ function addToStore(item,key,store){
 };
 
 function createObjectStore(database,name,key){
-    if(database.objectStoreNames.contains(name))return;
+    if(database.objectStoreNames.contains(name))return null;
 
     if(key){
 
-	database.createObjectStore(name);
+	return database.createObjectStore(name);
     }
 
     if(!key){
-	database.createObjectStore(name,{autoIncrement:true});
+	return	database.createObjectStore(name,{autoIncrement:true});
     }
+    return null;
 };
