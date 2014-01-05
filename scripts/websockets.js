@@ -15,7 +15,7 @@ var socketManager  = function(sess){
 	    var messageToSave = message;
 	    delete messageToSave.m.p;
 	    helpers.saveMessage(messageToSave);
-	    addToStore('profile',null,message.m.p);   
+	    if(message.m.p) addToStore('profile',null,message.m.p);   
 	}
     };
     socket.onerror = function(e){
