@@ -82,6 +82,7 @@ var helpers = {
     },
 
     saveMessage : function(message){
+
 	var request = addToStore(message,null,'messages');
 	request.onsuccess = function(){
 	    console.log("added message successfuly");
@@ -210,24 +211,21 @@ var socketManager  = function(sess){
     socket.onmessage = function(e){
 	var message = JSON.parse(e.data);
 	if(!message.hasOwnProperty("m"))return;
-	var messageToSave = message;
-	delete messageToSave.m.p;
-	helpers.saveMessage(messageToSave);
+	helpers.saveMessage(message);
 	var hasP = message.m.hasOwnProperty("p"); 
 	if(hasP){
-	    messages.innerHTML = html.incomingMessage(message)+ messages.innerHTML;
+	    console.log(message);
+	    messages.innerHTML = domElements.incomingMessage(message)+ messages.innerHTML;
 	    addToStore(message.m.p,null,'profile'); 
 	}
 	if(!hasP){
-	    console.log("in second if");
-	    var pStore = getStore("profile",null,'readonly');
+	    var pStore = getStore("profile",'readonly');
 	    var pIndex = pStore.index("name");
-	    var request = index.get(message.f);
-	    console.log(request);
-	    request.onsuccess = function(e){
+	    var request = pIndex.get(message.f);
+	     request.onsuccess = function(e){
 		var result = e.target.result;
 		message.m.p = result;
-		messages.innerHTML = html.incomingMessage(message)+messages.innerHTML;
+		 messages.innerHTML = domElements.incomingMessage(message)+messages.innerHTML;
 	    };
 	}
 	
@@ -274,10 +272,10 @@ var domElements = {
     'sendMessage' : '<div  class="box"><p><input type="text" name="to" placeholder="@to"/></p><p><textarea rows="5" placeholder="your message" onkeyup="autoGrow(this)" name="message"></textarea></p><p><input type="text" name="tag" placeholder="#tag  (optional)"/></p></div> <span><button type="button" onclick="send(this)">post</button></span>',
 
     'incomingMessage' : function(m){
-	var pic = m.p.pic?'<span><img src="'+m.pic+'</img></span>':'';
-	var msg = m.m;
-	var tag = m.t;
-	var ms = '<div class="messageBody">'+pic+msg+' <div> <p><span class="action-item" title="reply" onclick = "addCommentBox(this)"><\></span></p> </div> </div>';
+	var pic = m.m.p.pic?'<span><img src="'+m.pic+'</img></span>':'';
+	var msg = m.m.m;
+	var tag = m.m.t?m.m.t:'';
+	var ms = '<div class="messageBody">'+pic+msg+' <div> <p><span class="action-item" title="reply" onclick = "addCommentBox(this)"><\\></span></p> </div> </div>';
 return ms;
     }
 

@@ -7,24 +7,21 @@ var socketManager  = function(sess){
     socket.onmessage = function(e){
 	var message = JSON.parse(e.data);
 	if(!message.hasOwnProperty("m"))return;
-	var messageToSave = message;
-	delete messageToSave.m.p;
-	helpers.saveMessage(messageToSave);
+	helpers.saveMessage(message);
 	var hasP = message.m.hasOwnProperty("p"); 
 	if(hasP){
-	    messages.innerHTML = html.incomingMessage(message)+ messages.innerHTML;
+	    console.log(message);
+	    messages.innerHTML = domElements.incomingMessage(message)+ messages.innerHTML;
 	    addToStore(message.m.p,null,'profile'); 
 	}
 	if(!hasP){
-	    console.log("in second if");
-	    var pStore = getStore("profile",null,'readonly');
+	    var pStore = getStore("profile",'readonly');
 	    var pIndex = pStore.index("name");
-	    var request = index.get(message.f);
-	    console.log(request);
-	    request.onsuccess = function(e){
+	    var request = pIndex.get(message.f);
+	     request.onsuccess = function(e){
 		var result = e.target.result;
 		message.m.p = result;
-		messages.innerHTML = html.incomingMessage(message)+messages.innerHTML;
+		 messages.innerHTML = domElements.incomingMessage(message)+messages.innerHTML;
 	    };
 	}
 	
