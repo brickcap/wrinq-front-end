@@ -46,10 +46,8 @@ var sendError = helpers.id("sendError");
 function buildProfile(to,messagePacket){
     var result = localStorage.getItem("sent");
     
-    if(result){
-	var parsed = JSON.parse(result);
-	if(parsed.indexOf(to))return messagePacket;
-	var p = {"n":result.name,"pic":result.pic,"a":result.about};
+    if(!result){
+	var p = {"n":prf.name,"pic":prf.pic,"a":prf.about};
 	messagePacket.msg.p = p;
 	return messagePacket;
     }

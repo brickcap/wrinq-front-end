@@ -101,6 +101,7 @@ var messages = helpers.id("messages");
 var sendMessage = helpers.id("sendMessage");
 var messageDiv = helpers.id("messageDiv");
 var openRequest = indexedDB.open("wrinq", 1);
+var prf;
 var database;
 var socket;
 
@@ -168,12 +169,13 @@ var checkSession = function(){
 	helpers.hide(splashDiv);
 	helpers.hide(formDiv);
 	var profileStore = getStore("profile",'readonly');
-	var profile = profileStore.get("master"); 
+	var	profile = profileStore.get("master"); 
 	profile.onsuccess = function(e){
 	    if(!e.target.result){
 		messageDiv.innerHTML = '<a href="/editprofile.html">create a profile</a>';
 		return;
 	    }
+	    prf = e.target.result;
 	};
 	var messageStore = getStore('messages','readonly');
 	var count = 0;	
@@ -216,7 +218,7 @@ var socketManager  = function(sess){
 	    var messageToSave = message;
 	    delete messageToSave.m.p;
 	    helpers.saveMessage(messageToSave);
-	    addToStore('profile',null,message.m.p);   
+	    if(message.m.p) addToStore('profile',null,message.m.p);   
 	}
     };
     socket.onerror = function(e){
@@ -258,7 +260,12 @@ var domElements = {
     },
     'addContact' : '<div class="center-div"><input type="text" placeholder="username of the contact"/><p><button>send request</button></p></div>',
 
-    'sendMessage' : '<div  class="box"><p><input type="text" name="to" placeholder="@to"/></p><p><textarea rows="5" placeholder="your message" onkeyup="autoGrow(this)" name="message"></textarea></p><p><input type="text" name="tag" placeholder="#tag  (optional)"/></p></div> <span><button type="button" onclick="send(this)">post</button></span>'
+    'sendMessage' : '<div  class="box"><p><input type="text" name="to" placeholder="@to"/></p><p><textarea rows="5" placeholder="your message" onkeyup="autoGrow(this)" name="message"></textarea></p><p><input type="text" name="tag" placeholder="#tag  (optional)"/></p></div> <span><button type="button" onclick="send(this)">post</button></span>',
+
+    'incomingMessage' : function(m){
+	var ms = '<div class="messageBody"> <div> <p><span class="action-item" title="reply" onclick = "addCommentBox(this)"><\></span></p> </div> </div>';
+return ms;
+    }
 
 };
 
@@ -366,10 +373,8 @@ var sendError = helpers.id("sendError");
 function buildProfile(to,messagePacket){
     var result = localStorage.getItem("sent");
     
-    if(result){
-	var parsed = JSON.parse(result);
-	if(parsed.indexOf(to))return messagePacket;
-	var p = {"n":result.name,"pic":result.pic,"a":result.about};
+    if(!result){
+	var p = {"n":prf.name,"pic":prf.pic,"a":prf.about};
 	messagePacket.msg.p = p;
 	return messagePacket;
     }
