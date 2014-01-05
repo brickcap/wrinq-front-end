@@ -218,7 +218,20 @@ var socketManager  = function(sess){
 	    var messageToSave = message;
 	    delete messageToSave.m.p;
 	    helpers.saveMessage(messageToSave);
-	    if(message.m.p) addToStore('profile',null,message.m.p);   
+	    if(message.m.p){
+		messages.innerHTML = html.incomingMessage(message)+ messages.innerHTML;
+		addToStore('profile',null,message.m.p); 
+	    }
+	    if(!message.m.p){
+		var pStore = getStore("profile",null,'readonly');
+		var pIndex = pStore.index("name");
+		var request = index.get(message.f);
+		request.onsuccess = function(e){
+		    var result = e.target.result;
+		    message.m.p = result;
+		    messages.innerHTML = html.incomingMessage(message)+messages.innerHTML;
+		};
+	    }
 	}
     };
     socket.onerror = function(e){
