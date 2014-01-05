@@ -15,7 +15,7 @@ var domElements = {
     'sendMessage' : '<div  class="box"><p><input type="text" name="to" placeholder="@to"/></p><p><textarea rows="5" placeholder="your message" onkeyup="autoGrow(this)" name="message"></textarea></p><p><input type="text" name="tag" placeholder="#tag  (optional)"/></p></div> <span><button type="button" onclick="send(this)">post</button></span>',
 
     'incomingMessage' : function(m){
-	var pic = m.m.p.pic?'<span><img src="'+m.pic+'</img></span>':'';
+	var pic = m.m.p.pic?'<span><img src="'+m.pic+'</img></span>':'<span>'+m.f+'</span>';
 	var msg = m.m.m;
 	var tag = m.m.t?m.m.t:'';
 	var ms = '<div class="messageBody">'+pic+msg+' <div> <p><span class="action-item" title="reply" onclick = "addCommentBox(this)"><\\></span></p> </div> </div>';
