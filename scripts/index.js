@@ -86,24 +86,6 @@ var helpers = {
 	request.onsuccess = function(){
 	    console.log("added message successfuly");
 	};
-    },
-    saveContact:function(contactInfo){
-	var sent = localStorage.getItem("sent");
-	if(!sent){
-	    sent = JSON.stringify([contactInfo]);
-	    console.log(sent);
-	    localStorage.setItem("sent",sent);
-	    return;
-	}
-	if(sent){
-	    var parsed = JSON.parse(sent);
-	    if(!parsed.indexOf(contactInfo)){
-		parsed.push(contactInfo);
-		localStorage.setItem("sent",JSON.stringify(sent));
-	    }
-	    return;
-	}
-	
     }
 };
 
@@ -230,10 +212,11 @@ var socketManager  = function(sess){
 	    if(!contactInfo){
 		helpers.saveMessage(message);
 		return;
-	   }
-	 delete message.m.p;
-	 helpers. saveMessage(message);
-	 helpers.saveContact(contactInfo);   
+	    }
+	    var messageToSave = message;
+	    delete messageToSave.m.p;
+	    helpers. saveMessage(messageToSave);
+	    addToStore('profile',null,message.m.p);   
 	}
     };
     socket.onerror = function(e){
@@ -244,6 +227,7 @@ var socketManager  = function(sess){
     };
     return socket;
 };
+
 
 var logincallback = {
     successCallback: helpers.successCallback,
@@ -364,7 +348,7 @@ function send(e){
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
     helpers.saveMessage(messagePacket);
-    helpers.saveContact(to);
+    saveContact(to);
     return;
 };
 
@@ -393,6 +377,24 @@ function buildProfile(to,messagePacket){
     return messagePacket;
 };
 
+function saveContact(contactInfo){
+    var sent = localStorage.getItem("sent");
+    if(!sent){
+	sent = JSON.stringify([contactInfo]);
+	console.log(sent);
+	localStorage.setItem("sent",sent);
+	return;
+    }
+    if(sent){
+	var parsed = JSON.parse(sent);
+	if(!parsed.indexOf(contactInfo)){
+	    parsed.push(contactInfo);
+	    localStorage.setItem("sent",JSON.stringify(sent));
+	}
+	return;
+    }
+    
+}
 
 function messageBox(){
 helpers.hide(appMessage);

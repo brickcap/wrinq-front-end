@@ -11,10 +11,11 @@ var socketManager  = function(sess){
 	    if(!contactInfo){
 		helpers.saveMessage(message);
 		return;
-	   }
-	 delete message.m.p;
-	 helpers. saveMessage(message);
-	// saveContact(contactInfo);   
+	    }
+	    var messageToSave = message;
+	    delete messageToSave.m.p;
+	    helpers. saveMessage(messageToSave);
+	    addToStore('profile',null,message.m.p);   
 	}
     };
     socket.onerror = function(e){
