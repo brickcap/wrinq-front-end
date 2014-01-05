@@ -21,8 +21,7 @@ var checkSession = function(){
 	var count = 0;	
 	messageStore.openCursor(null,'prev').onsuccess = function(event){
 	    var cursor = event.target.result;
-	    console.log(count);
-	    if(count===10||!cursor){
+	     if(count===10||!cursor){
 		if(!count){
 		    var appMessage = helpers.id("appMessage");
 		    appMessage.innerHTML = '<p>No recent activity</p>';

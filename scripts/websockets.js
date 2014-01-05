@@ -22,7 +22,6 @@ var socketManager  = function(sess){
     socket.onerror = function(e){
 
 	messageDiv.innerHTML +='<p id="error-message">Could not connect to the server.Try refreshing.</p>';
-	console.log(app);	
 	helpers.show(app);
     };
     return socket;
