@@ -11,4 +11,4 @@ var messageDiv = helpers.id("messageDiv");
 var openRequest = indexedDB.open("wrinq", 1);
 var database;
 var socket;
-var profile;
+

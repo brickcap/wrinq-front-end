@@ -103,7 +103,7 @@ var messageDiv = helpers.id("messageDiv");
 var openRequest = indexedDB.open("wrinq", 1);
 var database;
 var socket;
-var profile;
+
 
 
 openRequest.onupgradeneeded = function(e){
@@ -168,7 +168,7 @@ var checkSession = function(){
 	helpers.hide(splashDiv);
 	helpers.hide(formDiv);
 	var profileStore = getStore("profile",'readonly');
-	profile = profileStore.get("master"); 
+	var profile = profileStore.get("master"); 
 	profile.onsuccess = function(e){
 	    if(!e.target.result){
 		messageDiv.innerHTML = '<a href="/editprofile.html">create a profile</a>';
@@ -179,7 +179,6 @@ var checkSession = function(){
 	var count = 0;	
 	messageStore.openCursor(null,'prev').onsuccess = function(event){
 	    var cursor = event.target.result;
-	    console.log(count);
 	    if(count===10||!cursor){
 		if(!count){
 		    var appMessage = helpers.id("appMessage");
@@ -216,14 +215,14 @@ var socketManager  = function(sess){
 	    }
 	    var messageToSave = message;
 	    delete messageToSave.m.p;
-	    helpers. saveMessage(messageToSave);
+	    helpers.saveMessage(messageToSave);
+	    profile.
 	    addToStore('profile',null,message.m.p);   
 	}
     };
     socket.onerror = function(e){
 
 	messageDiv.innerHTML +='<p id="error-message">Could not connect to the server.Try refreshing.</p>';
-	console.log(app);	
 	helpers.show(app);
     };
     return socket;

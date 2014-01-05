@@ -10,7 +10,7 @@ var checkSession = function(){
 	helpers.hide(splashDiv);
 	helpers.hide(formDiv);
 	var profileStore = getStore("profile",'readonly');
-	profile = profileStore.get("master"); 
+	var profile = profileStore.get("master"); 
 	profile.onsuccess = function(e){
 	    if(!e.target.result){
 		messageDiv.innerHTML = '<a href="/editprofile.html">create a profile</a>';
@@ -21,7 +21,7 @@ var checkSession = function(){
 	var count = 0;	
 	messageStore.openCursor(null,'prev').onsuccess = function(event){
 	    var cursor = event.target.result;
-	     if(count===10||!cursor){
+	    if(count===10||!cursor){
 		if(!count){
 		    var appMessage = helpers.id("appMessage");
 		    appMessage.innerHTML = '<p>No recent activity</p>';
