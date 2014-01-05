@@ -47,6 +47,7 @@ function buildProfile(to,messagePacket){
     var result = localStorage.getItem("sent");
     
     if(!result){
+	if(!prf) return;
 	var p = {"n":prf.name,"pic":prf.pic,"a":prf.about};
 	messagePacket.msg.p = p;
 	return messagePacket;
