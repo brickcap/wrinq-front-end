@@ -14,7 +14,7 @@ var socketManager  = function(sess){
 	   }
 	 delete message.m.p;
 	 helpers. saveMessage(message);
-	 helpers.saveContact(contactInfo);   
+	// saveContact(contactInfo);   
 	}
     };
     socket.onerror = function(e){
@@ -25,3 +25,4 @@ var socketManager  = function(sess){
     };
     return socket;
 };
+

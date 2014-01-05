@@ -86,24 +86,6 @@ var helpers = {
 	request.onsuccess = function(){
 	    console.log("added message successfuly");
 	};
-    },
-    saveContact:function(contactInfo){
-	var sent = localStorage.getItem("sent");
-	if(!sent){
-	    sent = JSON.stringify([contactInfo]);
-	    console.log(sent);
-	    localStorage.setItem("sent",sent);
-	    return;
-	}
-	if(sent){
-	    var parsed = JSON.parse(sent);
-	    if(!parsed.indexOf(contactInfo)){
-		parsed.push(contactInfo);
-		localStorage.setItem("sent",JSON.stringify(sent));
-	    }
-	    return;
-	}
-	
     }
 };
 

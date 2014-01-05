@@ -27,7 +27,7 @@ function send(e){
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
     helpers.saveMessage(messagePacket);
-    helpers.saveContact(to);
+    saveContact(to);
     return;
 };
 
@@ -56,3 +56,21 @@ function buildProfile(to,messagePacket){
     return messagePacket;
 };
 
+function saveContact(contactInfo){
+    var sent = localStorage.getItem("sent");
+    if(!sent){
+	sent = JSON.stringify([contactInfo]);
+	console.log(sent);
+	localStorage.setItem("sent",sent);
+	return;
+    }
+    if(sent){
+	var parsed = JSON.parse(sent);
+	if(!parsed.indexOf(contactInfo)){
+	    parsed.push(contactInfo);
+	    localStorage.setItem("sent",JSON.stringify(sent));
+	}
+	return;
+    }
+    
+}
