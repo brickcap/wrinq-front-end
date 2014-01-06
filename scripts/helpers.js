@@ -76,7 +76,6 @@ var helpers = {
 	    
 
 	});
-	console.log(output);
 	return output;
     },
 

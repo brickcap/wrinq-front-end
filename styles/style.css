@@ -42,10 +42,16 @@ text-align: center;
     margin: 10% 10% 10% 0;
 }
 
-
+@media screen and (min-width:501px){
 .messageBody,.contacts,#sendMessage{
-margin : 1% 10% 0% 10%;
+margin : 1% 20% 0% 25%;
 font-size:110%;
+}
+}
+@media screen and (max-width:500px){
+.messageBody{
+font-size:110%;
+}
 }
 .img-span
 {
