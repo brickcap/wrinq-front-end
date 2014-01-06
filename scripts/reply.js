@@ -19,7 +19,9 @@ function send(e){
     if(sendError)helpers.hide(sendError);
     var to = document.getElementsByName("to")[0].value;
     var tags = document.getElementsByName("tag")[0].value;
-    var message = document.getElementsByName("message")[0].value;
+    var temp = document.createElement("div");
+    temp.innerHTML = document.getElementsByName("message")[0].value;
+    var message = temp.innerText||temp.textContent;
     if(!to||!message){
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';   
  }

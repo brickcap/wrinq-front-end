@@ -68,10 +68,10 @@ var helpers = {
 	var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?*=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 	
 	var output=  input.replace(newline,"<br/>").replace(urlRegex,function(url){
-	    if (( url.indexOf(".jpg") > 0 )||(url.indexOf(".jpeg") > 0 ) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) return '<img src="' + url + '">' + '<br/>';
+	    if (( url.indexOf(".jpg") > 0 )||(url.indexOf(".jpeg") > 0 ) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) return '<br/><img src="' + url + '"><br/>';
 	    else 
 	    {
-		return '<a href="' + url + '">' + url + '</a>' + '<br/>';
+		return '<a href="' + url + '">' + url + '</a>';
 	    }
 	    
 

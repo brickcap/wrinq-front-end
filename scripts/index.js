@@ -68,10 +68,10 @@ var helpers = {
 	var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?*=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 	
 	var output=  input.replace(newline,"<br/>").replace(urlRegex,function(url){
-	    if (( url.indexOf(".jpg") > 0 )||(url.indexOf(".jpeg") > 0 ) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) return '<img src="' + url + '">' + '<br/>';
+	    if (( url.indexOf(".jpg") > 0 )||(url.indexOf(".jpeg") > 0 ) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) return '<br/><img src="' + url + '"><br/>';
 	    else 
 	    {
-		return '<a href="' + url + '">' + url + '</a>' + '<br/>';
+		return '<a href="' + url + '">' + url + '</a>';
 	    }
 	    
 
@@ -363,7 +363,9 @@ function send(e){
     if(sendError)helpers.hide(sendError);
     var to = document.getElementsByName("to")[0].value;
     var tags = document.getElementsByName("tag")[0].value;
-    var message = document.getElementsByName("message")[0].value;
+    var temp = document.createElement("div");
+    temp.innerHTML = document.getElementsByName("message")[0].value;
+    var message = temp.innerText||temp.textContent;
     if(!to||!message){
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';   
  }
