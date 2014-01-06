@@ -14,11 +14,7 @@ function autoGrow (oField) {
 
 function createImage(text){
     preview.innerHTML = "";
-    text.autoLink({
-	callback: function(url) {
-	    return /\.(gif|png|jpe?g)$/i.test(url) ?addImage(url) : null;
-	}
-    });
+   
 };
 
 function addImage(url){
