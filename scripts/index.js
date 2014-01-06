@@ -63,12 +63,11 @@ var helpers = {
 	};
     },
     output: function(input){
-	var userRegex = /\B(@[^ ]+)\s/g;
-	var hashRegex = /\B(#[^ ]+)\s/g;
-	var newline = /(\n|\r)/g;
-	var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 	
-	var output=  input.replace(userRegex,'<span class="underline-spans">$1</span>').replace(hashRegex,'<span class="underline-spans">$1</span>').replace(newline,"<br/>").replace(urlRegex,function(url){
+	var newline = /(\n|\r)/g;
+	var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?*=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+	
+	var output=  input.replace(newline,"<br/>").replace(urlRegex,function(url){
 	    if (( url.indexOf(".jpg") > 0 )||(url.indexOf(".jpeg") > 0 ) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) return '<img src="' + url + '">' + '<br/>';
 	    else 
 	    {
@@ -279,7 +278,7 @@ var domElements = {
 	    if(!m.m.p.hasOwnProperty("pic")) return "<span><em>"+m.m.p.n+":</em></span> ";
 	    return "<span><img class='img-span' src="+m.m.p.img+"</img></span>";
 	};
-	var msg = m.m.m;
+	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
 	var ms = '<div class="messageBody">'+det()+msg+'<p><span>'+mDate+mTime+'</span></p> <div> <p><span class="action-item" title="reply" onclick = "addCommentBox(this)"><\\></span></p> </div> </div>';
 return ms;
