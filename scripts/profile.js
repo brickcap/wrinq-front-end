@@ -14,13 +14,14 @@ function autoGrow (oField) {
 
 function createImage(text){
     preview.innerHTML = "";
-   
+    var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?*=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    var output=  text.replace(urlRegex,function(url){
+	if (( url.indexOf(".jpg") > 0 )||(url.indexOf(".jpeg") > 0 ) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) return preview.innerHTML= '<img id="profileimage" src="' + url + '">' + '<br/>';
+	return  preview.innerHTML = ''; 
+    });
+    
 };
 
-function addImage(url){
-    preview.innerHTML = '<img id ="profileimage" src="' + url + '">';
-    userName.focus();
-}
 openRequest.onsuccess = function(e){
     database = e.target.result;
     var  profileStore = getStore('profile','readonly');
