@@ -18,13 +18,13 @@ var domElements = {
 	var mDate = m.day+'-'+m.month+'-'+m.year+" ";
 	var mTime = (m.hour>=12)?m.hour-12+':'+m.min+' PM':m.hour+':'+m.min+' AM';
 	var det =function(){
-	    if(!m.m.hasOwnProperty("p")) return "<span><em>"+m.f+":</em></span> ";
+	    if(!m.m.p) return "<span><em>"+m.f+":</em></span> ";
 	    if(!m.m.p.hasOwnProperty("pic")) return "<span><em>"+m.m.p.n+":</em></span> ";
 	    return "<span><img class='img-span' src="+m.m.p.img+"</img></span>";
 	};
 	var msg = m.m.m;
 	var tag = m.m.t?m.m.t:'';
-	var ms = '<div class="messageBody">'+det+msg+'<p><span>'+mDate+mTime+'</span></p> <div> <p><span class="action-item" title="reply" onclick = "addCommentBox(this)"><\\></span></p> </div> </div>';
+	var ms = '<div class="messageBody">'+det()+msg+'<p><span>'+mDate+mTime+'</span></p> <div> <p><span class="action-item" title="reply" onclick = "addCommentBox(this)"><\\></span></p> </div> </div>';
 return ms;
     }
 
