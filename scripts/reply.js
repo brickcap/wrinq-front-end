@@ -10,7 +10,7 @@ function addCommentBox(e){
 };
 
 function removeCommentBox(e){
-    e.parentNode.parentNode.innerHTML = '<span  class="action-item" title="reply" onclick = "addCommentBox(this)">&lt;\\&gt;</span>';
+    e.parentNode.parentNode.innerHTML = '<button  onclick = "addCommentBox(this)">reply</button>';
 };
 
 

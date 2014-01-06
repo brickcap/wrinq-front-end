@@ -13,6 +13,7 @@ function autoGrow (oField) {
 };
 
 function createImage(text){
+    console.log("creating image");
     preview.innerHTML = "";
     var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?*=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     var output=  text.replace(urlRegex,function(url){
