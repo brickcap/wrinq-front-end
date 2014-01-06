@@ -90,7 +90,10 @@ function updateProfile(){
 	"about" : about.value,
 	"name" : userName.value
     };
+    if(!item.pic||!item.about||!item.name)return;
+
     var request = profileStore.put(item,"master");
+    
     request.onsuccess = function(){
 	notification.innerHTML = "Profile saved";
     };
