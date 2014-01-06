@@ -25,7 +25,7 @@ var domElements = {
 	};
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
-	var ms = '<div class="messageBody">'+det()+msg+'<p><span><em>'+mDate+mTime+'</em></span></p> <div> <p><button onclick = "addCommentBox(this)">reply</button></p> </div> <hr style="border-color:#fff"/></div>';
+	var ms = '<div class="messageBody"><hr style="border-color:#fff"/><p style="text-align:right;"><span><em>'+mDate+mTime+'</em></span></p><span>'+det()+'</span><span>'+msg+'</span> <div> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
 return ms;
     }
 
