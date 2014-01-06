@@ -274,8 +274,9 @@ var domElements = {
 	var mTime = (m.hour>=12)?m.hour-12+':'+m.min+' PM':m.hour+':'+m.min+' AM';
 	var det =function(){
 	    if(!m.m.p) return "<span><em>"+m.f+":</em></span> ";
-	    if(!m.m.p.hasOwnProperty("pic")) return "<span><em>"+m.m.p.n+":</em></span> ";
-	    return "<span><img class='img-span' src="+m.m.p.img+"</img></span>";
+	    if(!m.m.p.hasOwnProperty("pic")) return "<span class='img-span'><em>"+m.m.p.n+":</em></span> ";
+	    if(m.m.p.hasOwnProperty("pic")) return "<span><img class='img-span' src="+m.m.p.pic+"</img></span>";
+	    return '';
 	};
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
