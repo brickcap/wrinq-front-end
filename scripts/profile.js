@@ -33,7 +33,7 @@ openRequest.onsuccess = function(e){
 	profilePic.value = profile.pic;
 	userName.value = profile.name;
 	about.value = profile.about;
-	if(profilePic.value)addImage(profilePic.value);
+	if(profilePic.value)createImage(profilePic.value);
     };
    
 };
@@ -57,6 +57,7 @@ function updateProfile(){
     var request = profileStore.put(item,"master");
     
     request.onsuccess = function(){
+	localStorage.setItem("sent",JSON.stringify([]));
 	notification.innerHTML = "Profile saved";
     };
     request.onerror = function(e){
