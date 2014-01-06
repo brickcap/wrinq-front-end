@@ -4,6 +4,9 @@ body {
     line-height: 2;
     background-color:#F5F5F5;
 }
+.img{
+max-width:100%;
+}
 .box>p>textarea{
 background-color:#ddd;
 width:100%;
