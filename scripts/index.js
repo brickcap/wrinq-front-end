@@ -274,10 +274,10 @@ var domElements = {
     'incomingMessage' : function(m){
 	var mDate = m.day+'-'+m.month+'-'+m.year+" ";
 	var mTime = (m.hour>=12)?m.hour-12+':'+m.min+' PM':m.hour+':'+m.min+' AM';
-	var pic = m.m.p.pic?'<span><img src="'+m.pic+'</img></span>':'<em>'+m.m.p.n+':</em> ';
+	var pic =(m.m.hasOwnProperty("p")&& m.m.p.pic)?'<span><img src="'+m.pic+'</img></span>':'<em>'+m.m.p.n+':</em> ';
 	var msg = m.m.m;
 	var tag = m.m.t?m.m.t:'';
-	var ms = '<div class="messageBody">'+pic+msg+'<p><span>'+mDate+mTime+'</span></p> <div> <p><span class="action-item" title="reply" onclick = "addCommentBox(this)"><\\></span></p> </div><hr> </div>';
+	var ms = '<div class="messageBody">'+pic+msg+'<p><span>'+mDate+mTime+'</span></p> <div> <p><span class="action-item" title="reply" onclick = "addCommentBox(this)"><\\></span></p> </div> </div>';
 return ms;
     }
 
