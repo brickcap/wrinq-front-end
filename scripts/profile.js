@@ -55,7 +55,8 @@ function updateProfile(){
 	"about" : about.value,
 	"name" : userName.value
     };
-    var request = profileStore.put(item,"master");
+    if(item.pic||item.about||item.name)var request = profileStore.put(item,"master");
+    
     request.onsuccess = function(){
 	notification.innerHTML = "Profile saved";
     };
