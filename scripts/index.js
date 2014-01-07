@@ -181,8 +181,8 @@ var checkSession = function(){
 	};
 	var messageStore = getStore('messages','readonly');
 	var count = 0;	
-	messageStore.openCursor(null,'prev').onsuccess = function(event){
-	    var cursor = event.target.result;
+	messageStore.openCursor(null,'prev').onsuccess = function(e){
+	    var cursor = e.target.result;
 	    if(count===10||!cursor){
 		if(!count){
 		    var appMessage = helpers.id("appMessage");
@@ -432,11 +432,23 @@ function saveContact(contactInfo){
     
 }
 
-function conversation(){
+function conversation(between){
 helpers.hide(sendMessage);
 helpers.hide(messages);
-helpers.show(conversation);
+    helpers.show(conversation);
 };
+
+
+function buildMessages(between){
+    var messageStore = getStore('messages','readonly');
+    var messageIndex = messages.index("between");
+    var keyRange = IDBKeyRange.bound(['',between],[between,'']);
+    var cursor = messageStore.openCursor(keyRange,'prev');
+    var count = 0;    
+    cursor.onsuccess = function(e){
+	var item = e.targe.result;
+    };
+}
 
 function messageBox(){
 helpers.hide(appMessage);
