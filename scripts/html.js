@@ -19,10 +19,10 @@ var domElements = {
 	var mDate = m.day+'-'+m.month+'-'+m.year+" ";
 	var mTime = (m.hour>=12)?m.hour-12+':'+m.min+' PM':m.hour+':'+m.min+' AM';
 	var det =function(){
-	    if(!m.m.p) return "<span>[<em>"+m.f+":</em></span> ";
+	    if(!m.m.p) return "[<span onclick='showConversation(this)' class='details'><em>"+m.f+":</em></span> ";
 	    var name = m.m.p.hasOwnProperty('n')?m.m.p.n:m.f;
-	    if(!m.m.p.hasOwnProperty("pic")) return "<span class='img-span'>[<em>"+name+":</em></span> ";
-	    if(m.m.p.hasOwnProperty("pic")) return "<img onclick='showConversation(this)' class='img-span' src="+m.m.p.pic+"</img><span>["+name+"</span>";
+	    if(!m.m.p.hasOwnProperty("pic")) return "[<span onclick='showConversation(this)' class='details'><em>"+name+":</em></span> ";
+	    if(m.m.p.hasOwnProperty("pic")) return "<img  class='img-span' src="+m.m.p.pic+"</img>[<span class='details' onclick='showConversation(this)'>"+name+"</span>";
 	    return '';
 	};
 	var msg = helpers.output(m.m.m);

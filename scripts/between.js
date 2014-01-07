@@ -1,14 +1,16 @@
-function showConversation(between){
+function showConversation(e){
+    var to = e.parentNode.parentNode.parentNode;
     helpers.hide(sendMessage);
     helpers.hide(messages);
     helpers.show(conversation);
-    buildMessages(between);
+    console.log(to);
+//    buildMessages(to);
 };
 
 
-function buildMessages(between){
+function buildMessages(to){
     var messageStore = getStore('messages','readonly');
-    var messageIndex = messages.index("between");
+    var messageIndex = messageStore.index("between");
     var keyRange = IDBKeyRange.bound(['',between],[between,'']);
     var cursor = messageStore.openCursor(keyRange,'prev');
     var count = 0;
