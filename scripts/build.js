@@ -10,6 +10,7 @@ var scripts = [
     'html.js',    
     'main.js',
     'reply.js',
+    'between.js',
     'sendMessage.js',
     'activity.js'    
 ];
