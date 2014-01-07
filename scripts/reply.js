@@ -35,7 +35,9 @@ function send(e){
 
 
 function reply(e){
-var to = e.parentNode.parentNode.parentNode.parentNode.getAttribute("data-to");
+var parent = e.parentNode.parentNode.parentNode.parentNode;
+var to = parent.getAttribute("data-to");
+var tags = parent.getAttribute("data-tags");
 var sendError = helpers.id("sendError");
  if(sendError)helpers.hide(sendError);
     var message = document.getElementsByName("message")[0].value;
@@ -43,7 +45,11 @@ var sendError = helpers.id("sendError");
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">The message can not be empty</p>';
 	return;
     }
-
+    var messagePacket = {"to":to, "msg":{'t':tags,m:message}};
+    var messageProfile = buildProfile(to,messagePacket);
+    socket.send(JSON.stringify(messageProfile));
+    helpers.saveMessage(messagePacket);
+    saveContact(to);
 };
 
 function buildProfile(to,messagePacket){

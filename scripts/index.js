@@ -282,7 +282,7 @@ var domElements = {
 	};
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
-	var ms = '<div class="messageBody" data-to="'+m.f+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span> <em>'+mDate+mTime+'</em>]</span></p><span>'+msg+'</span> <div> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
+	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span> <em>'+mDate+mTime+'</em>]</span></p><span>'+msg+'</span> <div> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
 return ms;
     }
 
@@ -381,7 +381,9 @@ function send(e){
 
 
 function reply(e){
-console.log(e.parentNode.parentNode.parentNode.parentNode.getAttribute("data-to"));
+var parent = e.parentNode.parentNode.parentNode.parentNode;
+var to = parent.getAttribute("data-to");
+var tags = parent.getAttribute("data-tags");
 var sendError = helpers.id("sendError");
  if(sendError)helpers.hide(sendError);
     var message = document.getElementsByName("message")[0].value;
@@ -389,7 +391,11 @@ var sendError = helpers.id("sendError");
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">The message can not be empty</p>';
 	return;
     }
-
+    var messagePacket = {"to":to, "msg":{'t':tags,m:message}};
+    var messageProfile = buildProfile(to,messagePacket);
+    socket.send(JSON.stringify(messageProfile));
+    helpers.saveMessage(messagePacket);
+    saveContact(to);
 };
 
 function buildProfile(to,messagePacket){
