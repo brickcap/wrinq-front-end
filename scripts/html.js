@@ -22,7 +22,7 @@ var domElements = {
 	    if(!m.m.p) return "<span>[<em>"+m.f+":</em></span> ";
 	    var name = m.m.p.hasOwnProperty('n')?m.m.p.n:m.f;
 	    if(!m.m.p.hasOwnProperty("pic")) return "<span class='img-span'>[<em>"+name+":</em></span> ";
-	    if(m.m.p.hasOwnProperty("pic")) return "<img class='img-span' src="+m.m.p.pic+"</img><span>["+name+"</span>";
+	    if(m.m.p.hasOwnProperty("pic")) return "<img onclick='showConversation(this)' class='img-span' src="+m.m.p.pic+"</img><span>["+name+"</span>";
 	    return '';
 	};
 	var msg = helpers.output(m.m.m);

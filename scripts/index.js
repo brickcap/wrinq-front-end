@@ -280,7 +280,7 @@ var domElements = {
 	    if(!m.m.p) return "<span>[<em>"+m.f+":</em></span> ";
 	    var name = m.m.p.hasOwnProperty('n')?m.m.p.n:m.f;
 	    if(!m.m.p.hasOwnProperty("pic")) return "<span class='img-span'>[<em>"+name+":</em></span> ";
-	    if(m.m.p.hasOwnProperty("pic")) return "<img class='img-span' src="+m.m.p.pic+"</img><span>["+name+"</span>";
+	    if(m.m.p.hasOwnProperty("pic")) return "<img onclick='showConversation(this)' class='img-span' src="+m.m.p.pic+"</img><span>["+name+"</span>";
 	    return '';
 	};
 	var msg = helpers.output(m.m.m);
@@ -432,10 +432,11 @@ function saveContact(contactInfo){
     
 }
 
-function conversation(between){
-helpers.hide(sendMessage);
-helpers.hide(messages);
+function showConversation(between){
+    helpers.hide(sendMessage);
+    helpers.hide(messages);
     helpers.show(conversation);
+    buildMessages(between);
 };
 
 
@@ -444,9 +445,19 @@ function buildMessages(between){
     var messageIndex = messages.index("between");
     var keyRange = IDBKeyRange.bound(['',between],[between,'']);
     var cursor = messageStore.openCursor(keyRange,'prev');
-    var count = 0;    
+    var count = 0;
+    var mStr;
+    //Create another index for pagination that accepts the last item name as the index
     cursor.onsuccess = function(e){
-	var item = e.targe.result;
+	var item = e.target.result;
+	if(item){
+	    item.continue();
+	    mStr = mStr + helpers.incomingMessage(item);
+	    count++;
+	}
+	if(!item||count===10){
+	    conservation.innerHTML = mStr;   
+	}
     };
 }
 
