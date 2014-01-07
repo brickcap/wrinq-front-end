@@ -35,6 +35,7 @@ function send(e){
 
 
 function reply(e){
+var to = e.parentNode.parentNode.parentNode.parentNode.getAttribute("data-to");
 var sendError = helpers.id("sendError");
  if(sendError)helpers.hide(sendError);
     var message = document.getElementsByName("message")[0].value;
