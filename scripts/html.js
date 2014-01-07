@@ -15,17 +15,19 @@ var domElements = {
     'sendMessage' : '<div  class="box"><p><input type="text" name="to" placeholder="@to"/></p><p><textarea rows="5" placeholder="your message" onkeyup="autoGrow(this)" name="message"></textarea></p><p><input type="text" name="tag" placeholder="#tag  (optional)"/></p></div> <span><button type="button" onclick="send(this)">post</button></span>',
 
     'incomingMessage' : function(m){
+	console.log(m);
 	var mDate = m.day+'-'+m.month+'-'+m.year+" ";
 	var mTime = (m.hour>=12)?m.hour-12+':'+m.min+' PM':m.hour+':'+m.min+' AM';
 	var det =function(){
-	    if(!m.m.p) return "<span><em>"+m.f+":</em></span> ";
-	    if(!m.m.p.hasOwnProperty("pic")) return "<span class='img-span'><em>"+m.m.p.n+":</em></span> ";
-	    if(m.m.p.hasOwnProperty("pic")) return "<span><img class='img-span' src="+m.m.p.pic+"</img></span>";
+	    if(!m.m.p) return "<span>[<em>"+m.f+":</em></span> ";
+	    var name = m.m.p.hasOwnProperty('n')?m.m.p.n:m.f;
+	    if(!m.m.p.hasOwnProperty("pic")) return "<span class='img-span'>[<em>"+name+":</em></span> ";
+	    if(m.m.p.hasOwnProperty("pic")) return "<img class='img-span' src="+m.m.p.pic+"</img><span>["+name+"</span>";
 	    return '';
 	};
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
-	var ms = '<div class="messageBody"><hr style="border-color:#fff"/><p style="text-align:right;"><span><em>'+mDate+mTime+'</em></span></p><span>'+det()+'</span><span>'+msg+'</span> <div> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
+	var ms = '<div class="messageBody"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span> <em>'+mDate+mTime+'</em>]</span></p><span>'+msg+'</span> <div> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
 return ms;
     }
 
