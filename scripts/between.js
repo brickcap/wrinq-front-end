@@ -25,7 +25,7 @@ function buildMessages(to){
 	    count++;
 	}
 	if(!item||count===10){
-	   conversation.innerHTML = mStr;   
+	    conversation.innerHTML = mStr;   
 	}
     };
 }

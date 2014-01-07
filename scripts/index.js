@@ -112,7 +112,7 @@ openRequest.onupgradeneeded = function(e){
     createObjectStore(database,"profile",false).createIndex("name","n",{unique:true});
     var profile= createObjectStore(database,"messages",false);
     profile.createIndex("tag","t",{unique:false});
-    profile.createIndex("between",['to','f']);
+    profile.createIndex("between",'w');
     createObjectStore(database,"application",true);
 };
 
@@ -374,7 +374,7 @@ function send(e){
     if(!to||!message){
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';   
  }
-    var messagePacket = {"to":to, "msg":{'t':tags,m:message}};
+    var messagePacket = {"to":to, "msg":{'t':tags,m:message,"w":to}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
     helpers.saveMessage(messagePacket);
@@ -394,7 +394,7 @@ var sendError = helpers.id("sendError");
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">The message can not be empty</p>';
 	return;
     }
-    var messagePacket = {"to":to, "msg":{'t':tags,m:message}};
+    var messagePacket = {"to":to, "msg":{'t':tags,m:message,'w':to}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
     helpers.saveMessage(messagePacket);
@@ -445,11 +445,11 @@ function showConversation(e){
 function buildMessages(to){
     var messageStore = getStore('messages','readonly');
     var messageIndex = messageStore.index("between");
-    var keyRange = IDBKeyRange.bound([null,to],[to,null]);
+    var keyRange = IDBKeyRange.only(to);
     var cursor = messageIndex.openCursor(keyRange,'prev');
     var count = 0;
     var mStr;
-    //Create another index for pagination that accepts the last item name as the index
+    //use cursor.advance(int);
     cursor.onsuccess = function(e){
 	var item = e.target.result;
 	console.log(item);
@@ -459,7 +459,7 @@ function buildMessages(to){
 	    count++;
 	}
 	if(!item||count===10){
-	   conversation.innerHTML = mStr;   
+	    conversation.innerHTML = mStr;   
 	}
     };
 }

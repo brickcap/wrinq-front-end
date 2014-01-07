@@ -25,7 +25,7 @@ function send(e){
     if(!to||!message){
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';   
  }
-    var messagePacket = {"to":to, "msg":{'t':tags,m:message},"w":to};
+    var messagePacket = {"to":to, "msg":{'t':tags,m:message,"w":to}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
     helpers.saveMessage(messagePacket);
@@ -45,7 +45,7 @@ var sendError = helpers.id("sendError");
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">The message can not be empty</p>';
 	return;
     }
-    var messagePacket = {"to":to, "msg":{'t':tags,m:message},'w':to};
+    var messagePacket = {"to":to, "msg":{'t':tags,m:message,'w':to}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
     helpers.saveMessage(messagePacket);
