@@ -3,24 +3,30 @@ function showConversation(e){
     helpers.hide(sendMessage);
     helpers.hide(messages);
     helpers.show(conversation);
-    console.log(to);
-    buildMessages(to);
+    var pStore = getStore('profile','readonly');
+    var pIndex = pStore.index("name");
+    var request = pIndex.get(to);
+    request.onsuccess = function(e){
+	var p = e.target.result;
+	 buildMessages(to,p);
+    };
+   
 };
 
 
-function buildMessages(to){
-    var messageStore = getStore('messages','readonly');
-    var messageIndex = messageStore.index("between");
+function buildMessages(to,p){
+    var mStore = getStore('messages','readonly');
+    var mIndex = mStore.index("between");
     var keyRange = IDBKeyRange.only(to);
-    var cursor = messageIndex.openCursor(keyRange,'prev');
+    var cursor = mIndex.openCursor(keyRange,'prev');
     var count = 0;
     var mStr='';
     //use cursor.advance(int);
     cursor.onsuccess = function(e){
 	var item = e.target.result;
-//	console.log(item.value);
 	if(item){
 	    item.continue();
+	    item.value.m.p = p;
 	    mStr = mStr + domElements.incomingMessage(item.value);
 	    count++;
 	}
