@@ -107,7 +107,7 @@ var socket;
 
 openRequest.onupgradeneeded = function(e){
     database = e.target.result;
-    createObjectStore(database,"profile",false).createIndex("name","n",{unique:true});
+    createObjectStore(database,"profile",false).createIndex("name","u",{unique:true});
     var profile= createObjectStore(database,"messages",false);
     profile.createIndex("tag","t",{unique:false});
     profile.createIndex("between",'f');
@@ -215,12 +215,13 @@ var socketManager  = function(sess){
 	if(hasP){
 	    console.log(message);
 	    messages.innerHTML = domElements.incomingMessage(message)+ messages.innerHTML;
+	    message.m.p.u = message.f;
 	    addToStore(message.m.p,null,'profile'); 
 	}
 	if(!hasP){
 	    var pStore = getStore("profile",'readonly');
 	    var pIndex = pStore.index("name");
-	    var request = pIndex.get(message.f);
+ 	    var request = pIndex.get(message.f);
 	     request.onsuccess = function(e){
 		var result = e.target.result;
 		message.m.p = result;
@@ -453,7 +454,7 @@ function buildMessages(to){
 	console.log(item);
 	if(item){
 	    item.continue();
-	    mStr = mStr + helpers.incomingMessage(item);
+	    mStr = mStr + domElements.incomingMessage(item);
 	    count++;
 	}
 	if(!item||count===10){

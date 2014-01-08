@@ -12,6 +12,7 @@ var socketManager  = function(sess){
 	if(hasP){
 	    console.log(message);
 	    messages.innerHTML = domElements.incomingMessage(message)+ messages.innerHTML;
+	    message.m.p.u = message.f;
 	    addToStore(message.m.p,null,'profile'); 
 	}
 	if(!hasP){

@@ -21,7 +21,7 @@ function buildMessages(to){
 	console.log(item);
 	if(item){
 	    item.continue();
-	    mStr = mStr + helpers.incomingMessage(item);
+	    mStr = mStr + domElements.incomingMessage(item);
 	    count++;
 	}
 	if(!item||count===10){
