@@ -74,14 +74,8 @@ function save(item,key){
 	localStorage.setItem(key,exists);
 	return;
     }
-    if(exists){
-	var parsed = JSON.parse(exists);
-	if(!parsed.indexOf(item)){
-	    parsed.push(item);
-	    localStorage.setItem(key,JSON.stringify(exists));
-	}
-	return;
-    }   
+   	return;
+      
 }
 
 function buildDate(messagePacket){
