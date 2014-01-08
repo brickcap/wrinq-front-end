@@ -79,12 +79,10 @@ var helpers = {
 	return output;
     },
 
-    saveMessage : function(message){
-
+    saveMessage : function(message,to){
+	if(to)message.f = to;
 	var request = addToStore(message,null,'messages');
-	request.onsuccess = function(){
-	    console.log("added message successfuly");
-	};
+	return;
     }
 };
 

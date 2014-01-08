@@ -25,10 +25,10 @@ function send(e){
     if(!to||!message){
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';   
  }
-    var messagePacket = {"to":to, "msg":{'t':tags,m:message,"w":to}};
+    var messagePacket = {"to":to, "msg":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
-    helpers.saveMessage(messagePacket);
+    helpers.saveMessage(messagePacket,to);
     saveContact(to);
     return;
 };

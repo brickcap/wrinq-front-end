@@ -79,12 +79,10 @@ var helpers = {
 	return output;
     },
 
-    saveMessage : function(message){
-
+    saveMessage : function(message,to){
+	if(to)message.f = to;
 	var request = addToStore(message,null,'messages');
-	request.onsuccess = function(){
-	    console.log("added message successfuly");
-	};
+	return;
     }
 };
 
@@ -112,7 +110,7 @@ openRequest.onupgradeneeded = function(e){
     createObjectStore(database,"profile",false).createIndex("name","n",{unique:true});
     var profile= createObjectStore(database,"messages",false);
     profile.createIndex("tag","t",{unique:false});
-    profile.createIndex("between",'w');
+    profile.createIndex("between",'m.w');
     createObjectStore(database,"application",true);
 };
 
@@ -374,10 +372,10 @@ function send(e){
     if(!to||!message){
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';   
  }
-    var messagePacket = {"to":to, "msg":{'t':tags,m:message,"w":to}};
+    var messagePacket = {"to":to, "msg":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
-    helpers.saveMessage(messagePacket);
+    helpers.saveMessage(messagePacket,to);
     saveContact(to);
     return;
 };
