@@ -15,9 +15,10 @@ var domElements = {
     'sendMessage' : '<div  class="box"><p><input type="text" name="to" placeholder="@to"/></p><p><textarea rows="5" placeholder="your message" onkeyup="autoGrow(this)" name="message"></textarea></p><p><input type="text" name="tag" placeholder="#tag  (optional)"/></p></div> <span><button type="button" onclick="send(this)">post</button></span>',
 
     'incomingMessage' : function(m){
-	console.log(m);
+//	console.log(m);
 	var mDate = m.day+'-'+m.month+'-'+m.year+" ";
-	var mTime = (m.hour>=12)?m.hour-12+':'+m.min+' PM':m.hour+':'+m.min+' AM';
+	var min = m.min>10?m.min:'0'+m.min;
+	var mTime = (m.hour>=12)?m.hour-12+':'+min+'PM':m.hour+':'+min+' AM';
 	var det =function(){
 	    if(!m.m.p) return "[<span onclick='showConversation(this)' class='details'><em>"+m.f+":</em></span> ";
 	    var name = m.m.p.hasOwnProperty('n')?m.m.p.n:m.f;
@@ -28,7 +29,7 @@ var domElements = {
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
 	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span> <em>'+mDate+mTime+'</em>]</span></p><span>'+msg+'</span> <div> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
-return ms;
+	return ms;
     }
 
 };

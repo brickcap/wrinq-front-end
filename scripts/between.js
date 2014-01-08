@@ -18,10 +18,10 @@ function buildMessages(to){
     //use cursor.advance(int);
     cursor.onsuccess = function(e){
 	var item = e.target.result;
-	console.log(item);
+	console.log(item.value);
 	if(item){
 	    item.continue();
-	    mStr = mStr + domElements.incomingMessage(item);
+	    mStr = mStr + domElements.incomingMessage(item.value);
 	    count++;
 	}
 	if(!item||count===10){

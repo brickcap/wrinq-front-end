@@ -211,24 +211,22 @@ var socketManager  = function(sess){
 	var message = JSON.parse(e.data);
 	if(!message.hasOwnProperty("m"))return;
 	helpers.saveMessage(message);
-	var hasP = message.m.hasOwnProperty("p"); 
-	if(hasP){
-	    console.log(message);
-	    messages.innerHTML = domElements.incomingMessage(message)+ messages.innerHTML;
-	    message.m.p.u = message.f;
-	    addToStore(message.m.p,null,'profile'); 
-	}
-	if(!hasP){
-	    var pStore = getStore("profile",'readonly');
+	var hasP = message.m.hasOwnProperty("p");
+	 var pStore = getStore("profile",'readonly');
 	    var pIndex = pStore.index("name");
  	    var request = pIndex.get(message.f);
 	     request.onsuccess = function(e){
 		var result = e.target.result;
-		message.m.p = result;
+		 if(hasP){		     
+		     messages.innerHTML = domElements.incomingMessage(message)+ messages.innerHTML;
+		     message.m.p.u = message.f;
+		     addToStore(message.m.p,null,'profile');
+		     return;
+		 }
+		 message.m.p = result;
 		 messages.innerHTML = domElements.incomingMessage(message)+messages.innerHTML;
-	    };
-	}
-	
+		 return;
+	    };	
     };
     socket.onerror = function(e){
 
@@ -272,7 +270,7 @@ var domElements = {
     'sendMessage' : '<div  class="box"><p><input type="text" name="to" placeholder="@to"/></p><p><textarea rows="5" placeholder="your message" onkeyup="autoGrow(this)" name="message"></textarea></p><p><input type="text" name="tag" placeholder="#tag  (optional)"/></p></div> <span><button type="button" onclick="send(this)">post</button></span>',
 
     'incomingMessage' : function(m){
-	console.log(m);
+//	console.log(m);
 	var mDate = m.day+'-'+m.month+'-'+m.year+" ";
 	var mTime = (m.hour>=12)?m.hour-12+':'+m.min+' PM':m.hour+':'+m.min+' AM';
 	var det =function(){
@@ -285,7 +283,7 @@ var domElements = {
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
 	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span> <em>'+mDate+mTime+'</em>]</span></p><span>'+msg+'</span> <div> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
-return ms;
+	return ms;
     }
 
 };
@@ -451,10 +449,10 @@ function buildMessages(to){
     //use cursor.advance(int);
     cursor.onsuccess = function(e){
 	var item = e.target.result;
-	console.log(item);
+	console.log(item.value);
 	if(item){
 	    item.continue();
-	    mStr = mStr + domElements.incomingMessage(item);
+	    mStr = mStr + domElements.incomingMessage(item.value);
 	    count++;
 	}
 	if(!item||count===10){
