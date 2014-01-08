@@ -43,7 +43,7 @@ text-align: center;
 }
 
 @media screen and (min-width:501px){
-.messageBody,.contacts,#sendMessage{
+.messageBody,#sendMessage{
 margin : 1% 20% 0% 25%;
 font-size:110%;
 }
@@ -54,7 +54,7 @@ color:#08c;
 cursor:pointer;
 }
 @media screen and (max-width:500px){
-.messageBody{
+.messageBody,#sendMessage{
 font-size:110%;
 }
 }
