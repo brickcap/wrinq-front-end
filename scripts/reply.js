@@ -58,7 +58,7 @@ function buildProfile(to,messagePacket){
     if(!result){
 	if(!prf) return messagePacket;
 	var p = {"n":prf.name,"pic":prf.pic,"a":prf.about};
-	messagePacket.msg.p = p;
+	messagePacket.m.p = p;
 	return messagePacket;
     }
     return messagePacket;
