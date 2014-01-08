@@ -28,7 +28,7 @@ function send(e){
     var messagePacket = {"to":to, "m":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
-    helpers.saveMessage(messagePacket,to);
+    helpers.saveMessage(buildDate(messagePacket),to);
     saveContact(to);
     return;
 };
@@ -45,10 +45,10 @@ var sendError = helpers.id("sendError");
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">The message can not be empty</p>';
 	return;
     }
-    var messagePacket = {"to":to, "msg":{'t':tags,m:message,'w':to}};
+    var messagePacket = {"to":to, "m":{'t':tags,m:message,'w':to}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
-    helpers.saveMessage(messagePacket);
+    helpers.saveMessage(buildDate(messagePacket),to);
     saveContact(to);
 };
 
@@ -81,4 +81,15 @@ function saveContact(contactInfo){
 	return;
     }
     
+}
+
+function buildDate(messagePacket){
+    var date = new Date();
+    messagePacket.month = date.getMonth()+1;
+    messagePacket.day = date.getDay();
+    messagePacket.year = date.getFullYear();
+    messagePacket.min = date.getMinutes();
+    messagePacket.hour = date.getHours();
+    messagePacket.sec = date.getSeconds();
+    return messagePacket;
 }

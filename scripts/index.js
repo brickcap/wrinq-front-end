@@ -272,7 +272,8 @@ var domElements = {
     'incomingMessage' : function(m){
 //	console.log(m);
 	var mDate = m.day+'-'+m.month+'-'+m.year+" ";
-	var mTime = (m.hour>=12)?m.hour-12+':'+m.min+' PM':m.hour+':'+m.min+' AM';
+	var min = m.min>10?m.min:'0'+m.min;
+	var mTime = (m.hour>=12)?m.hour-12+':'+min+'PM':m.hour+':'+min+' AM';
 	var det =function(){
 	    if(!m.m.p) return "[<span onclick='showConversation(this)' class='details'><em>"+m.f+":</em></span> ";
 	    var name = m.m.p.hasOwnProperty('n')?m.m.p.n:m.f;
@@ -371,10 +372,10 @@ function send(e){
     if(!to||!message){
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';   
  }
-    var messagePacket = {"to":to, "msg":{'t':tags,m:message}};
+    var messagePacket = {"to":to, "m":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
-    helpers.saveMessage(messagePacket,to);
+    helpers.saveMessage(buildDate(messagePacket),to);
     saveContact(to);
     return;
 };
@@ -391,10 +392,10 @@ var sendError = helpers.id("sendError");
 	e.parentNode.parentNode.innerHTML += '<p id="sendError">The message can not be empty</p>';
 	return;
     }
-    var messagePacket = {"to":to, "msg":{'t':tags,m:message,'w':to}};
+    var messagePacket = {"to":to, "m":{'t':tags,m:message,'w':to}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
-    helpers.saveMessage(messagePacket);
+    helpers.saveMessage(buildDate(messagePacket),to);
     saveContact(to);
 };
 
@@ -427,6 +428,17 @@ function saveContact(contactInfo){
 	return;
     }
     
+}
+
+function buildDate(messagePacket){
+    var date = new Date();
+    messagePacket.month = date.getMonth()+1;
+    messagePacket.day = date.getDay();
+    messagePacket.year = date.getFullYear();
+    messagePacket.min = date.getMinutes();
+    messagePacket.hour = date.getHours();
+    messagePacket.sec = date.getSeconds();
+    return messagePacket;
 }
 
 function showConversation(e){
