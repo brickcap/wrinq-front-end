@@ -29,7 +29,8 @@ function send(e){
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
     helpers.saveMessage(buildDate(messagePacket),to);
-    saveContact(to);
+    save(to,"sent");
+    if(tags)save(tags,"tags");
     return;
 };
 
@@ -49,7 +50,8 @@ var sendError = helpers.id("sendError");
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
     helpers.saveMessage(buildDate(messagePacket),to);
-    saveContact(to);
+    save(to,"sent");
+    if(tags)save(tags,"tags");
 };
 
 function buildProfile(to,messagePacket){
@@ -64,23 +66,22 @@ function buildProfile(to,messagePacket){
     return messagePacket;
 };
 
-function saveContact(contactInfo){
-    var sent = localStorage.getItem("sent");
-    if(!sent){
-	sent = JSON.stringify([contactInfo]);
-	console.log(sent);
-	localStorage.setItem("sent",sent);
+function save(item,key){
+    var exists = localStorage.getItem(key);
+    if(!exists){
+	exists = JSON.stringify([item]);
+	console.log(exists);
+	localStorage.setItem(key,exists);
 	return;
     }
-    if(sent){
-	var parsed = JSON.parse(sent);
-	if(!parsed.indexOf(contactInfo)){
-	    parsed.push(contactInfo);
-	    localStorage.setItem("sent",JSON.stringify(sent));
+    if(exists){
+	var parsed = JSON.parse(exists);
+	if(!parsed.indexOf(item)){
+	    parsed.push(item);
+	    localStorage.setItem(key,JSON.stringify(exists));
 	}
 	return;
-    }
-    
+    }   
 }
 
 function buildDate(messagePacket){
