@@ -457,7 +457,7 @@ function buildMessages(to){
     var keyRange = IDBKeyRange.only(to);
     var cursor = messageIndex.openCursor(keyRange,'prev');
     var count = 0;
-    var mStr;
+    var mStr='';
     //use cursor.advance(int);
     cursor.onsuccess = function(e){
 	var item = e.target.result;
