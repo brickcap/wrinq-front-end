@@ -17,7 +17,7 @@ var socketManager  = function(sess){
 	if(!hasP){
 	    var pStore = getStore("profile",'readonly');
 	    var pIndex = pStore.index("name");
-	    var request = pIndex.get(message.f);
+ 	    var request = pIndex.get(message.f);
 	     request.onsuccess = function(e){
 		var result = e.target.result;
 		message.m.p = result;
