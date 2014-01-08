@@ -482,6 +482,7 @@ function buildMessages(to,p){
 function messageBox(){
 helpers.hide(appMessage);
 helpers.hide(messages);
+helpers.hide(conversation);
 sendMessage.innerHTML = domElements.sendMessage;
 helpers.show(sendMessage);
 };
@@ -489,5 +490,6 @@ helpers.show(sendMessage);
 
 function  showActivity(){
 helpers.hide(sendMessage);
+helpers.hide(conversation);
 helpers.show(messages);
 };
