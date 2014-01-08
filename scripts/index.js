@@ -461,7 +461,7 @@ function buildMessages(to){
     //use cursor.advance(int);
     cursor.onsuccess = function(e){
 	var item = e.target.result;
-	console.log(item.value);
+//	console.log(item.value);
 	if(item){
 	    item.continue();
 	    mStr = mStr + domElements.incomingMessage(item.value);
