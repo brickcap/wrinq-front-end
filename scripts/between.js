@@ -24,7 +24,7 @@ function buildMessages(to,p){
     //use cursor.advance(int);
     cursor.onsuccess = function(e){
 	var item = e.target.result;
-	if(item){
+	if(item && count!=10){
 	    item.continue();
 	    item.value.m.p = p;
 	    mStr = mStr + domElements.incomingMessage(item.value);
