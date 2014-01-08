@@ -133,12 +133,12 @@ function addToStore(item,key,store){
     var storeObject = getStore(store,"readwrite");
     
     if(key){    
-	storeObject.add(item,key);
+	storeObject.put(item,key);
     }
 
     if(!key){
 
-	storeObject.add(item);
+	storeObject.put(item);
     }
     return storeObject;
 };
