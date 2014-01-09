@@ -19,13 +19,27 @@ function buildTag(t){
 	var item = e.target.result;
 	if(item && count!=10){
 	    item.continue();
-	    item.value.m.p = p;
-	    mStr = mStr + domElements.incomingMessage(item.value);
+	   addProfile(item,mStr);	   
 	    count++;
 	}
 	if(!item||count===10){
 	    var heading = '<h1 class="center-div">Messages Tagged as '+t+'</h1>';
-	    conversation.innerHTML = heading+mStr;   
+	    tagDiv.innerHTML = heading+mStr;   
 	}
     };
+}
+
+function addProfile(item,str){
+
+    var pStore = getStore('profile','readonly');
+    var pIndex = pStore.index("name");
+    if(item.hasOwnProperty("to")){
+	item.value.m.p = prf;
+	 str = str + domElements.incomingMessage(item.value);
+    }
+    var result = pIndex.get(item.f);
+    result.onsuccess = function(e){
+	item.value.m.p = e.target.result;
+	str = str + domElements.incomingMessage(item.value);
+    }; 
 }

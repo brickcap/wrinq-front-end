@@ -44,7 +44,7 @@ var sendError = helpers.id("sendError");
 	e.parentNode.parentNode.innerHTML += '<p>The message can not be empty</p>';
 	return;
     }
-    var messagePacket = {"to":to, "m":{'t':tags,m:message,'w':to}};
+    var messagePacket = {"to":to, "m":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
     helpers.saveMessage(buildDate(messagePacket),to);
