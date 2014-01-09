@@ -14,7 +14,7 @@ var helpers = {
 	var length = e.length;
 	var i = 0;
 	for(i;i<length;i++){
-	    e.style.display = "none";
+	    e[i].style.display = "none";
 	}
     },
     clearHtml :function(e){

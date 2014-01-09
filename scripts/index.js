@@ -14,7 +14,7 @@ var helpers = {
 	var length = e.length;
 	var i = 0;
 	for(i;i<length;i++){
-	    e.style.display = "none";
+	    e[i].style.display = "none";
 	}
     },
     clearHtml :function(e){
@@ -469,10 +469,8 @@ function buildDate(messagePacket){
 
 function showConversation(e){
     var to = e.parentNode.parentNode.parentNode.getAttribute("data-to")||e.parentNode.parentNode.getAttribute("data-to");
-    helpers.hide(sendMessage);
-    helpers.hide(messages);
-    helpers.show(conversation);
-    helpers.hide(tagDiv);
+    helpers.hideM([sendMessage,messages,tagDiv]);
+    helpers.show(conversation);   
     buildMessages(to);
 };
 
@@ -501,9 +499,7 @@ function buildMessages(to){
 
 function showTag(e){
     var tag = e.parentNode.parentNode.getAttribute("data-tag");
-    helpers.hide(sendMessage);
-    helpers.hide(messages);
-    helpers.hide(conversation);
+    helpers.hideM([sendMessage,messages,conversation]);
     helpers.show(tagDiv);
     buildTag(tag);
 }
