@@ -273,7 +273,7 @@ var domElements = {
 	var det =function(){
 	    var name = m.hasOwnProperty("to")?'':m.f+':';
 	    if(!m.m.p) return "[<span onclick='showConversation(this)' class='details'><em>"+name+"</em></span> ";
-	    if(!m.m.p.hasOwnProperty("pic")) return "[<span onclick='showConversation(this)' class='details'><em>"+name+":</em></span> ";
+	    if(!m.m.p.hasOwnProperty("pic")) return "[<span onclick='showConversation(this)' class='details'><em>"+name+"</em></span> ";
 	    if(m.m.p.hasOwnProperty("pic")) return "<img  class='img-span' src="+m.m.p.pic+"</img>[<span class='details' onclick='showConversation(this)'>"+name+"</span>";
 	    return '';
 	};
