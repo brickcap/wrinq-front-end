@@ -1,10 +1,10 @@
 function showTag(e){
-var tag = e.parentNode.parentNode.getAttribute("data-tag");
-helpers.hide(sendMessage);
-helpers.hide(messages);
-helpers.hide(conversation);
-helpers.show(tagDiv);
-//buildTag(tag);
+    var tag = e.parentNode.parentNode.getAttribute("data-tag");
+    helpers.hide(sendMessage);
+    helpers.hide(messages);
+    helpers.hide(conversation);
+    helpers.show(tagDiv);
+    buildTag(tag);
 }
 
 function buildTag(t){
@@ -19,7 +19,7 @@ function buildTag(t){
 	var item = e.target.result;
 	if(item && count!=10){
 	    item.continue();
-	   addProfile(item,mStr);	   
+	    addProfile(item,mStr);	   
 	    count++;
 	}
 	if(!item||count===10){
@@ -35,7 +35,7 @@ function addProfile(item,str){
     var pIndex = pStore.index("name");
     if(item.hasOwnProperty("to")){
 	item.value.m.p = prf;
-	 str = str + domElements.incomingMessage(item.value);
+	str = str + domElements.incomingMessage(item.value);
     }
     var result = pIndex.get(item.f);
     result.onsuccess = function(e){
