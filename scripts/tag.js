@@ -21,28 +21,12 @@ function buildTag(t){
 	console.log(item);
 	if(item && count!=10){
 	    item.continue();
-	    addProfile(item,mStr);
+	   mStr = mStr + domElements.incomingMessage(item.value);
 	}
 	if(!item||count===10){
 	    var heading = '<h1 class="center-div">Messages Tagged as '+t+'</h1>';
-	    tagDiv.innerHTML = heading+tagDiv.innerHTML;   
+	    tagDiv.innerHTML = heading+mStr;   
 	}
     };
 }
 
-function addProfile(item,str){
-    console.log(str);
-    var pStore = getStore('profile','readonly');
-    var pIndex = pStore.index("name");
-    if(item.hasOwnProperty("to")){
-	item.value.m.p = prf;
-	str = str + domElements.incomingMessage(item.value);
-	 tagDiv.innerHTML = str + tagDiv.innerHTML; 
-    }
-    var result = pIndex.get(item.value.f);
-    result.onsuccess = function(e){
-	item.value.m.p = e.target.result;
-	str = str + domElements.incomingMessage(item.value);
-	tagDiv.innerHTML = str + tagDiv.innerHTML;
-    }; 
-}
