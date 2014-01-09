@@ -100,7 +100,7 @@ var sendBtn = helpers.id("sendBtn");
 var btnReply = helpers.id("btnReply");
 var messageDiv = helpers.id("messageDiv");
 var conversation = helpers.id("conversation");
-var tag = helpers.id("tag");
+var tagDiv = helpers.id("tag");
 var openRequest = indexedDB.open("wrinq", 1);
 var prf;
 var database;
@@ -283,7 +283,7 @@ var domElements = {
 	};
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
-	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span> <em>'+mDate+mTime+'</em>]</span></p><span>'+msg+'</span><p><span class="details">'+tag +'</span></p> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
+	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span> <em>'+mDate+mTime+'</em>]</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span></p> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
 	return ms;
     }
 
@@ -493,6 +493,19 @@ function buildMessages(to,p){
 	    conversation.innerHTML = heading+mStr;   
 	}
     };
+}
+
+function showTag(e){
+var tag = e.parentNode.parentNode.getAttribute("data-tag");
+helpers.hide(sendMessage);
+helpers.hide(messages);
+helpers.hide(conversation);
+helpers.show(tagDiv);
+console.log(tag);
+//buildTag(tag);
+}
+
+function buildTag(t){
 }
 
 function messageBox(){

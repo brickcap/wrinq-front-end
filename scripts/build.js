@@ -11,6 +11,7 @@ var scripts = [
     'main.js',
     'reply.js',
     'between.js',
+    'tag.js',
     'sendMessage.js',
     'activity.js'    
 ];
