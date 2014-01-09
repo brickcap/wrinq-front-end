@@ -39,7 +39,7 @@ function addProfile(item,str){
 	str = str + domElements.incomingMessage(item.value);
 	 tagDiv.innerHTML = str + tagDiv.innerHTML; 
     }
-    var result = pIndex.get(item.f);
+    var result = pIndex.get(item.value.f);
     result.onsuccess = function(e){
 	item.value.m.p = e.target.result;
 	str = str + domElements.incomingMessage(item.value);

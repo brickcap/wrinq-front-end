@@ -3,18 +3,11 @@ function showConversation(e){
     helpers.hide(sendMessage);
     helpers.hide(messages);
     helpers.show(conversation);
-    var pStore = getStore('profile','readonly');
-    var pIndex = pStore.index("name");
-    var request = pIndex.get(to);
-    request.onsuccess = function(e){
-	var p = e.target.result;
-	 buildMessages(to,p);
-    };
-   
+    buildMessages(to);
 };
 
 
-function buildMessages(to,p){
+function buildMessages(to){
     var mStore = getStore('messages','readonly');
     var mIndex = mStore.index("between");
     var keyRange = IDBKeyRange.only(to);
@@ -26,7 +19,6 @@ function buildMessages(to,p){
 	var item = e.target.result;
 	if(item && count!=10){
 	    item.continue();
-	    item.value.m.p = p;
 	    mStr = mStr + domElements.incomingMessage(item.value);
 	    count++;
 	}

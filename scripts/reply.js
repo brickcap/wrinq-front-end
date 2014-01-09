@@ -53,14 +53,12 @@ var sendError = helpers.id("sendError");
 };
 
 function buildProfile(to,messagePacket){
-    var result = localStorage.getItem("sent");
     
-    if(!result){
-	if(!prf) return messagePacket;
-	var p = {"n":prf.name,"pic":prf.pic,"a":prf.about};
-	messagePacket.m.p = p;
-	return messagePacket;
-    }
+    if(!prf) return messagePacket;
+    var p = {"n":prf.name,"pic":prf.pic,"a":prf.about};
+    messagePacket.m.p = p;
+    return messagePacket;
+    
     return messagePacket;
 };
 

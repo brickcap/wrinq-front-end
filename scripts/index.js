@@ -112,7 +112,7 @@ openRequest.onupgradeneeded = function(e){
     database = e.target.result;
     createObjectStore(database,"profile",false).createIndex("name","u",{unique:true});
     var profile= createObjectStore(database,"messages",false);
-    profile.createIndex("tag","t",{unique:false});
+    profile.createIndex("tag","m.t",{unique:false});
     profile.createIndex("between",'f');
     createObjectStore(database,"application",true);
 };
@@ -536,7 +536,7 @@ function addProfile(item,str){
 	str = str + domElements.incomingMessage(item.value);
 	 tagDiv.innerHTML = str + tagDiv.innerHTML; 
     }
-    var result = pIndex.get(item.f);
+    var result = pIndex.get(item.value.f);
     result.onsuccess = function(e){
 	item.value.m.p = e.target.result;
 	str = str + domElements.incomingMessage(item.value);
