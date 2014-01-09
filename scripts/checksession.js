@@ -19,19 +19,24 @@ var checkSession = function(){
 	    prf = e.target.result;
 	};
 	var messageStore = getStore('messages','readonly');
-	var count = 0;	
+	var count = 0;
+	var mStr ='';	
 	messageStore.openCursor(null,'prev').onsuccess = function(e){
 	    var cursor = e.target.result;
+	   
 	    if(count===10||!cursor){
 		if(!count){
 		    var appMessage = helpers.id("appMessage");
 		    appMessage.innerHTML = '<p>No recent activity</p>';
 		    helpers.show(appMessage);
 		}
+		var heading = '<h1 style="text-align:center;">Recent Messages</h1>';
+		messages.innerHTML = heading+mStr; 
 		return;
 	    }
 	    
 	    if(cursor){
+		mStr = mStr+domElements.incomingMessage(cursor.value);
 		cursor.continue();
 		count++;
 	    }  

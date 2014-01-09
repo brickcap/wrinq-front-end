@@ -182,19 +182,24 @@ var checkSession = function(){
 	    prf = e.target.result;
 	};
 	var messageStore = getStore('messages','readonly');
-	var count = 0;	
+	var count = 0;
+	var mStr ='';	
 	messageStore.openCursor(null,'prev').onsuccess = function(e){
 	    var cursor = e.target.result;
+	   
 	    if(count===10||!cursor){
 		if(!count){
 		    var appMessage = helpers.id("appMessage");
 		    appMessage.innerHTML = '<p>No recent activity</p>';
 		    helpers.show(appMessage);
 		}
+		var heading = '<h1 style="text-align:center;">Recent Messages</h1>';
+		messages.innerHTML = heading+mStr; 
 		return;
 	    }
 	    
 	    if(cursor){
+		mStr = mStr+domElements.incomingMessage(cursor.value);
 		cursor.continue();
 		count++;
 	    }  
@@ -266,6 +271,7 @@ var domElements = {
     'sendMessage' : '<div  class="box"><p><input type="text" name="to" placeholder="to" onblur="check(this)"/></p><p><textarea rows="5" placeholder="your message" onkeyup="autoGrow(this)" name="message"></textarea></p><p><input type="text" name="tag" placeholder="tag"/></p></div> <span><button type="button" onclick="send(this)" id="btnSend" disabled>post</button></span>',
 
     'incomingMessage' : function(m){
+	console.log(m);
 	var mDate = m.day+'-'+m.month+'-'+m.year+" ";
 	var min = m.min>10?m.min:'0'+m.min;
 	var mTime = (m.hour>=12)?m.hour-12+':'+min+'PM':m.hour+':'+min+' AM';
