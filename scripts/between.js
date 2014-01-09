@@ -3,6 +3,7 @@ function showConversation(e){
     helpers.hide(sendMessage);
     helpers.hide(messages);
     helpers.show(conversation);
+    helpers.hide(tagDiv);
     buildMessages(to);
 };
 
