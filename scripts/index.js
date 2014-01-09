@@ -486,7 +486,7 @@ function buildMessages(to){
 	    count++;
 	}
 	if(!item||count===10){
-	    var heading = '<h1 class="center-div"> Conversation with '+to+'</h1>';
+	    var heading = '<h1 class="center-div">Your conversation with '+to+'</h1>';
 	    conversation.innerHTML = heading+mStr;   
 	}
     };
