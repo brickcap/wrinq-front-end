@@ -1,9 +1,7 @@
 function showConversation(e){
     var to = e.parentNode.parentNode.parentNode.getAttribute("data-to")||e.parentNode.parentNode.getAttribute("data-to");
-    helpers.hide(sendMessage);
-    helpers.hide(messages);
-    helpers.show(conversation);
-    helpers.hide(tagDiv);
+    helpers.hideM([sendMessage,messages,tagDiv]);
+    helpers.show(conversation);   
     buildMessages(to);
 };
 

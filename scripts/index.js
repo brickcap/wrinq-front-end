@@ -3,15 +3,22 @@ var helpers = {
     id : function(id){
 	return document.getElementById(id);
     },
-    show : function(element){
-	element.style.display="block";
+    show : function(e){
+	e.style.display="block";
     },
 
-    hide : function(element){
-	element.style.display = "none";
+    hide : function(e){
+	e.style.display = "none";
     },
-    clearHtml :function(element){
-	element.innerHTML = '';
+    hideM : function(e){
+	var length = e.length;
+	var i = 0;
+	for(i;i<length;i++){
+	    e.style.display = "none";
+	}
+    },
+    clearHtml :function(e){
+	e.innerHTML = '';
     },
 
     serializeTextFields : function(form){
