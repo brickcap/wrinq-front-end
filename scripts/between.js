@@ -1,5 +1,5 @@
 function showConversation(e){
-    var to = e.parentNode.parentNode.parentNode.getAttribute("data-to");
+    var to = e.parentNode.parentNode.parentNode.getAttribute("data-to")||e.parentNode.parentNode.getAttribute("data-to");
     helpers.hide(sendMessage);
     helpers.hide(messages);
     helpers.show(conversation);

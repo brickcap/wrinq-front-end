@@ -16,16 +16,17 @@ var domElements = {
 	var mDate = m.day+'-'+m.month+'-'+m.year+" ";
 	var min = m.min>10?m.min:'0'+m.min;
 	var mTime = (m.hour>=12)?m.hour-12+':'+min+'PM':m.hour+':'+min+' AM';
+	var to = m.hasOwnProperty("to")?'to: <span class="details" onclick="showConversation(this)">'+m.to+'</span>':'';
 	var det =function(){
-	    if(!m.m.p) return "[<span onclick='showConversation(this)' class='details'><em>"+m.f+":</em></span> ";
-	    var name = m.m.p.hasOwnProperty('n')?m.m.p.n:m.f;
+	    var name = m.hasOwnProperty("to")?'':m.f+':';
+	    if(!m.m.p) return "[<span onclick='showConversation(this)' class='details'><em>"+name+"</em></span> ";
 	    if(!m.m.p.hasOwnProperty("pic")) return "[<span onclick='showConversation(this)' class='details'><em>"+name+":</em></span> ";
 	    if(m.m.p.hasOwnProperty("pic")) return "<img  class='img-span' src="+m.m.p.pic+"</img>[<span class='details' onclick='showConversation(this)'>"+name+"</span>";
 	    return '';
 	};
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
-	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span> <em>'+mDate+mTime+'</em>]</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span></p> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
+	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span> <em>'+mDate+mTime+'</em>]</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span>'+to+'</p> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
 	return ms;
     }
 
