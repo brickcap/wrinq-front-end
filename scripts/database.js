@@ -3,7 +3,7 @@ openRequest.onupgradeneeded = function(e){
     database = e.target.result;
     createObjectStore(database,"profile",false).createIndex("name","u",{unique:true});
     var profile= createObjectStore(database,"messages",false);
-    profile.createIndex("tag","t",{unique:false});
+    profile.createIndex("tag","m.t",{unique:false});
     profile.createIndex("between",'f');
     createObjectStore(database,"application",true);
 };
