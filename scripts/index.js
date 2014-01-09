@@ -539,8 +539,6 @@ helpers.show(sendMessage);
 
 
 function  showActivity(){
-helpers.hide(sendMessage);
-helpers.hide(conversation);
-helpers.hide(tagDiv);
+helpers.hideM([sendMessage,conversation,tagDiv]);
 helpers.show(messages);
 };
