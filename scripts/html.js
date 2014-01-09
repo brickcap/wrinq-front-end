@@ -4,7 +4,7 @@ var domElements = {
 
     'loginForm': '<form  method="POST" id="loginForm" onsubmit="submitAjax(event,this)"><p><input type="text" name="username" value="" placeholder="username"  required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="submit" id="submitButton" name="" value="login"/></p></form><p id= "message"></p><p ><span class ="underline-spans" onclick ="signUpClick()">or sign-up<span></p>',
 
-    'commentBox':'<div class="box"><p><textarea rows="5" name="message" placeholder="your message" onkeyup="autoGrow(this)"></textarea></p></div> <span><button type="button" onclick="reply(this)" id="btnReply">post</button></span><span><button type="button" onclick="removeCommentBox(this)">cancel</button>',
+    'commentBox':'<div class="box"><p><textarea rows="5" name="message" placeholder="your message" onkeyup="autoGrow(this)"></textarea></p></div> <span><button type="button" onclick="reply(this)" id="btnReply disabled">post</button></span><span><button type="button" onclick="removeCommentBox(this)">cancel</button>',
 
     'contact' : function(o){
 	var temp = '<div class="contacts"><h1 style="text-align:center;">contacts</h1></div>';
@@ -25,7 +25,7 @@ var domElements = {
 	};
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
-	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span> <em>'+mDate+mTime+'</em>]</span></p><span>'+msg+'</span> <div> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
+	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span> <em>'+mDate+mTime+'</em>]</span></p><span>'+msg+'</span><div><span class="details">'+tag +'</span><div> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
 	return ms;
     }
 
