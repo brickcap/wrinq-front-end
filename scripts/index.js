@@ -111,9 +111,10 @@ var socket;
 openRequest.onupgradeneeded = function(e){
     database = e.target.result;
     createObjectStore(database,"profile",false).createIndex("name","u",{unique:true});
-    var profile= createObjectStore(database,"messages",false);
-    profile.createIndex("tag","m.t",{unique:false});
-    profile.createIndex("between",'f');
+    var ms= createObjectStore(database,"messages",false);
+    ms.createIndex("tag","m.t",{unique:false});
+    ms.createIndex("between",'f');
+    ms.createIndex("profile","m.p.u",{unique:false});
     createObjectStore(database,"application",true);
 };
 
@@ -172,7 +173,7 @@ var checkSession = function(){
 	helpers.hide(splashDiv);
 	helpers.hide(formDiv);
 	var profileStore = getStore("profile",'readonly');
-	var	profile = profileStore.get("master"); 
+	var profile = profileStore.get("master"); 
 	profile.onsuccess = function(e){
 	    if(!e.target.result){
 		messageDiv.innerHTML = '<a href="/editprofile.html">create a profile</a>';
@@ -213,23 +214,17 @@ var socketManager  = function(sess){
     socket.onmessage = function(e){
 	var message = JSON.parse(e.data);
 	if(!message.hasOwnProperty("m"))return;
+	if(!message.m.p){
+	    message.m.p = {};
+	    message.m.p.u = message.f;
+	   
+	}
+	
+	
 	helpers.saveMessage(message);
-	var hasP = message.m.hasOwnProperty("p");
-	 var pStore = getStore("profile",'readonly');
-	    var pIndex = pStore.index("name");
- 	    var request = pIndex.get(message.f);
-	     request.onsuccess = function(e){
-		var result = e.target.result;
-		 if(hasP){		     
-		     messages.innerHTML = domElements.incomingMessage(message)+ messages.innerHTML;
-		     message.m.p.u = message.f;
-		     addToStore(message.m.p,null,'profile');
-		     return;
-		 }
-		 message.m.p = result;
-		 messages.innerHTML = domElements.incomingMessage(message)+messages.innerHTML;
-		 return;
-	    };	
+	messages.innerHTML = domElements.incomingMessage(message)+ messages.innerHTML;
+	return;    
+	
     };
     socket.onerror = function(e){
 
@@ -416,14 +411,16 @@ var sendError = helpers.id("sendError");
 };
 
 function buildProfile(to,messagePacket){
-    var result = localStorage.getItem("sent");
     
-    if(!result){
-	if(!prf) return messagePacket;
-	var p = {"n":prf.name,"pic":prf.pic,"a":prf.about};
-	messagePacket.m.p = p;
+    if(!prf){ 
+
+	messagePacket.m.p = null;
 	return messagePacket;
     }
+    var p = {"n":prf.name,"pic":prf.pic,"a":prf.about};
+    messagePacket.m.p = p;
+    return messagePacket;
+    
     return messagePacket;
 };
 
@@ -461,18 +458,11 @@ function showConversation(e){
     helpers.hide(sendMessage);
     helpers.hide(messages);
     helpers.show(conversation);
-    var pStore = getStore('profile','readonly');
-    var pIndex = pStore.index("name");
-    var request = pIndex.get(to);
-    request.onsuccess = function(e){
-	var p = e.target.result;
-	 buildMessages(to,p);
-    };
-   
+    buildMessages(to);
 };
 
 
-function buildMessages(to,p){
+function buildMessages(to){
     var mStore = getStore('messages','readonly');
     var mIndex = mStore.index("between");
     var keyRange = IDBKeyRange.only(to);
@@ -484,7 +474,6 @@ function buildMessages(to,p){
 	var item = e.target.result;
 	if(item && count!=10){
 	    item.continue();
-	    item.value.m.p = p;
 	    mStr = mStr + domElements.incomingMessage(item.value);
 	    count++;
 	}

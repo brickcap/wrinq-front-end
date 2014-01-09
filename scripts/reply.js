@@ -54,7 +54,11 @@ var sendError = helpers.id("sendError");
 
 function buildProfile(to,messagePacket){
     
-    if(!prf) return messagePacket;
+    if(!prf){ 
+
+	messagePacket.m.p = null;
+	return messagePacket;
+    }
     var p = {"n":prf.name,"pic":prf.pic,"a":prf.about};
     messagePacket.m.p = p;
     return messagePacket;

@@ -7,13 +7,17 @@ var socketManager  = function(sess){
     socket.onmessage = function(e){
 	var message = JSON.parse(e.data);
 	if(!message.hasOwnProperty("m"))return;
+	if(!message.m.p){
+	    message.m.p = {};
+	    message.m.p.u = message.f;
+	   
+	}
+	
+	
 	helpers.saveMessage(message);
- 	request.onsuccess = function(e){
-	    var result = e.target.result;	    
-	    messages.innerHTML = domElements.incomingMessage(message)+ messages.innerHTML;
-	    return;    
-	    
-	};	
+	messages.innerHTML = domElements.incomingMessage(message)+ messages.innerHTML;
+	return;    
+	
     };
     socket.onerror = function(e){
 
