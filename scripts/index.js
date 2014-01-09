@@ -97,6 +97,7 @@ var appMessage = helpers.id("appMessage");
 var messages = helpers.id("messages");
 var sendMessage = helpers.id("sendMessage");
 var sendBtn = helpers.id("sendBtn");
+var btnReply = helpers.id("btnReply");
 var messageDiv = helpers.id("messageDiv");
 var conversation = helpers.id("conversation");
 var openRequest = indexedDB.open("wrinq", 1);
@@ -260,13 +261,13 @@ var domElements = {
 
     'loginForm': '<form  method="POST" id="loginForm" onsubmit="submitAjax(event,this)"><p><input type="text" name="username" value="" placeholder="username"  required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="submit" id="submitButton" name="" value="login"/></p></form><p id= "message"></p><p ><span class ="underline-spans" onclick ="signUpClick()">or sign-up<span></p>',
 
-    'commentBox':'<div class="box"><p><textarea rows="5" name="message" placeholder="your message" onkeyup="autoGrow(this)"></textarea></p></div> <span><button type="button" onclick="reply(this)">post</button></span><span><button type="button" onclick="removeCommentBox(this)">cancel</button>',
+    'commentBox':'<div class="box"><p><textarea rows="5" name="message" placeholder="your message" onkeyup="autoGrow(this)"></textarea></p></div> <span><button type="button" onclick="reply(this)" id="btnReply">post</button></span><span><button type="button" onclick="removeCommentBox(this)">cancel</button>',
 
     'contact' : function(o){
 	var temp = '<div class="contacts"><h1 style="text-align:center;">contacts</h1></div>';
 	return temp;
     },
-    'sendMessage' : '<div  class="box"><p><input type="text" name="to" placeholder="to" onblur="check(this)"/></p><p><textarea rows="5" placeholder="your message" onkeyup="autoGrow(this)" name="message"></textarea></p><p><input type="text" name="tag" placeholder="tag"/></p></div> <span><button type="button" onclick="send(this)" id="btnSend" >post</button></span>',
+    'sendMessage' : '<div  class="box"><p><input type="text" name="to" placeholder="to" onblur="check(this)"/></p><p><textarea rows="5" placeholder="your message" onkeyup="autoGrow(this)" name="message"></textarea></p><p><input type="text" name="tag" placeholder="tag"/></p></div> <span><button type="button" onclick="send(this)" id="btnSend" disabled>post</button></span>',
 
     'incomingMessage' : function(m){
 	var mDate = m.day+'-'+m.month+'-'+m.year+" ";
@@ -291,7 +292,6 @@ var domElements = {
 
 
 
-
 var signUpClick = function(){
 helpers.hide(splashDiv);
 formDiv.innerHTML = domElements.signUpForm;
@@ -304,12 +304,10 @@ formDiv.innerHTML= domElements.loginForm;
 helpers.show(formDiv);
 };
 
-var submitAjax = function(event,form){
-    event.preventDefault();   
-    var formData = helpers.serializeTextFields(form);
-   
-    helpers.ajax(helpers.buildAjaxPostObject(form,formData));
-
+var submitAjax = function(e,f){
+    e.preventDefault();   
+    var fData = helpers.serializeTextFields(f);   
+    helpers.ajax(helpers.buildAjaxPostObject(f,fData));
 };
 
 var checkUser = function(e){
@@ -336,22 +334,19 @@ var checkUser = function(e){
     helpers.ajax(ajaxObject);
 };
 function check(e){
-    var submitButton = helpers.id("submitButton");
-    var message = helpers.id("message");
-    submitButton.disabled = true;
-    if(!e.value) return;
+    btnSend.disabed = true;
+        if(!e.value) return;
     var ajaxObject = {
 	url: '/checkuser?name="'+e.value+'"',
 	method: 'GET',
 	successCallback:function(response){
 	    
 	    if(JSON.parse(response).available){
-		submitButton.disabled = false;
+		
 		return;
 	    } 
 	    else{
-		submitButton.disabled = true;
-		message.innerHTML = "The username is taken";
+		btnSend.disabled = false;
 	    }
 	}
     };
@@ -388,7 +383,7 @@ function send(e){
     temp.innerHTML = document.getElementsByName("message")[0].value;
     var message = temp.innerText||temp.textContent;
     if(!to||!message){
-	e.parentNode.parentNode.innerHTML += '<p>There must be a non empty message</p>';   
+	e.parentNode.parentNode.innerHTML += '<p>The message can not be empty</p>';   
  }
     var messagePacket = {"to":to, "m":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);

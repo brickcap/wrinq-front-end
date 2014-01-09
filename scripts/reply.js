@@ -21,7 +21,7 @@ function send(e){
     temp.innerHTML = document.getElementsByName("message")[0].value;
     var message = temp.innerText||temp.textContent;
     if(!to||!message){
-	e.parentNode.parentNode.innerHTML += '<p>There must be a non empty message</p>';   
+	e.parentNode.parentNode.innerHTML += '<p>The message can not be empty</p>';   
  }
     var messagePacket = {"to":to, "m":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);
