@@ -11,6 +11,7 @@ var sendBtn = helpers.id("sendBtn");
 var btnReply = helpers.id("btnReply");
 var messageDiv = helpers.id("messageDiv");
 var conversation = helpers.id("conversation");
+var tag = helpers.id("tag");
 var openRequest = indexedDB.open("wrinq", 1);
 var prf;
 var database;
