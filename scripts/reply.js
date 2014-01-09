@@ -15,15 +15,13 @@ function removeCommentBox(e){
 
 
 function send(e){
-    var sendError = helpers.id("sendError");
-    if(sendError)helpers.hide(sendError);
     var to = document.getElementsByName("to")[0].value;
     var tags = document.getElementsByName("tag")[0].value;
     var temp = document.createElement("div");
     temp.innerHTML = document.getElementsByName("message")[0].value;
     var message = temp.innerText||temp.textContent;
     if(!to||!message){
-	e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';   
+	e.parentNode.parentNode.innerHTML += '<p>There must be a non empty message</p>';   
  }
     var messagePacket = {"to":to, "m":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);
@@ -43,7 +41,7 @@ var sendError = helpers.id("sendError");
  if(sendError)helpers.hide(sendError);
     var message = document.getElementsByName("message")[0].value;
     if(!message){
-	e.parentNode.parentNode.innerHTML += '<p id="sendError">The message can not be empty</p>';
+	e.parentNode.parentNode.innerHTML += '<p>The message can not be empty</p>';
 	return;
     }
     var messagePacket = {"to":to, "m":{'t':tags,m:message,'w':to}};
@@ -74,8 +72,14 @@ function save(item,key){
 	localStorage.setItem(key,exists);
 	return;
     }
-   	return;
-      
+    if(exists){
+	var parsed = JSON.parse(exists);
+	if(!parsed.indexOf(item)){
+	    parsed.push(item);
+	    localStorage.setItem(key,JSON.stringify(exists));
+	}
+	return;
+    }   
 }
 
 function buildDate(messagePacket){

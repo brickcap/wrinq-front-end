@@ -96,6 +96,7 @@ var appBody = helpers.id("appBody");
 var appMessage = helpers.id("appMessage");
 var messages = helpers.id("messages");
 var sendMessage = helpers.id("sendMessage");
+var sendBtn = helpers.id("sendBtn");
 var messageDiv = helpers.id("messageDiv");
 var conversation = helpers.id("conversation");
 var openRequest = indexedDB.open("wrinq", 1);
@@ -265,12 +266,9 @@ var domElements = {
 	var temp = '<div class="contacts"><h1 style="text-align:center;">contacts</h1></div>';
 	return temp;
     },
-    'addContact' : '<div class="center-div"><input type="text" placeholder="username of the contact"/><p><button>send request</button></p></div>',
-
-    'sendMessage' : '<div  class="box"><p><input type="text" name="to" placeholder="@to"/></p><p><textarea rows="5" placeholder="your message" onkeyup="autoGrow(this)" name="message"></textarea></p><p><input type="text" name="tag" placeholder="#tag  (optional)"/></p></div> <span><button type="button" onclick="send(this)">post</button></span>',
+    'sendMessage' : '<div  class="box"><p><input type="text" name="to" placeholder="to" onblur="check(this)"/></p><p><textarea rows="5" placeholder="your message" onkeyup="autoGrow(this)" name="message"></textarea></p><p><input type="text" name="tag" placeholder="tag"/></p></div> <span><button type="button" onclick="send(this)" id="btnSend" >post</button></span>',
 
     'incomingMessage' : function(m){
-//	console.log(m);
 	var mDate = m.day+'-'+m.month+'-'+m.year+" ";
 	var min = m.min>10?m.min:'0'+m.min;
 	var mTime = (m.hour>=12)?m.hour-12+':'+min+'PM':m.hour+':'+min+' AM';
@@ -314,13 +312,13 @@ var submitAjax = function(event,form){
 
 };
 
-var checkUser = function(input){
+var checkUser = function(e){
     var submitButton = helpers.id("submitButton");
     var message = helpers.id("message");
     submitButton.disabled = true;
-    if(!input.value) return;
+    if(!e.value) return;
     var ajaxObject = {
-	url: '/checkuser?name="'+input.value+'"',
+	url: '/checkuser?name="'+e.value+'"',
 	method: 'GET',
 	successCallback:function(response){
 	    
@@ -337,7 +335,29 @@ var checkUser = function(input){
 
     helpers.ajax(ajaxObject);
 };
+function check(e){
+    var submitButton = helpers.id("submitButton");
+    var message = helpers.id("message");
+    submitButton.disabled = true;
+    if(!e.value) return;
+    var ajaxObject = {
+	url: '/checkuser?name="'+e.value+'"',
+	method: 'GET',
+	successCallback:function(response){
+	    
+	    if(JSON.parse(response).available){
+		submitButton.disabled = false;
+		return;
+	    } 
+	    else{
+		submitButton.disabled = true;
+		message.innerHTML = "The username is taken";
+	    }
+	}
+    };
 
+    helpers.ajax(ajaxObject);
+}
 var clearMessages = function(){
     var message = helpers.id("message");
     message.innerHTML = '';
@@ -362,15 +382,13 @@ function removeCommentBox(e){
 
 
 function send(e){
-    var sendError = helpers.id("sendError");
-    if(sendError)helpers.hide(sendError);
     var to = document.getElementsByName("to")[0].value;
     var tags = document.getElementsByName("tag")[0].value;
     var temp = document.createElement("div");
     temp.innerHTML = document.getElementsByName("message")[0].value;
     var message = temp.innerText||temp.textContent;
     if(!to||!message){
-	e.parentNode.parentNode.innerHTML += '<p id="sendError">There must be a valid username and a non empty message</p>';   
+	e.parentNode.parentNode.innerHTML += '<p>There must be a non empty message</p>';   
  }
     var messagePacket = {"to":to, "m":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);
@@ -390,7 +408,7 @@ var sendError = helpers.id("sendError");
  if(sendError)helpers.hide(sendError);
     var message = document.getElementsByName("message")[0].value;
     if(!message){
-	e.parentNode.parentNode.innerHTML += '<p id="sendError">The message can not be empty</p>';
+	e.parentNode.parentNode.innerHTML += '<p>The message can not be empty</p>';
 	return;
     }
     var messagePacket = {"to":to, "m":{'t':tags,m:message,'w':to}};
