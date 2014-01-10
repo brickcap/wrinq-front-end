@@ -9,6 +9,7 @@ var helpers = {
 
     hide : function(e){
 	e.style.display = "none";
+	//use apply with this
     },
     hideM : function(e){
 	var length = e.length;

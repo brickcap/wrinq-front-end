@@ -5,118 +5,125 @@ body {
     background-color:#F5F5F5;
 }
 img{
-max-width:100%;
+    max-width:100%;
 }
 .box>p>textarea{
-background-color:#ddd;
-width:100%;
-padding:1% 1% 1% 1%;
-border:none;
-font-size:16px;
-outline:none;
-resize:none;
-overflow:hidden;
+    background-color:#ddd;
+    width:100%;
+    padding:1% 1% 1% 1%;
+    border:none;
+    font-size:16px;
+    outline:none;
+    resize:none;
+    overflow:hidden;
 }
 .box>p>input,.box>p>input:focus{
-background-color:#ddd;
-padding:1% 1% 1% 1%;
-border:none;
-width:100%;
-font-size:16px;
-outline:none;
-margin-left:auto;
-margin-right:auto;
+    background-color:#ddd;
+    padding:1% 1% 1% 1%;
+    border:none;
+    width:100%;
+    font-size:16px;
+    outline:none;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 #appBody{
-text-align: left;
+    text-align: left;
 }
 button{
-cursor:pointer;
+    cursor:pointer;
 }
 .center-div{
-text-align: center;
+    text-align: center;
 }
 
 #about{
     margin: 10% 10% 10% 0;
 }
 
-@media screen and (min-width:501px){
-.messageBody,#sendMessage{
-margin : 1% 20% 0% 25%;
-font-size:110%;
+@media screen and (min-width:600px){
+    .messageBody,#sendMessage{
+	
+	font-size:110%;
+    }
 }
+@media screen and (min-width:1000px){
+    .messageBody,#sendMessage{
+	margin : 1% 20% 0% 25%;
+	font-size:110%;
+    }
+}
+
+@media screen and (max-width:500px){
+    .messageBody,#sendMessage{
+	font-size:110%;
+    }
 }
 .details{
-text-decoration:underline;
-color:#08c;
-cursor:pointer;
-}
-@media screen and (max-width:500px){
-.messageBody,#sendMessage{
-font-size:110%;
-}
+    text-decoration:underline;
+    color:#08c;
+    cursor:pointer;
 }
 .img-span
 {
-height:44px;
-width:44px;
-border-radius:100%;
--webkit-border-radius: 100%;
--moz-border-radius: 100%;
-cursor:pointer;
+    height:44px;
+    width:44px;
+    border-radius:100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    cursor:pointer;
 }
 .action-item{
-cursor:pointer;
-color:#08c;
+    cursor:pointer;
+    color:#08c;
 }
 
 #search,#search input:focus{
-background-color:#F5F5F5;
-width:100%;
-text-align:center;
-border:none;
-font-size:16px;
-outline:none;
-margin-left:auto;
-margin-right:auto;
+    background-color:#F5F5F5;
+    width:100%;
+    text-align:center;
+    border:none;
+    font-size:16px;
+    outline:none;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 
 .messageBox{
-background-color:#ddd;
-width:100%;
-border:none;
-font-size:16px;
-outline:none;
+    background-color:#ddd;
+    width:100%;
+    border:none;
+    font-size:16px;
+    outline:none;
 }
 
 .menu{
-color:#08c;
-font-weight: bold;
-background-color:#FEFEFE;
-width:100%;
+    color:#08c;
+    font-weight: bold;
+    background-color:#FEFEFE;
+    width:100%;
 }
 .menu span{
-cursor:pointer;
-font-size: 150%;
-padding:0px 2% 0px 2%; 
+    cursor:pointer;
+    font-size: 150%;
+    padding:0px 2% 0px 2%; 
 
 }
 #messageDiv{
-font-size:12px;
+    font-size:12px;
 }
 .underline-spans{
-text-decoration: underline;
-cursor: pointer;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .top-div-10{
-margin-top: 10%;
+    margin-top: 10%;
 }
 
 
 a{
-color: #08c;
+    color: #08c;
 }
