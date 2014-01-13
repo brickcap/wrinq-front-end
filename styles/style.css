@@ -61,7 +61,7 @@ button{
     }
 }
 .details{
-    text-decoration:underline;
+   
     color:#08c;
     cursor:pointer;
 }
@@ -125,5 +125,6 @@ button{
 
 
 a{
+    text-decoration:none;
     color: #08c;
 }
