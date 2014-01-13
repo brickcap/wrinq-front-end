@@ -24,6 +24,8 @@ function buildTag(t){
 	if(!item||count===10){
 	    var heading = '<h1 class="center-div">Messages Tagged as '+t+'</h1>';
 	    tagDiv.innerHTML = heading+mStr;   
+	    tagDiv.scrollIntoView();
+
 	}
     };
 }

@@ -493,7 +493,8 @@ function buildMessages(to){
 	}
 	if(!item||count===10){
 	    var heading = '<h1 class="center-div">Your conversation with '+to+'</h1>';
-	    conversation.innerHTML = heading+mStr;   
+	    conversation.innerHTML = heading+mStr;
+	    conversation.scrollIntoView();
 	}
     };
 }
@@ -524,6 +525,8 @@ function buildTag(t){
 	if(!item||count===10){
 	    var heading = '<h1 class="center-div">Messages Tagged as '+t+'</h1>';
 	    tagDiv.innerHTML = heading+mStr;   
+	    tagDiv.scrollIntoView();
+
 	}
     };
 }
@@ -542,4 +545,6 @@ helpers.show(sendMessage);
 function  showActivity(){
 helpers.hideM([sendMessage,conversation,tagDiv]);
 helpers.show(messages);
+messages.scrollIntoView();
+
 };
