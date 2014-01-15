@@ -87,7 +87,7 @@ function save(item,key){
 function buildDate(messagePacket){
     var date = new Date();
     messagePacket.month = date.getMonth()+1;
-    messagePacket.day = date.getDay();
+    messagePacket.day = date.getDate();
     messagePacket.year = date.getFullYear();
     messagePacket.min = date.getMinutes();
     messagePacket.hour = date.getHours();
