@@ -78,7 +78,7 @@ var search = function(e){
     if(term.charAt(0)==="@"){
 	console.log("search user");
 	var res = searchTerm("sent",term.slice(1,term.length).trim());
-	searchResult.innerHTML = res.join('');
+	searchResult.innerHTML = '<ul style="list-style:none">'+res+'</ul>';
     }
     if(term.charAt(0)==="#"){
 	var result = searchTerm("tags",term.slice(1,term.length).trim());
@@ -95,7 +95,9 @@ function searchTerm(key,term){
     for(i;i<length;i++){
 	console.log(items[i]);
 	console.log(term);
-	if(items[i].indexOf(term)!=-1) li+='<li class="details" data-tag="'+items[i]+'"onclick="showTag(this)">'+items[i]+'</li>';
+	if(items[i].indexOf(term)!=-1&&key==="tags") li+='<li class="details" data-tag="'+items[i]+'"onclick="showTag(this)">'+items[i]+'</li>';
+
+	if(items[i].indexOf(term)!=-1&&key==="sent") li+='<li class="details" data-to="'+items[i]+'"onclick="showConversation(this)">'+items[i]+'</li>';
     }
     return li;
 }

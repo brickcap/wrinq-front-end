@@ -1,5 +1,7 @@
 function showConversation(e){
-    var to = e.parentNode.parentNode.parentNode.getAttribute("data-to")||e.parentNode.parentNode.getAttribute("data-to");
+    var to =e.getAttribute("data-to") ||e.parentNode.parentNode.parentNode.getAttribute("data-to")||e.parentNode.parentNode.getAttribute("data-to");
+sIn.value='';
+    helpers.id("searchResult").innerHTML='';
     helpers.hideM([sendMessage,messages,tagDiv]);
     helpers.show(conversation);   
     buildMessages(to);
