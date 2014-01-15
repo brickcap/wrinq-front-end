@@ -91,6 +91,17 @@ var helpers = {
 	if(to)message.f = to;
 	var request = addToStore(message,null,'messages');
 	return;
+    },
+    addProfile: function(message){
+	if(message.hasOwnProperty("m")){
+	    if(!message.m.p){
+		message.m.p = {};
+		message.m.p.u = message.f;
+		return message;
+	    }
+	    return message;
+	}
+	return message;
     }
 };
 
