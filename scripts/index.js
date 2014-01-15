@@ -238,22 +238,28 @@ var socketManager  = function(sess){
     };
     socket.onmessage = function(e){
 	var message = JSON.parse(e.data);
-	if(message.hasOwnProperty("msgs")){
-	    var length = message.msgs.length;
+	if(message.hasOwnProperty("msgs") && message.msgs.length>0){
+	    
+	    var messageArray = message.msgs;	    
+	    var length = messageArray.length;
 	    var i =0;
+	    
 	    for(i;i<length;i++){
-		var m = helpers.addProfile(message[i]);
+		
+		var parsed = JSON.parse(messageArray[i]);
+		var m = helpers.addProfile(parsed);
 		helpers.saveMessage(m);
 		messages.innerHTML = domElements.incomingMessage(m)+ messages.innerHTML;
 	    }
 	    socket.send(JSON.stringify({"delmsg":1}));
-	    console.log(message);
+	    return;
 	}
-	helpers.addProfile(message);	
-	helpers.saveMessage(message);
-	messages.innerHTML = domElements.incomingMessage(message)+ messages.innerHTML;
-	return;	
-	
+	if(message.hasOwnProperty("m")){
+	    helpers.addProfile(message);	
+	    helpers.saveMessage(message);
+	    messages.innerHTML = domElements.incomingMessage(message)+ messages.innerHTML;
+	    return;	
+	}	
     };
     socket.onerror = function(e){
 
