@@ -127,6 +127,33 @@ var helpers = {
 	    }  
 	    
 	};
+    },
+    humanDate : function(date){
+
+	var seconds = Math.floor((new Date() - date) / 1000);
+
+	var interval = Math.floor(seconds / 31536000);
+
+	if (interval > 1) {
+            return interval + " years";
+	}
+	interval = Math.floor(seconds / 2592000);
+	if (interval > 1) {
+            return interval + " months";
+	}
+	interval = Math.floor(seconds / 86400);
+	if (interval > 1) {
+            return interval + " days";
+	}
+	interval = Math.floor(seconds / 3600);
+	if (interval > 1) {
+            return interval + " hours";
+	}
+	interval = Math.floor(seconds / 60);
+	if (interval > 1) {
+            return interval + " minutes";
+	}
+	return Math.floor(seconds) + " seconds";
     }
 };
 
@@ -306,19 +333,22 @@ var domElements = {
     'incomingMessage' : function(m){
 	var mDate = m.day+'-'+m.month+'-'+m.year+" ";
 	var min = m.min>10?m.min:'0'+m.min;
+	var mSec = m.sec>10?m.sec:'0'+m.sec;
 	var mTime = (m.hour>=12)?m.hour-12+':'+min+'PM':m.hour+':'+min+' AM';
+	var hDate = helpers.humanDate(new Date(m.year,m.month-1,m.day,m.hour,parseInt(m.min),parseInt(m.sec)));
+	console.log(hDate);
 	var to = m.hasOwnProperty("to")?'to: <span class="details" onclick="showConversation(this)">'+m.to+'</span>':'';
 	var det =function(){
 	    var name = m.hasOwnProperty("to")?'':m.f+':';
-	    if(!m.m.p) return "[<span onclick='showConversation(this)' class='details'><em>"+name+"</em></span> ";
-	    if(!m.m.p.hasOwnProperty("pic")) return "[<span onclick='showConversation(this)' class='details'><em>"+name+"</em></span> ";
-	    if(m.m.p.hasOwnProperty("pic")) return "<img  class='img-span' src="+m.m.p.pic+"</img>[<span class='details' onclick='showConversation(this)'>"+name+"</span>";
+	    if(!m.m.p) return "<span onclick='showConversation(this)' class='details'><em>"+name+"</em></span> ";
+	    if(!m.m.p.hasOwnProperty("pic")) return "<span onclick='showConversation(this)' class='details'><em>"+name+"</em></span> ";
+	    if(m.m.p.hasOwnProperty("pic")) return "<img  class='img-span' src="+m.m.p.pic+"</img><span class='details' onclick='showConversation(this)'>"+name+"</span>";
 	    return '';
 	};
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
 	if(tag) save(tag,"tags");
-	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span> <em>'+mDate+mTime+'</em>]</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span>'+to+'</p> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
+	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span> <em>'+hDate+' ago</em></span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span>'+to+'</p> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
 	return ms;
     }
 
@@ -397,7 +427,7 @@ var clearMessages = function(){
 
 var showUnread = function(e){
     helpers.hide(e);
-    location.reload();
+    helpers.buildMessages();
 };
 
 function autoGrow (oField) {
