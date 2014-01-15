@@ -29,8 +29,7 @@ var checkSession = function(){
 		   return;
 		}
 		if(count){
-		    var heading = '<h1 style="text-align:center;">Recent Messages</h1>';
-		    messages.innerHTML = heading+mStr; 
+		    messages.innerHTML = mStr; 
 		    return;
 		}
 	    }
