@@ -239,18 +239,21 @@ var socketManager  = function(sess){
     socket.onmessage = function(e){
 	var message = JSON.parse(e.data);
 	if(message.hasOwnProperty("msgs")){
+	    var length = message.msgs.length;
+	    var i =0;
+	    for(i;i<length;i++){
+		var m = helpers.addProfile(message[i]);
+		helpers.saveMessage(m);
+		messages.innerHTML = domElements.incomingMessage(m)+ messages.innerHTML;
+	    }
 	    socket.send(JSON.stringify({"delmsg":1}));
 	    console.log(message);
 	}
-	if(message.hasOwnProperty("m")){
-	    if(!message.m.p){
-		message.m.p = {};
-		message.m.p.u = message.f;	   
-	    }	
-	    helpers.saveMessage(message);
-	    messages.innerHTML = domElements.incomingMessage(message)+ messages.innerHTML;
-	    return;	
-	}
+	helpers.addProfile(message);	
+	helpers.saveMessage(message);
+	messages.innerHTML = domElements.incomingMessage(message)+ messages.innerHTML;
+	return;	
+	
     };
     socket.onerror = function(e){
 
