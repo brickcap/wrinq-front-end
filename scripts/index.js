@@ -135,25 +135,25 @@ var helpers = {
 	var interval = Math.floor(seconds / 31536000);
 
 	if (interval > 1) {
-            return interval + " years";
+            return interval + "y";
 	}
 	interval = Math.floor(seconds / 2592000);
 	if (interval > 1) {
-            return interval + " months";
+            return interval + "m";
 	}
 	interval = Math.floor(seconds / 86400);
 	if (interval > 1) {
-            return interval + " days";
+            return interval + "d";
 	}
 	interval = Math.floor(seconds / 3600);
 	if (interval > 1) {
-            return interval + " hours";
+            return interval + "h";
 	}
 	interval = Math.floor(seconds / 60);
 	if (interval > 1) {
-            return interval + " minutes";
+            return interval + " min";
 	}
-	return Math.floor(seconds) + " seconds";
+	return Math.floor(seconds) + "s";
     }
 };
 
@@ -336,10 +336,9 @@ var domElements = {
 	var mSec = m.sec>10?m.sec:'0'+m.sec;
 	var mTime = (m.hour>=12)?m.hour-12+':'+min+'PM':m.hour+':'+min+' AM';
 	var hDate = helpers.humanDate(new Date(m.year,m.month-1,m.day,m.hour,parseInt(m.min),parseInt(m.sec)));
-	console.log(hDate);
-	var to = m.hasOwnProperty("to")?'to: <span class="details" onclick="showConversation(this)">'+m.to+'</span>':'';
+	var to = m.hasOwnProperty("to")?' ':'';
 	var det =function(){
-	    var name = m.hasOwnProperty("to")?'':m.f+':';
+	    var name = m.hasOwnProperty("to")?'to:'+m.to+'</span>':m.f+':';
 	    if(!m.m.p) return "<span onclick='showConversation(this)' class='details'><em>"+name+"</em></span> ";
 	    if(!m.m.p.hasOwnProperty("pic")) return "<span onclick='showConversation(this)' class='details'><em>"+name+"</em></span> ";
 	    if(m.m.p.hasOwnProperty("pic")) return "<img  class='img-span' src="+m.m.p.pic+"</img><span class='details' onclick='showConversation(this)'>"+name+"</span>";
@@ -348,7 +347,7 @@ var domElements = {
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
 	if(tag) save(tag,"tags");
-	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span>'+hDate+' ago</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span>'+to+ '</p> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
+	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span class="date">'+hDate+'</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span></p> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
 	return ms;
     }
 

@@ -78,7 +78,9 @@ button{
     cursor:pointer;
     color:#08c;
 }
-
+.date{
+font-size:12px;
+}
 #search,#search input:focus{
     background-color:#F5F5F5;
     width:100%;
