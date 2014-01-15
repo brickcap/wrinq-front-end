@@ -68,17 +68,20 @@ function buildProfile(to,messagePacket){
 
 function save(item,key){
     var exists = localStorage.getItem(key);
-    if(!exists){
-	exists = JSON.stringify([item]);
-	console.log(exists);
+    console.log(typeof exists);
+    if(!exists && item){
+	var a = [];
+	a.push(item);
+	exists = JSON.stringify(a);
 	localStorage.setItem(key,exists);
 	return;
     }
     if(exists && item){
 	var parsed = JSON.parse(exists);
-	if(!parsed.indexOf(item)){
-	    parsed.push(item);
-	    localStorage.setItem(key,JSON.stringify(exists));
+	console.log(parsed);
+	if(parsed.indexOf(item)<0){
+	    parsed.push(item);	    
+	    localStorage.setItem(key,JSON.stringify(parsed));
 	}
 	return;
     }   

@@ -77,8 +77,7 @@ var helpers = {
 	
 	var output=  input.replace(newline,"<br/><br/>").replace(urlRegex,function(url){
 	    if (( url.indexOf(".jpg") > 0 )||(url.indexOf(".jpeg") > 0 ) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) return '<br/><img src="' + url + '"><br/>';
-	    return '<a href="' + url + '">' + url + '</a>';   
-
+	    return '<a href="' + url + '">' + url + '</a>';
 	});
 	return output;
     },
@@ -344,7 +343,7 @@ var domElements = {
 	var rBtn = m.hasOwnProperty("to")?'':"<p><button onclick='addCommentBox(this)'>reply</button></p>";
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
-	save(tag,"tags");
+	if(tag)save(tag,"tags");
 	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span class="date">'+hDate+'</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span></p>'+rBtn+'</div></div>';
 	return ms;
     }
@@ -497,17 +496,20 @@ function buildProfile(to,messagePacket){
 
 function save(item,key){
     var exists = localStorage.getItem(key);
-    if(!exists){
-	exists = JSON.stringify([item]);
-	console.log(exists);
+    console.log(typeof exists);
+    if(!exists && item){
+	var a = [];
+	a.push(item);
+	exists = JSON.stringify(a);
 	localStorage.setItem(key,exists);
 	return;
     }
     if(exists && item){
 	var parsed = JSON.parse(exists);
-	if(!parsed.indexOf(item)){
-	    parsed.push(item);
-	    localStorage.setItem(key,JSON.stringify(exists));
+	console.log(parsed);
+	if(parsed.indexOf(item)<0){
+	    parsed.push(item);	    
+	    localStorage.setItem(key,JSON.stringify(parsed));
 	}
 	return;
     }   
