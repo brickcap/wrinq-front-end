@@ -12,7 +12,7 @@ var btnReply = helpers.id("btnReply");
 var messageDiv = helpers.id("messageDiv");
 var conversation = helpers.id("conversation");
 var tagDiv = helpers.id("tag");
-var search = helpers.id("search");
+var sIn = helpers.id("search");
 var menu = helpers.id("menu");
 var openRequest = indexedDB.open("wrinq", 1);
 var prf;

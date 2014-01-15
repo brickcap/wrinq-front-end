@@ -167,7 +167,7 @@ var btnReply = helpers.id("btnReply");
 var messageDiv = helpers.id("messageDiv");
 var conversation = helpers.id("conversation");
 var tagDiv = helpers.id("tag");
-var search = helpers.id("search");
+var sIn = helpers.id("search");
 var menu = helpers.id("menu");
 var openRequest = indexedDB.open("wrinq", 1);
 var prf;
@@ -586,6 +586,8 @@ function buildMessages(to){
 }
 
 function showTag(e){
+    sIn.value='';
+    helpers.id("searchResult").innerHTML='';
     var tag =e.getAttribute("data-tag") || e.parentNode.parentNode.getAttribute("data-tag");
     helpers.hideM([sendMessage,messages,conversation]);
     helpers.show(tagDiv);
