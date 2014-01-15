@@ -18,18 +18,18 @@ var domElements = {
 	var mSec = m.sec>10?m.sec:'0'+m.sec;
 	var mTime = (m.hour>=12)?m.hour-12+':'+min+'PM':m.hour+':'+min+' AM';
 	var hDate = helpers.humanDate(new Date(m.year,m.month-1,m.day,m.hour,parseInt(m.min),parseInt(m.sec)));
-	var to = m.hasOwnProperty("to")?' ':'';
 	var det =function(){
-	    var name = m.hasOwnProperty("to")?'to:'+m.to+'</span>':m.f+':';
-	    if(!m.m.p) return "<span onclick='showConversation(this)' class='details'><em>"+name+"</em></span> ";
-	    if(!m.m.p.hasOwnProperty("pic")) return "<span onclick='showConversation(this)' class='details'><em>"+name+"</em></span> ";
-	    if(m.m.p.hasOwnProperty("pic")) return "<img  class='img-span' src="+m.m.p.pic+"</img><span class='details' onclick='showConversation(this)'>"+name+"</span>";
+	    var name = m.hasOwnProperty("to")?"<span onclick='showConversation(this)'><em>(to:"+m.to+")</em></span>":"<span onclick='showConversation(this)' class='details'><em>"+m.f+":"+"</em></span>";
+	    if(!m.m.p) return name;
+	    if(!m.m.p.hasOwnProperty("pic")) return name;
+	    if(m.m.p.hasOwnProperty("pic")) return "<img  class='img-span' src="+m.m.p.pic+"</img>" + name;
 	    return '';
 	};
+	var rBtn = m.hasOwnProperty("to")?'':"<p><button onclick='addCommentBox(this)'>reply</button></p>";
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
 	if(tag) save(tag,"tags");
-	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span class="date">'+hDate+'</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span></p> <p><button onclick = "addCommentBox(this)">reply</button></p> </div></div>';
+	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span class="date">'+hDate+'</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span></p>'+rBtn+'</div></div>';
 	return ms;
     }
 
