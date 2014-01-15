@@ -1,5 +1,5 @@
 function showTag(e){
-    var tag = e.parentNode.parentNode.getAttribute("data-tag");
+    var tag =e.getAttribute("data-tag") || e.parentNode.parentNode.getAttribute("data-tag");
     helpers.hideM([sendMessage,messages,conversation]);
     helpers.show(tagDiv);
     buildTag(tag);

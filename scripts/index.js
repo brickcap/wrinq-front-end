@@ -429,12 +429,31 @@ var showUnread = function(e){
 var search = function(e){
     
     var term = e.value;
+    var searchResult = helpers.id("searchResult");
+    searchResult.innerHTML = '';
     if(term.charAt(0)==="@"){
 	console.log("search user");
+	var res = searchTerm("sent",term.slice(1,term.length).trim());
+	searchResult.innerHTML = res.join('');
     }
     if(term.charAt(0)==="#"){
-	console.log("search tag");
+	var result = searchTerm("tags",term.slice(1,term.length).trim());
+	console.log(result);
+	searchResult.innerHTML = '<ul style="list-style:none">'+result+'</ul>';
     }
+};
+
+function searchTerm(key,term){
+    var items = JSON.parse(localStorage.getItem(key));
+    var length = items.length;
+    var i = 0;
+    var li = '';
+    for(i;i<length;i++){
+	console.log(items[i]);
+	console.log(term);
+	if(items[i].indexOf(term)!=-1) li+='<li class="details" data-tag="'+items[i]+'"onclick="showTag(this)">'+items[i]+'</li>';
+    }
+    return li;
 }
 
 function autoGrow (oField) {
@@ -507,7 +526,6 @@ function buildProfile(to,messagePacket){
 
 function save(item,key){
     var exists = localStorage.getItem(key);
-    console.log(typeof exists);
     if(!exists && item){
 	var a = [];
 	a.push(item);
@@ -517,7 +535,6 @@ function save(item,key){
     }
     if(exists && item){
 	var parsed = JSON.parse(exists);
-	console.log(parsed);
 	if(parsed.indexOf(item)<0){
 	    parsed.push(item);	    
 	    localStorage.setItem(key,JSON.stringify(parsed));
@@ -569,7 +586,7 @@ function buildMessages(to){
 }
 
 function showTag(e){
-    var tag = e.parentNode.parentNode.getAttribute("data-tag");
+    var tag =e.getAttribute("data-tag") || e.parentNode.parentNode.getAttribute("data-tag");
     helpers.hideM([sendMessage,messages,conversation]);
     helpers.show(tagDiv);
     buildTag(tag);
