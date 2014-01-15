@@ -1,8 +1,5 @@
 function messageBox(){
-helpers.hide(appMessage);
-helpers.hide(messages);
-helpers.hide(conversation);
-helpers.hide(tagDiv);
+helpers.hideM([messages,conversation,tagDiv]);
 sendMessage.innerHTML = domElements.sendMessage;
 helpers.show(sendMessage);
 };

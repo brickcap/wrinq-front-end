@@ -208,9 +208,7 @@ var checkSession = function(){
 	   
 	    if(count===10||!cursor){
 		if(!count){
-		    var appMessage = helpers.id("appMessage");
-		    appMessage.innerHTML = '<p>No recent activity</p>';
-		    helpers.show(appMessage);
+		   return;
 		}
 		if(count){
 		    var heading = '<h1 style="text-align:center;">Recent Messages</h1>';
@@ -251,6 +249,7 @@ var socketManager  = function(sess){
 		var m = helpers.addProfile(parsed);
 		helpers.saveMessage(m);
 	    }
+
 	    socket.send(JSON.stringify({"delmsg":1}));
 	    return;
 	}
@@ -555,10 +554,7 @@ function buildTag(t){
 
 
 function messageBox(){
-helpers.hide(appMessage);
-helpers.hide(messages);
-helpers.hide(conversation);
-helpers.hide(tagDiv);
+helpers.hideM([messages,conversation,tagDiv]);
 sendMessage.innerHTML = domElements.sendMessage;
 helpers.show(sendMessage);
 };

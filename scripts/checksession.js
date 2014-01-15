@@ -26,9 +26,7 @@ var checkSession = function(){
 	   
 	    if(count===10||!cursor){
 		if(!count){
-		    var appMessage = helpers.id("appMessage");
-		    appMessage.innerHTML = '<p>No recent activity</p>';
-		    helpers.show(appMessage);
+		   return;
 		}
 		if(count){
 		    var heading = '<h1 style="text-align:center;">Recent Messages</h1>';
