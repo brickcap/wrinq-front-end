@@ -77,11 +77,7 @@ var helpers = {
 	
 	var output=  input.replace(newline,"<br/><br/>").replace(urlRegex,function(url){
 	    if (( url.indexOf(".jpg") > 0 )||(url.indexOf(".jpeg") > 0 ) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) return '<br/><img src="' + url + '"><br/>';
-	    else 
-	    {
-		return '<a href="' + url + '">' + url + '</a>';
-	    }
-	    
+	    return '<a href="' + url + '">' + url + '</a>';   
 
 	});
 	return output;
