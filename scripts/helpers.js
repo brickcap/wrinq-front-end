@@ -85,7 +85,7 @@ var helpers = {
     saveMessage : function(message,to){
 	if(to)message.f = to;
 	var request = addToStore(message,null,'messages');
-	return;
+	return message;
     },
     addProfile: function(message){
 	if(message.hasOwnProperty("m")){
@@ -111,6 +111,7 @@ var helpers = {
 		}
 		if(count){
 		    messages.innerHTML = mStr; 
+		    showActivity();
 		    return;
 		}
 	    }

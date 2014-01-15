@@ -85,7 +85,7 @@ var helpers = {
     saveMessage : function(message,to){
 	if(to)message.f = to;
 	var request = addToStore(message,null,'messages');
-	return;
+	return message;
     },
     addProfile: function(message){
 	if(message.hasOwnProperty("m")){
@@ -111,6 +111,7 @@ var helpers = {
 		}
 		if(count){
 		    messages.innerHTML = mStr; 
+		    showActivity();
 		    return;
 		}
 	    }
@@ -486,19 +487,20 @@ function send(e){
     var messagePacket = {"to":to, "m":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
-    helpers.saveMessage(buildDate(messagePacket),to);
+    var packet =  helpers.saveMessage(buildDate(messagePacket),to);
     save(to,"sent");
     if(tags)save(tags,"tags");
+    messages.innerHTML = domElements.incomingMessage(packet)+message.innerHTML; 
     return;
 };
 
 
 function reply(e){
-var parent = e.parentNode.parentNode.parentNode.parentNode;
-var to = parent.getAttribute("data-to");
-var tags = parent.getAttribute("data-tags");
-var sendError = helpers.id("sendError");
- if(sendError)helpers.hide(sendError);
+    var parent = e.parentNode.parentNode.parentNode.parentNode;
+    var to = parent.getAttribute("data-to");
+    var tags = parent.getAttribute("data-tags");
+    var sendError = helpers.id("sendError");
+    if(sendError)helpers.hide(sendError);
     var message = document.getElementsByName("message")[0].value;
     if(!message){
 	e.parentNode.parentNode.innerHTML += '<p>The message can not be empty</p>';
@@ -507,9 +509,11 @@ var sendError = helpers.id("sendError");
     var messagePacket = {"to":to, "m":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
-    helpers.saveMessage(buildDate(messagePacket),to);
+    var packet=  helpers.saveMessage(buildDate(messagePacket),to);
     save(to,"sent");
     if(tags)save(tags,"tags");
+    messages.innerHTML = domElements.incomingMessage(packet)+message.innerHTML; 
+    return;
 };
 
 function buildProfile(to,messagePacket){
