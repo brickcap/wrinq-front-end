@@ -212,9 +212,11 @@ var checkSession = function(){
 		    appMessage.innerHTML = '<p>No recent activity</p>';
 		    helpers.show(appMessage);
 		}
-		var heading = '<h1 style="text-align:center;">Recent Messages</h1>';
-		messages.innerHTML = heading+mStr; 
-		return;
+		if(count){
+		    var heading = '<h1 style="text-align:center;">Recent Messages</h1>';
+		    messages.innerHTML = heading+mStr; 
+		    return;
+		}
 	    }
 	    
 	    if(cursor){
@@ -243,13 +245,11 @@ var socketManager  = function(sess){
 	    var messageArray = message.msgs;	    
 	    var length = messageArray.length;
 	    var i =0;
-	    
 	    for(i;i<length;i++){
 		
 		var parsed = JSON.parse(messageArray[i]);
 		var m = helpers.addProfile(parsed);
 		helpers.saveMessage(m);
-		messages.innerHTML = domElements.incomingMessage(m)+ messages.innerHTML;
 	    }
 	    socket.send(JSON.stringify({"delmsg":1}));
 	    return;

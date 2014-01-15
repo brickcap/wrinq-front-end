@@ -30,9 +30,11 @@ var checkSession = function(){
 		    appMessage.innerHTML = '<p>No recent activity</p>';
 		    helpers.show(appMessage);
 		}
-		var heading = '<h1 style="text-align:center;">Recent Messages</h1>';
-		messages.innerHTML = heading+mStr; 
-		return;
+		if(count){
+		    var heading = '<h1 style="text-align:center;">Recent Messages</h1>';
+		    messages.innerHTML = heading+mStr; 
+		    return;
+		}
 	    }
 	    
 	    if(cursor){
