@@ -75,12 +75,12 @@ var search = function(e){
     var term = e.value;
     var searchResult = helpers.id("searchResult");
     searchResult.innerHTML = '';
-    if(term.charAt(0)==="@"){
+    if(term.charAt(0)==="@"&&term.length>=2){
 	console.log("search user");
 	var res = searchTerm("sent",term.slice(1,term.length).trim());
 	searchResult.innerHTML = '<ul style="list-style:none">'+res+'</ul>';
     }
-    if(term.charAt(0)==="#"){
+    if(term.charAt(0)==="#"&&term.length>=2){
 	var result = searchTerm("tags",term.slice(1,term.length).trim());
 	console.log(result);
 	searchResult.innerHTML = '<ul style="list-style:none">'+result+'</ul>';
