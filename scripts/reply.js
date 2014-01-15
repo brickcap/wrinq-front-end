@@ -36,7 +36,7 @@ function send(e){
 
 
 function reply(e){
-    var parent = e.parentNode.parentNode.parentNode.parentNode;
+    var parent = e.parentNode.parentNode.parentNode;
     var to = parent.getAttribute("data-to");
     var tags = parent.getAttribute("data-tags");
     var sendError = helpers.id("sendError");
