@@ -68,7 +68,6 @@ function buildProfile(to,messagePacket){
 
 function save(item,key){
     var exists = localStorage.getItem(key);
-    console.log(typeof exists);
     if(!exists && item){
 	var a = [];
 	a.push(item);
@@ -78,7 +77,6 @@ function save(item,key){
     }
     if(exists && item){
 	var parsed = JSON.parse(exists);
-	console.log(parsed);
 	if(parsed.indexOf(item)<0){
 	    parsed.push(item);	    
 	    localStorage.setItem(key,JSON.stringify(parsed));

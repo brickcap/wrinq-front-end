@@ -5,9 +5,9 @@ helpers.show(formDiv);
 };
 
 var loginClick = function(){
-helpers.hide(splashDiv);
-formDiv.innerHTML= domElements.loginForm;
-helpers.show(formDiv);
+    helpers.hide(splashDiv);
+    formDiv.innerHTML= domElements.loginForm;
+    helpers.show(formDiv);
 };
 
 var submitAjax = function(e,f){
@@ -41,7 +41,7 @@ var checkUser = function(e){
 };
 function check(e){
     btnSend.disabed = true;
-        if(!e.value) return;
+    if(!e.value) return;
     var ajaxObject = {
 	url: '/checkuser?name="'+e.value+'"',
 	method: 'GET',
@@ -62,10 +62,21 @@ function check(e){
 var clearMessages = function(){
     var message = helpers.id("message");
     message.innerHTML = '';
-   
+    
 };
 
 var showUnread = function(e){
     helpers.hide(e);
     helpers.buildMessages();
+};
+
+var search = function(e){
+    
+    var term = e.value;
+    if(term.charAt(0)==="@"){
+	console.log("search user");
+    }
+    if(term.charAt(0)==="#"){
+	console.log("search tag");
+    }
 };

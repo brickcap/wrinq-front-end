@@ -27,7 +27,7 @@
         <!-- <span title="tags">#</span> -->
 	
       </div>
-      <input type="text" placeholder="Search (@contact / #tag)" id="search" autocomplete="off"/>
+      <input type="text" onkeyup="search(this)"  placeholder="Search (@contact / #tag)" id="search" autocomplete="off"/>
       <div id="appMessage" style="display:none;"></div>
       <div id = "appBody">
 	<div id="unread" class="details center-div" onclick="showUnread(this)"></div>
