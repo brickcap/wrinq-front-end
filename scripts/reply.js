@@ -29,7 +29,8 @@ function send(e){
     var packet =  helpers.saveMessage(buildDate(messagePacket),to);
     save(to,"sent");
     if(tags)save(tags,"tags");
-    messages.innerHTML = domElements.incomingMessage(packet)+message.innerHTML; 
+    messages.innerHTML = domElements.incomingMessage(packet)+messages.innerHTML; 
+    showActivity();
     return;
 };
 
@@ -51,7 +52,8 @@ function reply(e){
     var packet=  helpers.saveMessage(buildDate(messagePacket),to);
     save(to,"sent");
     if(tags)save(tags,"tags");
-    messages.innerHTML = domElements.incomingMessage(packet)+message.innerHTML; 
+    messages.innerHTML = domElements.incomingMessage(packet)+messages.innerHTML; 
+    showActivity();
     return;
 };
 
