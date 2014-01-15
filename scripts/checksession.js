@@ -18,29 +18,7 @@ var checkSession = function(){
 	    }
 	    prf = e.target.result;
 	};
-	var messageStore = getStore('messages','readonly');
-	var count = 0;
-	var mStr ='';	
-	messageStore.openCursor(null,'prev').onsuccess = function(e){
-	    var cursor = e.target.result;
-	   
-	    if(count===10||!cursor){
-		if(!count){
-		   return;
-		}
-		if(count){
-		    messages.innerHTML = mStr; 
-		    return;
-		}
-	    }
-	    
-	    if(cursor){
-		mStr = mStr+domElements.incomingMessage(cursor.value);
-		cursor.continue();
-		count++;
-	    }  
-	    
-	};
+	helpers.buildMessages();
 	socket=	socketManager(e.target.result.session);
     };
     

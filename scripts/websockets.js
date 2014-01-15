@@ -12,16 +12,15 @@ var socketManager  = function(sess){
 	    var messageArray = message.msgs;	    
 	    var length = messageArray.length;
 	    var i =0;
-	    var mStr = '';
+	   
 	    for(i;i<length;i++){
 		
 		var parsed = JSON.parse(messageArray[i]);
 		var m = helpers.addProfile(parsed);
 		helpers.saveMessage(m);
-		console.log(m);
-		messages.innerHTMl = domElements.incomingMessage(m) + messages.innerHTMl;
 	    }
-	   
+	   var info =  length>1?" message was sent while you were offline":" messages were sent while you were offline";
+	    helpers.id("unread").innerHTML = length + info;
 	    socket.send(JSON.stringify({"delmsg":1}));
 	    return;
 	}

@@ -65,3 +65,7 @@ var clearMessages = function(){
    
 };
 
+var showUnread = function(e){
+    helpers.hide(e);
+    helpers.buildMessages();
+};
