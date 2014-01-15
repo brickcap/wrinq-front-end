@@ -72,10 +72,10 @@ var helpers = {
     },
     output: function(input){
 	
-	var newline = /(\n|\r)/g;
+	var newline = /(\n{2}|\r{2})/g;
 	var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?*=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 	
-	var output=  input.replace(newline,"<br/>").replace(urlRegex,function(url){
+	var output=  input.replace(newline,"<br/><br/>").replace(urlRegex,function(url){
 	    if (( url.indexOf(".jpg") > 0 )||(url.indexOf(".jpeg") > 0 ) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) return '<br/><img src="' + url + '"><br/>';
 	    else 
 	    {
@@ -339,7 +339,7 @@ var domElements = {
 	var mTime = (m.hour>=12)?m.hour-12+':'+min+'PM':m.hour+':'+min+' AM';
 	var hDate = helpers.humanDate(new Date(m.year,m.month-1,m.day,m.hour,parseInt(m.min),parseInt(m.sec)));
 	var det =function(){
-	    var name = m.hasOwnProperty("to")?"<span onclick='showConversation(this)'><em>(to:"+m.to+")</em></span>":"<span onclick='showConversation(this)' class='details'><em>"+m.f+":"+"</em></span>";
+	    var name = m.hasOwnProperty("to")?"<span onclick='showConversation(this)'>you,<em class='details'>"+m.to+"</em>:</span>":"<span onclick='showConversation(this)' class='details'><em>"+m.f+":"+"</em></span>";
 	    if(!m.m.p) return name;
 	    if(!m.m.p.hasOwnProperty("pic")) return name;
 	    if(m.m.p.hasOwnProperty("pic")) return "<img  class='img-span' src="+m.m.p.pic+"</img>" + name;
@@ -348,7 +348,7 @@ var domElements = {
 	var rBtn = m.hasOwnProperty("to")?'':"<p><button onclick='addCommentBox(this)'>reply</button></p>";
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
-	if(tag) save(tag,"tags");
+	save(tag,"tags");
 	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span class="date">'+hDate+'</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span></p>'+rBtn+'</div></div>';
 	return ms;
     }
@@ -507,7 +507,7 @@ function save(item,key){
 	localStorage.setItem(key,exists);
 	return;
     }
-    if(exists){
+    if(exists && item){
 	var parsed = JSON.parse(exists);
 	if(!parsed.indexOf(item)){
 	    parsed.push(item);

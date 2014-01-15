@@ -72,10 +72,10 @@ var helpers = {
     },
     output: function(input){
 	
-	var newline = /(\n|\r)/g;
+	var newline = /(\n{2}|\r{2})/g;
 	var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?*=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 	
-	var output=  input.replace(newline,"<br/>").replace(urlRegex,function(url){
+	var output=  input.replace(newline,"<br/><br/>").replace(urlRegex,function(url){
 	    if (( url.indexOf(".jpg") > 0 )||(url.indexOf(".jpeg") > 0 ) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) return '<br/><img src="' + url + '"><br/>';
 	    else 
 	    {

@@ -74,7 +74,7 @@ function save(item,key){
 	localStorage.setItem(key,exists);
 	return;
     }
-    if(exists){
+    if(exists && item){
 	var parsed = JSON.parse(exists);
 	if(!parsed.indexOf(item)){
 	    parsed.push(item);
