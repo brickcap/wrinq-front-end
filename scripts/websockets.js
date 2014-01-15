@@ -19,7 +19,7 @@ var socketManager  = function(sess){
 		var m = helpers.addProfile(parsed);
 		helpers.saveMessage(m);
 	    }
-	   var info = length>=1?" 1 message was sent while you were offline":" messages were sent while you were offline";
+	   var info = length>=1?" message was sent while you were offline":" messages were sent while you were offline";
 	    helpers.id("unread").innerHTML = length + info;
 	    socket.send(JSON.stringify({"delmsg":1}));
 	    return;

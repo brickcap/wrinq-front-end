@@ -53,7 +53,8 @@ function reply(e){
     save(to,"sent");
     if(tags)save(tags,"tags");
     messages.innerHTML = domElements.incomingMessage(packet)+messages.innerHTML; 
-    showActivity();
+    e.parentNode.parentNode.innerHTML = '<button  onclick = "addCommentBox(this)">reply</button>';
+    menu.scrollIntoView();
     return;
 };
 
