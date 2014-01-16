@@ -14,6 +14,7 @@ var conversation = helpers.id("conversation");
 var tagDiv = helpers.id("tag");
 var sIn = helpers.id("search");
 var menu = helpers.id("menu");
+var contactDiv = helpers.id("contact");
 var openRequest = indexedDB.open("wrinq", 1);
 var prf;
 var database;

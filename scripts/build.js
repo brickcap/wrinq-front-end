@@ -12,6 +12,7 @@ var scripts = [
     'reply.js',
     'between.js',
     'tag.js',
+    'contactProfile.js',
     'sendMessage.js',
     'activity.js'    
 ];
