@@ -459,10 +459,6 @@ function searchTerm(key,term){
     return li;
 }
 
-function morePagesIndex(pno){
-helpers.buildMessages(pno);
-}
-
 function autoGrow (oField) {
     if (oField.scrollHeight > oField.clientHeight) {
 	oField.style.height = oField.scrollHeight + "px";
@@ -687,12 +683,13 @@ function morePagesIndex(end,e){
     helpers.hide(e);
     var messageStore = getStore('messages','readonly');
     var count = 0;
-    var mStr ='';	
+    var mStr =[];
+    console.log(typeof mStr);
     messageStore.openCursor().onsuccess = function(e){
 	var cursor = e.target.result;
 	if(end>20)cursor.skip(20-end);
 	console.log(cursor.key);
-	if(count===end||!cursor){
+	if(count===end-1||!cursor){
 	    if(!count){
 		return;
 	    }
@@ -700,14 +697,14 @@ function morePagesIndex(end,e){
 		var needMore = count===20? function(){ 
 		    return '<p style="text-align:center" class="details" onclick="morePagesIndex('+cursor.key+',this)">more</p>';
 		}():'';
-		messages.innerHTML = messages.innerHTML+ mStr+needMore;
+		messages.innerHTML = messages.innerHTML+ mStr.reverse().join('')+needMore;
 		return;
 	    }
 	}
 	
 	if(cursor){
 	   
-	    mStr = mStr+domElements.incomingMessage(cursor.value);
+	    mStr.push(domElements.incomingMessage(cursor.value));
 	    cursor.continue();
 	    count++;
 	}  
