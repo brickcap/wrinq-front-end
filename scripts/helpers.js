@@ -98,20 +98,18 @@ var helpers = {
 	}
 	return message;
     },
-    buildMessages: function(page){
+    buildMessages: function(){
 	var messageStore = getStore('messages','readonly');
 	var count = 0;
 	var mStr ='';	
-	var pNo = page?page:1;
 	messageStore.openCursor(null,'prev').onsuccess = function(e){
 	    var cursor = e.target.result;
-	    if(pNo>1) cursor.advance(20*pNo+1);
-	    if(count>20||!cursor){
+	    if(count===20||!cursor){
 		if(!count){
 		    return;
 		}
 		if(count){
-		    var needMore = count===20?'<p style="text-align:center" class="details" onclick="morePagesIndex('+(pNo++)+')">more</p>':'';
+		    var needMore = count===20?'<p style="text-align:center" class="details" onclick="morePagesIndex('+cursor.key+',this)">more</p>':'';
 		    messages.innerHTML = mStr+needMore;
 		    showActivity();
 		    return;

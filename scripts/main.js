@@ -101,7 +101,3 @@ function searchTerm(key,term){
     }
     return li;
 }
-
-function morePagesIndex(pno){
-helpers.buildMessages(pno);
-}
