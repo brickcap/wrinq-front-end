@@ -9,7 +9,6 @@ function showTag(e){
 }
 
 function buildTag(t){
-    console.log(t);
     var mStore = getStore('messages','readonly');
     var mIndex = mStore.index("tag");
     var keyRange = IDBKeyRange.only(t);
