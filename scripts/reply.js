@@ -18,11 +18,9 @@ function send(e){
     var to = document.getElementsByName("to")[0].value;
     var tags = document.getElementsByName("tag")[0].value;
     var temp = document.createElement("div");
-    var tmsg = document.getElementsByName("message")[0].value;
-    console.log(tmsg);
-    temp.innerHTML = tmsg;
+    temp.innerHTML = document.getElementsByName("message")[0].value;
     var message = temp.innerText||temp.textContent;
-    if(!tmsg){
+    if(!message){
 	e.parentNode.parentNode.innerHTML += '<p>The message can not be empty</p>';   
 	return;
     }
@@ -44,7 +42,9 @@ function reply(e){
     var tags = parent.getAttribute("data-tags");
     var sendError = helpers.id("sendError");
     if(sendError)helpers.hide(sendError);
-    var message = document.getElementsByName("reply")[0].value;
+    var temp = document.createElement("div");
+    temp.innerHTML = document.getElementsByName("reply")[0].value;
+    var message = temp.innerText||temp.textContent;
     if(!message){
 	e.parentNode.parentNode.innerHTML += '<p>The message can not be empty</p>';
 	return;
