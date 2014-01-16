@@ -25,7 +25,8 @@ function buildTag(t){
 	}
 	if(!item||count===20){
 	    var heading = '<h1 class="center-div">Messages Tagged as '+t+'</h1>';
-	    tagDiv.innerHTML = heading+mStr+'<p style="text-align:center" class="details" data-page="'+1+'">more</p>';
+	    var needMore = count===20?'<p style="text-align:center" class="details" data-page="'+1+'">more</p>':'';
+	    tagDiv.innerHTML = heading+mStr+needMore;
    
 	    menu.scrollIntoView();
 

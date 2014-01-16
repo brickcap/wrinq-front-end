@@ -110,7 +110,8 @@ var helpers = {
 		    return;
 		}
 		if(count){
-		    messages.innerHTML = mStr+'<p style="text-align:center" class="details" data-page="'+1+'">more</p>';
+		    var needMore = count===20?'<p style="text-align:center" class="details" data-page="'+1+'">more</p>':'';
+		    messages.innerHTML = mStr+needMore;
 		    showActivity();
 		    return;
 		}

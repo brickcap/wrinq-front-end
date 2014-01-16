@@ -29,7 +29,8 @@ function buildMessages(to){
 	}
 	if(!item||count===20){
 	    var heading = '<h1 class="center-div">Your conversation with '+to+'</h1>';
-	    conversation.innerHTML = heading+mStr+'<p style="text-align:center" class="details" data-page="'+1+'">more</p>';
+	    var needMore = count===20?'<p style="text-align:center" class="details" data-page="'+1+'">more</p>':'';
+	    conversation.innerHTML = heading+mStr+needMore;
 	    menu.scrollIntoView();
 	}
     };

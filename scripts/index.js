@@ -110,7 +110,8 @@ var helpers = {
 		    return;
 		}
 		if(count){
-		    messages.innerHTML = mStr+'<p style="text-align:center" class="details" data-page="'+1+'">more</p>';
+		    var needMore = count===20?'<p style="text-align:center" class="details" data-page="'+1+'">more</p>':'';
+		    messages.innerHTML = mStr+needMore;
 		    showActivity();
 		    return;
 		}
@@ -594,7 +595,8 @@ function buildMessages(to){
 	}
 	if(!item||count===20){
 	    var heading = '<h1 class="center-div">Your conversation with '+to+'</h1>';
-	    conversation.innerHTML = heading+mStr+'<p style="text-align:center" class="details" data-page="'+1+'">more</p>';
+	    var needMore = count===20?'<p style="text-align:center" class="details" data-page="'+1+'">more</p>':'';
+	    conversation.innerHTML = heading+mStr+needMore;
 	    menu.scrollIntoView();
 	}
     };
@@ -627,7 +629,9 @@ function buildTag(t){
 	}
 	if(!item||count===20){
 	    var heading = '<h1 class="center-div">Messages Tagged as '+t+'</h1>';
-	    tagDiv.innerHTML = heading+mStr+'<p style="text-align:center" class="details" data-page="'+1+'">more</p>';   
+	    var needMore = count===20?'<p style="text-align:center" class="details" data-page="'+1+'">more</p>':'';
+	    tagDiv.innerHTML = heading+mStr+needMore;
+   
 	    menu.scrollIntoView();
 
 	}
