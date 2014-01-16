@@ -21,9 +21,7 @@ function morePagesIndex(end,e){
 		return;
 	    }
 	    if(count){
-		var needMore = count===20? function(){ 
-		    return '<p style="text-align:center" class="details" onclick="morePagesIndex('+cursor.key+',this)">more</p>';
-		}():'';
+		var needMore = count===20?'<p style="text-align:center" class="details" onclick="morePagesIndex('+cursor.key+',this)">more</p>':'';
 		messages.innerHTML = messages.innerHTML+ mStr.reverse().join('')+needMore;
 		return;
 	    }
