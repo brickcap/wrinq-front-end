@@ -75,7 +75,7 @@ var helpers = {
 	var newline = /(\n{2}|\r{2})/g;
 	var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?*=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 	
-	var output=  input.replace(newline,"<br/><br/>").replace(urlRegex,function(url){
+	var output=  input.replace(newline,"<br>").replace(urlRegex,function(url){
 	    if (( url.indexOf(".jpg") > 0 )||(url.indexOf(".jpeg") > 0 ) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) return '<br/><img src="' + url + '"><br/>';
 	    return '<a href="' + url + '">' + url + '</a>';
 	});
@@ -105,7 +105,7 @@ var helpers = {
 	messageStore.openCursor(null,'prev').onsuccess = function(e){
 	    var cursor = e.target.result;
 	    
-	    if(count===10||!cursor){
+	    if(count>20||!cursor){
 		if(!count){
 		    return;
 		}

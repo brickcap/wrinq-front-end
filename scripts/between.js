@@ -18,12 +18,12 @@ function buildMessages(to){
     //use cursor.advance(int);
     cursor.onsuccess = function(e){
 	var item = e.target.result;
-	if(item && count!=10){
+	if(item && count!=20){
 	    item.continue();
 	    mStr = mStr + domElements.incomingMessage(item.value);
 	    count++;
 	}
-	if(!item||count===10){
+	if(!item||count===20){
 	    var heading = '<h1 class="center-div">Your conversation with '+to+'</h1>';
 	    conversation.innerHTML = heading+mStr;
 	    menu.scrollIntoView();

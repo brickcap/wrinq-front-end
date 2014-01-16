@@ -75,7 +75,7 @@ var helpers = {
 	var newline = /(\n{2}|\r{2})/g;
 	var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?*=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 	
-	var output=  input.replace(newline,"<br/><br/>").replace(urlRegex,function(url){
+	var output=  input.replace(newline,"<br>").replace(urlRegex,function(url){
 	    if (( url.indexOf(".jpg") > 0 )||(url.indexOf(".jpeg") > 0 ) || (url.indexOf(".png") > 0) || (url.indexOf(".gif") > 0)) return '<br/><img src="' + url + '"><br/>';
 	    return '<a href="' + url + '">' + url + '</a>';
 	});
@@ -105,7 +105,7 @@ var helpers = {
 	messageStore.openCursor(null,'prev').onsuccess = function(e){
 	    var cursor = e.target.result;
 	    
-	    if(count===10||!cursor){
+	    if(count>20||!cursor){
 		if(!count){
 		    return;
 		}
@@ -277,7 +277,7 @@ var socketManager  = function(sess){
 		var m = helpers.addProfile(parsed);
 		helpers.saveMessage(m);
 	    }
-	   var info = length>=1?" 1 message was sent while you were offline":" messages were sent while you were offline";
+	   var info = length>=1?" message was sent while you were offline":" messages were sent while you were offline";
 	    helpers.id("unread").innerHTML = length + info;
 	    socket.send(JSON.stringify({"delmsg":1}));
 	    return;
@@ -345,7 +345,7 @@ var domElements = {
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
 	if(tag)save(tag,"tags");
-	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff"/><p><span>'+det()+'</span><span class="date">'+hDate+'</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span></p>'+rBtn+'</div></div>';
+	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff; margin-bottom:0px;"/><p><span>'+det()+'</span><span class="date">'+hDate+'</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span></p>'+rBtn+'</div></div>';
 	return ms;
     }
 
@@ -514,7 +514,8 @@ function reply(e){
     save(to,"sent");
     if(tags)save(tags,"tags");
     messages.innerHTML = domElements.incomingMessage(packet)+messages.innerHTML; 
-    showActivity();
+    e.parentNode.parentNode.innerHTML = '<button  onclick = "addCommentBox(this)">reply</button>';
+    menu.scrollIntoView();
     return;
 };
 
@@ -582,12 +583,12 @@ function buildMessages(to){
     //use cursor.advance(int);
     cursor.onsuccess = function(e){
 	var item = e.target.result;
-	if(item && count!=10){
+	if(item && count!=20){
 	    item.continue();
 	    mStr = mStr + domElements.incomingMessage(item.value);
 	    count++;
 	}
-	if(!item||count===10){
+	if(!item||count===20){
 	    var heading = '<h1 class="center-div">Your conversation with '+to+'</h1>';
 	    conversation.innerHTML = heading+mStr;
 	    menu.scrollIntoView();
@@ -615,12 +616,12 @@ function buildTag(t){
     //use cursor.advance(int);
     cursor.onsuccess = function(e){
 	var item = e.target.result;
-	if(item && count!=10){
+	if(item && count!=20){
 	    item.continue();
 	    count++;
 	    mStr = mStr + domElements.incomingMessage(item.value);
 	}
-	if(!item||count===10){
+	if(!item||count===20){
 	    var heading = '<h1 class="center-div">Messages Tagged as '+t+'</h1>';
 	    tagDiv.innerHTML = heading+mStr;   
 	    menu.scrollIntoView();

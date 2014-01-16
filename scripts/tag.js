@@ -18,12 +18,12 @@ function buildTag(t){
     //use cursor.advance(int);
     cursor.onsuccess = function(e){
 	var item = e.target.result;
-	if(item && count!=10){
+	if(item && count!=20){
 	    item.continue();
 	    count++;
 	    mStr = mStr + domElements.incomingMessage(item.value);
 	}
-	if(!item||count===10){
+	if(!item||count===20){
 	    var heading = '<h1 class="center-div">Messages Tagged as '+t+'</h1>';
 	    tagDiv.innerHTML = heading+mStr;   
 	    menu.scrollIntoView();
