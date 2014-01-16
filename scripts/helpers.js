@@ -98,10 +98,11 @@ var helpers = {
 	}
 	return message;
     },
-    buildMessages: function(){
+    buildMessages: function(page){
 	var messageStore = getStore('messages','readonly');
 	var count = 0;
 	var mStr ='';	
+	var pNo = page?page:1;
 	messageStore.openCursor(null,'prev').onsuccess = function(e){
 	    var cursor = e.target.result;
 	    
@@ -110,7 +111,7 @@ var helpers = {
 		    return;
 		}
 		if(count){
-		    var needMore = count===20?'<p style="text-align:center" class="details" data-page="'+1+'">more</p>':'';
+		    var needMore = count===20?'<p style="text-align:center" class="details" data-page="'+pNo+'">more</p>':'';
 		    messages.innerHTML = mStr+needMore;
 		    showActivity();
 		    return;
