@@ -5,7 +5,7 @@ function showConversation(e){
 
     sIn.value='';
     helpers.id("searchResult").innerHTML='';
-    helpers.hideM([sendMessage,messages,tagDiv]);
+    helpers.hideM([sendMessage,messages,tagDiv,contactDiv]);
     helpers.show(conversation);   
     buildMessages(to);
 };
@@ -28,7 +28,8 @@ function buildMessages(to){
 	    count++;
 	}
 	if(!item||count===20){
-	    var heading = '<h1 class="center-div">Your conversation with '+to+'</h1>';
+	    var pSpan = '<span class="details" data-to="'+to+'" onclick=showContact(this)>'+to+'</span>';
+	    var heading = '<h1 class="center-div">Your conversation with '+pSpan+'</h1>';
 	    var needMore = count===20?'<p style="text-align:center" class="details" onclick="moreBIndex('+1+",'"+to+"',this)"+'">more</p>':'';
 	    conversation.innerHTML = heading+mStr+needMore;
 	    menu.scrollIntoView();

@@ -1,5 +1,5 @@
 function  showActivity(){
-    helpers.hideM([sendMessage,conversation,tagDiv]);
+    helpers.hideM([sendMessage,conversation,tagDiv,contactDiv]);
     helpers.show(messages);
     menu.scrollIntoView();
 };

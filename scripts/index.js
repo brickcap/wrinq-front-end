@@ -573,7 +573,7 @@ function showConversation(e){
 
     sIn.value='';
     helpers.id("searchResult").innerHTML='';
-    helpers.hideM([sendMessage,messages,tagDiv]);
+    helpers.hideM([sendMessage,messages,tagDiv,contactDiv]);
     helpers.show(conversation);   
     buildMessages(to);
 };
@@ -596,7 +596,8 @@ function buildMessages(to){
 	    count++;
 	}
 	if(!item||count===20){
-	    var heading = '<h1 class="center-div">Your conversation with '+to+'</h1>';
+	    var pSpan = '<span class="details" data-to="'+to+'" onclick=showContact(this)>'+to+'</span>';
+	    var heading = '<h1 class="center-div">Your conversation with '+pSpan+'</h1>';
 	    var needMore = count===20?'<p style="text-align:center" class="details" onclick="moreBIndex('+1+",'"+to+"',this)"+'">more</p>':'';
 	    conversation.innerHTML = heading+mStr+needMore;
 	    menu.scrollIntoView();
@@ -642,7 +643,7 @@ function showTag(e){
     helpers.id("searchResult").innerHTML='';
     var tag = e.getAttribute("data-tag") 
 	    || e.parentNode.parentNode.getAttribute("data-tag");
-    helpers.hideM([sendMessage,messages,conversation]);
+    helpers.hideM([sendMessage,messages,conversation,contactDiv]);
     helpers.show(tagDiv);
     buildTag(tag);
 }
@@ -709,35 +710,38 @@ function moreTagsIndex(end,t,e){
 function showContact(e){
     helpers.hideM([sendMessage,messages,conversation]);
     helpers.show(contactDiv);
-    var of = e.parentNode.parentNode.parentNode.getAttribute("data-to");
+    var of = e.parentNode.parentNode.parentNode.getAttribute("data-to")
+	    ||e.getAttribute("data-to");
     buildContactProfile(of,e);
 }
 
 function buildContactProfile(of,e){
-   
+    
     var mStore = getStore('messages','readonly');
     var mIndex = mStore.index("between");
     var keyRange = IDBKeyRange.only(of);
     var cursor = mIndex.openCursor(keyRange,'prev');
     cursor.onsuccess = function(e){
 	var item = e.target.result.value;
-	console.log(e);
-	if(item.m.p.hasOwnProperty("pic"))contactDiv.innerHTML = "<img src = '"+item.m.p.pic+"'/>";
-	if(item.m.p.hasOwnProperty("n")) contactDiv.innerHTML = contactDiv.innerHTML + '<p>' +item.m.p.n+'</p>';
-	if(item.m.p.hasOwnProperty("a")) contactDiv.innerHTML = contactDiv.innerHTML + '<p>' +item.m.p.a+'</p>';
+
+	contactDiv.innerHTML='';
+	if(item.m.p.hasOwnProperty("pic"))contactDiv.innerHTML = contactDiv.innerHTML+ "<img src = '"+item.m.p.pic+"'/>";
+	contactDiv.innerHTML = contactDiv.innerHTML+ '<p class="details" onclick="showConversation(this)" data-to="'+of+'">user: ' +of+'</p>';
+	if(item.m.p.hasOwnProperty("n")) contactDiv.innerHTML = contactDiv.innerHTML + '<p>Name: ' +item.m.p.n+'</p>';
+	if(item.m.p.hasOwnProperty("a")) contactDiv.innerHTML = contactDiv.innerHTML + '<p>about: ' +item.m.p.a+'</p><hr>';
 	console.log(item);
     };
 }
 
 function messageBox(){
-helpers.hideM([messages,conversation,tagDiv]);
+helpers.hideM([messages,conversation,tagDiv,contactDiv]);
 sendMessage.innerHTML = domElements.sendMessage;
 helpers.show(sendMessage);
 };
 
 
 function  showActivity(){
-    helpers.hideM([sendMessage,conversation,tagDiv]);
+    helpers.hideM([sendMessage,conversation,tagDiv,contactDiv]);
     helpers.show(messages);
     menu.scrollIntoView();
 };

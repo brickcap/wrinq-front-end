@@ -3,7 +3,7 @@ function showTag(e){
     helpers.id("searchResult").innerHTML='';
     var tag = e.getAttribute("data-tag") 
 	    || e.parentNode.parentNode.getAttribute("data-tag");
-    helpers.hideM([sendMessage,messages,conversation]);
+    helpers.hideM([sendMessage,messages,conversation,contactDiv]);
     helpers.show(tagDiv);
     buildTag(tag);
 }
