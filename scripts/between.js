@@ -22,6 +22,7 @@ function buildMessages(to,page){
     //use cursor.advance(int);
     cursor.onsuccess = function(e){
 	var item = e.target.result;
+	if(pNo>1) cursor.advance(20*pNo+1);
 	if(item && count!=20){
 	    item.continue();
 	    mStr = mStr + domElements.incomingMessage(item.value);

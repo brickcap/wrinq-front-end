@@ -105,7 +105,7 @@ var helpers = {
 	var pNo = page?page:1;
 	messageStore.openCursor(null,'prev').onsuccess = function(e){
 	    var cursor = e.target.result;
-	    
+	    if(pNo>1) cursor.advance(20*pNo+1);
 	    if(count>20||!cursor){
 		if(!count){
 		    return;

@@ -19,6 +19,7 @@ function buildTag(t,page){
     //use cursor.advance(int);
     cursor.onsuccess = function(e){
 	var item = e.target.result;
+	 if(pNo>1) cursor.advance(20*pNo+1);
 	if(item && count!=20){
 	    item.continue();
 	    count++;
