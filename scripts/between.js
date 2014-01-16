@@ -29,14 +29,14 @@ function buildMessages(to){
 	}
 	if(!item||count===20){
 	    var heading = '<h1 class="center-div">Your conversation with '+to+'</h1>';
-	    var needMore = count===20?'<p style="text-align:center" class="details" onclick="moreTagsIndex('+1+",'"+to+"',this)"+'">more</p>':'';
+	    var needMore = count===20?'<p style="text-align:center" class="details" onclick="moreBIndex('+1+",'"+to+"',this)"+'">more</p>':'';
 	    conversation.innerHTML = heading+mStr+needMore;
 	    menu.scrollIntoView();
 	}
     };
 }
 
-function moreTagsIndex(end,to,e){  
+function moreBIndex(end,to,e){  
     helpers.hide(e);
     var messageStore = getStore('messages','readonly');
     var mIndex = messageStore.index("between");

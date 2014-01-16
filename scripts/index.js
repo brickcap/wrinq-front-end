@@ -597,14 +597,14 @@ function buildMessages(to){
 	}
 	if(!item||count===20){
 	    var heading = '<h1 class="center-div">Your conversation with '+to+'</h1>';
-	    var needMore = count===20?'<p style="text-align:center" class="details" onclick="moreTagsIndex('+1+",'"+to+"',this)"+'">more</p>':'';
+	    var needMore = count===20?'<p style="text-align:center" class="details" onclick="moreBIndex('+1+",'"+to+"',this)"+'">more</p>':'';
 	    conversation.innerHTML = heading+mStr+needMore;
 	    menu.scrollIntoView();
 	}
     };
 }
 
-function moreTagsIndex(end,to,e){  
+function moreBIndex(end,to,e){  
     helpers.hide(e);
     var messageStore = getStore('messages','readonly');
     var mIndex = messageStore.index("between");
@@ -647,18 +647,16 @@ function showTag(e){
     buildTag(tag);
 }
 
-function buildTag(t,page){
+function buildTag(t){
     var mStore = getStore('messages','readonly');
     var mIndex = mStore.index("tag");
     var keyRange = IDBKeyRange.only(t);
     var cursor = mIndex.openCursor(keyRange,'prev');
     var count = 0;
     var mStr='';
-    var pNo = page?page:1;
-    //use cursor.advance(int);
+   
     cursor.onsuccess = function(e){
 	var item = e.target.result;
-	 if(pNo>1) cursor.advance(20*pNo+1);
 	if(item && count!=20){
 	    item.continue();
 	    count++;
@@ -666,7 +664,7 @@ function buildTag(t,page){
 	}
 	if(!item||count===20){
 	    var heading = '<h1 class="center-div">Messages Tagged as '+t+'</h1>';
-	    var needMore = count===20?'<p style="text-align:center" class="details" data-page="'+pNo+'">more</p>':'';
+	    var needMore = count===20?'<p style="text-align:center" class="details" onclick="moreTagsIndex('+1+",'"+t+"',this)"+'">more</p>':'';
 	    tagDiv.innerHTML = heading+mStr+needMore;
    
 	    menu.scrollIntoView();
@@ -675,6 +673,38 @@ function buildTag(t,page){
     };
 }
 
+function moreTagsIndex(end,t,e){  
+    helpers.hide(e);
+    var messageStore = getStore('messages','readonly');
+    var mIndex = messageStore.index("tag");
+    var count = 0;
+    var mStr =[];
+    var keyRange = IDBKeyRange.only(t);
+    var cursor = mIndex.openCursor(keyRange,'prev');
+    var skip = (end*20);
+    var nextCount = 20*(end+1);
+    cursor.onsuccess = function(e){
+	var cursor = e.target.result;
+	if(count===nextCount||!cursor){
+	    console.log(cursor);
+	    var needMore = count>=nextCount?function(){
+		end++;
+		return '<p style="text-align:center" class="details" onclick="moreTagsIndex('+end+",'"+t+"',this)"+'">more</p>';
+	    }():'';
+	   tagDiv.innerHTML = tagDiv.innerHTML+ mStr.join('')+needMore;
+	    return;
+	    
+	}
+	
+	if(cursor){
+	  
+	   if(count>=skip) mStr.push(domElements.incomingMessage(cursor.value));
+	    cursor.continue();
+	    count++;
+	}  
+	
+    };
+}
 
 function showContact(e){
     helpers.hideM([sendMessage,messages,conversation]);
