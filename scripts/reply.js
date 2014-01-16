@@ -18,11 +18,14 @@ function send(e){
     var to = document.getElementsByName("to")[0].value;
     var tags = document.getElementsByName("tag")[0].value;
     var temp = document.createElement("div");
-    temp.innerHTML = document.getElementsByName("message")[0].value;
+    var tmsg = document.getElementsByName("message")[0].value;
+    console.log(tmsg);
+    temp.innerHTML = tmsg;
     var message = temp.innerText||temp.textContent;
-    if(!to||!message){
+    if(!tmsg){
 	e.parentNode.parentNode.innerHTML += '<p>The message can not be empty</p>';   
- }
+	return;
+    }
     var messagePacket = {"to":to, "m":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
@@ -41,7 +44,7 @@ function reply(e){
     var tags = parent.getAttribute("data-tags");
     var sendError = helpers.id("sendError");
     if(sendError)helpers.hide(sendError);
-    var message = document.getElementsByName("message")[0].value;
+    var message = document.getElementsByName("reply")[0].value;
     if(!message){
 	e.parentNode.parentNode.innerHTML += '<p>The message can not be empty</p>';
 	return;

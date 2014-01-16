@@ -111,7 +111,7 @@ var helpers = {
 		    return;
 		}
 		if(count){
-		    var needMore = count===20?'<p style="text-align:center" class="details" data-page="'+pNo+'">more</p>':'';
+		    var needMore = count===20?'<p style="text-align:center" class="details" onclick="morePagesIndex('+(pNo++)+')">more</p>':'';
 		    messages.innerHTML = mStr+needMore;
 		    showActivity();
 		    return;
@@ -322,7 +322,7 @@ var domElements = {
 
     'loginForm': '<form  method="POST" id="loginForm" onsubmit="submitAjax(event,this)"><p><input type="text" name="username" value="" placeholder="username"  required/></p><p><input type="password" name="password" value="" placeholder="password"  required/></p><p><input type="submit" id="submitButton" name="" value="login"/></p></form><p id= "message"></p><p ><span class ="underline-spans" onclick ="signUpClick()">or sign-up<span></p>',
 
-    'commentBox':'<div class="box"><p><textarea rows="5" name="message" placeholder="your message" onkeyup="autoGrow(this)"></textarea></p></div> <span><button type="button" onclick="reply(this)" id="btnReply disabled">post</button></span><span><button type="button" onclick="removeCommentBox(this)">cancel</button>',
+    'commentBox':'<div class="box"><p><textarea rows="5" name="reply" placeholder="your message" onkeyup="autoGrow(this)"></textarea></p></div> <span><button type="button" onclick="reply(this)" id="btnReply disabled">post</button></span><span><button type="button" onclick="removeCommentBox(this)">cancel</button>',
 
     'contact' : function(o){
 	var temp = '<div class="contacts"><h1 style="text-align:center;">contacts</h1></div>';
@@ -461,6 +461,10 @@ function searchTerm(key,term){
     return li;
 }
 
+function morePagesIndex(pno){
+helpers.buildMessages(pno);
+}
+
 function autoGrow (oField) {
     if (oField.scrollHeight > oField.clientHeight) {
 	oField.style.height = oField.scrollHeight + "px";
@@ -481,11 +485,14 @@ function send(e){
     var to = document.getElementsByName("to")[0].value;
     var tags = document.getElementsByName("tag")[0].value;
     var temp = document.createElement("div");
-    temp.innerHTML = document.getElementsByName("message")[0].value;
+    var tmsg = document.getElementsByName("message")[0].value;
+    console.log(tmsg);
+    temp.innerHTML = tmsg;
     var message = temp.innerText||temp.textContent;
-    if(!to||!message){
+    if(!tmsg){
 	e.parentNode.parentNode.innerHTML += '<p>The message can not be empty</p>';   
- }
+	return;
+    }
     var messagePacket = {"to":to, "m":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
@@ -504,7 +511,7 @@ function reply(e){
     var tags = parent.getAttribute("data-tags");
     var sendError = helpers.id("sendError");
     if(sendError)helpers.hide(sendError);
-    var message = document.getElementsByName("message")[0].value;
+    var message = document.getElementsByName("reply")[0].value;
     if(!message){
 	e.parentNode.parentNode.innerHTML += '<p>The message can not be empty</p>';
 	return;
@@ -625,6 +632,7 @@ function buildTag(t,page){
     //use cursor.advance(int);
     cursor.onsuccess = function(e){
 	var item = e.target.result;
+	 if(pNo>1) cursor.advance(20*pNo+1);
 	if(item && count!=20){
 	    item.continue();
 	    count++;
