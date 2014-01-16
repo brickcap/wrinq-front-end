@@ -110,7 +110,7 @@ var helpers = {
 		    return;
 		}
 		if(count){
-		    messages.innerHTML = mStr; 
+		    messages.innerHTML = mStr+'<p style="text-align:center" class="details" data-page="'+1+'">more</p>';
 		    showActivity();
 		    return;
 		}
@@ -184,7 +184,6 @@ openRequest.onupgradeneeded = function(e){
     var ms= createObjectStore(database,"messages",false);
     ms.createIndex("tag","m.t",{unique:false});
     ms.createIndex("between",'f');
-    ms.createIndex("profile","m.p.u",{unique:false});
     createObjectStore(database,"application",true);
 };
 
@@ -584,6 +583,7 @@ function buildMessages(to){
     var cursor = mIndex.openCursor(keyRange,'prev');
     var count = 0;
     var mStr='';
+    
     //use cursor.advance(int);
     cursor.onsuccess = function(e){
 	var item = e.target.result;
@@ -594,7 +594,7 @@ function buildMessages(to){
 	}
 	if(!item||count===20){
 	    var heading = '<h1 class="center-div">Your conversation with '+to+'</h1>';
-	    conversation.innerHTML = heading+mStr;
+	    conversation.innerHTML = heading+mStr+'<p style="text-align:center" class="details" data-page="'+1+'">more</p>';
 	    menu.scrollIntoView();
 	}
     };
@@ -627,7 +627,7 @@ function buildTag(t){
 	}
 	if(!item||count===20){
 	    var heading = '<h1 class="center-div">Messages Tagged as '+t+'</h1>';
-	    tagDiv.innerHTML = heading+mStr;   
+	    tagDiv.innerHTML = heading+mStr+'<p style="text-align:center" class="details" data-page="'+1+'">more</p>';   
 	    menu.scrollIntoView();
 
 	}

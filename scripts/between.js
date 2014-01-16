@@ -18,6 +18,7 @@ function buildMessages(to){
     var cursor = mIndex.openCursor(keyRange,'prev');
     var count = 0;
     var mStr='';
+    
     //use cursor.advance(int);
     cursor.onsuccess = function(e){
 	var item = e.target.result;
@@ -28,7 +29,7 @@ function buildMessages(to){
 	}
 	if(!item||count===20){
 	    var heading = '<h1 class="center-div">Your conversation with '+to+'</h1>';
-	    conversation.innerHTML = heading+mStr;
+	    conversation.innerHTML = heading+mStr+'<p style="text-align:center" class="details" data-page="'+1+'">more</p>';
 	    menu.scrollIntoView();
 	}
     };
