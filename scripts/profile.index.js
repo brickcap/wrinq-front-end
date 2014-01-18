@@ -59,7 +59,7 @@ function updateProfile(){
     
     request.onsuccess = function(){
 	localStorage.setItem("sent",JSON.stringify([]));
-	notification.innerHTML = "Profile saved";
+	notification.innerHTML = "<a href='/'>Profile saved</a>";
     };
     request.onerror = function(e){
 	notification.innerHTML = "Could not save profile";

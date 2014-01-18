@@ -262,7 +262,7 @@ var checkSession = function(){
 
 var socketManager  = function(sess){
 
-    var socket = new WebSocket('ws://localhost:3000/websocket/'+sess);
+    var socket = new WebSocket('ws://www.wrinq.com/websocket/'+sess);
     socket.onopen = function(data){
 	socket.send(JSON.stringify({"ret":1}));
 	helpers.show(app);
