@@ -379,10 +379,10 @@ var checkUser = function(e){
     submitButton.disabled = true;
     if(!e.value) return;
     var ajaxObject = {
-	url: '/checkuser?name="'+e.value+'"',
+	url: '/checkuser?name='+e.value,
 	method: 'GET',
 	successCallback:function(response){
-	    
+	   
 	    if(JSON.parse(response).available){
 		submitButton.disabled = false;
 		return;
@@ -400,7 +400,7 @@ function check(e){
     btnSend.disabed = true;
     if(!e.value) return;
     var ajaxObject = {
-	url: '/checkuser?name="'+e.value+'"',
+	url: '/checkuser?name='+e.value,
 	method: 'GET',
 	successCallback:function(response){
 	    
