@@ -94,6 +94,9 @@ var helpers = {
 		message.m.p.u = message.f;
 		return message;
 	    }
+	    if(message.m.p && !message.m.p.u){
+		message.m.p.u = message.f;
+	    }
 	    return message;
 	}
 	return message;
@@ -722,7 +725,6 @@ function buildContactProfile(of,e){
     var cursor = mIndex.openCursor(keyRange,'prev');
     cursor.onsuccess = function(e){
 	var item = e.target.result.value;
-	console.log(item);
 	contactDiv.innerHTML='';
 	if(item.m.p.hasOwnProperty("pic"))contactDiv.innerHTML = contactDiv.innerHTML+ "<img src = '"+item.m.p.pic+"'/>";
 	contactDiv.innerHTML = contactDiv.innerHTML+ '<p class="details" onclick="showConversation(this)" data-to="'+of+'">user: ' +of+'</p>';

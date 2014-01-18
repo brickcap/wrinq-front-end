@@ -94,6 +94,9 @@ var helpers = {
 		message.m.p.u = message.f;
 		return message;
 	    }
+	    if(message.m.p && !message.m.p.u){
+		message.m.p.u = message.f;
+	    }
 	    return message;
 	}
 	return message;
