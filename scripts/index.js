@@ -513,11 +513,9 @@ function reply(e){
     var messagePacket = {"to":to, "m":{'t':tags,m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
-    var packet=  helpers.saveMessage(buildDate(messagePacket),to);
-    save(to,"sent");
-    if(tags)save(tags,"tags");
-    messages.innerHTML = domElements.incomingMessage(packet)+messages.innerHTML; 
     e.parentNode.parentNode.innerHTML = '<button  onclick = "addCommentBox(this)">reply</button>';
+    var packet=  helpers.saveMessage(buildDate(messagePacket),to);
+    messages.innerHTML = domElements.incomingMessage(packet)+messages.innerHTML;
     menu.scrollIntoView();
     return;
 };
