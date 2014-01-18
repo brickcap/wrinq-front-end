@@ -23,7 +23,7 @@ var domElements = {
 	    var name = m.hasOwnProperty("to")?"<span onclick='showConversation(this)'>you, <em class='details'>"+m.to+"</em>:</span>":"<span onclick='showConversation(this)' class='details'><em>"+m.f+":"+"</em></span>";
 	    if(!m.m.p) return name;
 	    if(!m.m.p.hasOwnProperty("pic")) return name;
-	    if(m.m.p.hasOwnProperty("pic")) return "<img onclick='showContact(this)'  class='img-span' src="+m.m.p.pic+"</img>" + name;
+	    if(m.m.p.hasOwnProperty("pic")) return '<img onclick="showContact(this)"  class="img-span" src="'+m.m.p.pic+'"/>' + name;
 	    return '';
 	};
 	var rBtn = m.hasOwnProperty("to")?'':"<p><button onclick='addCommentBox(this)'>reply</button>";
