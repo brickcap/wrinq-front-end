@@ -397,7 +397,7 @@ var checkUser = function(e){
     helpers.ajax(ajaxObject);
 };
 function check(e){
-    btnSend.disabed = true;
+    btnSend.disabled = true;
     if(!e.value) return;
     var ajaxObject = {
 	url: '/checkuser?name='+e.value,
