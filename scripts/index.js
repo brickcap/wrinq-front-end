@@ -277,7 +277,7 @@ var socketManager  = function(sess){
 		var m = helpers.addProfile(parsed);
 		helpers.saveMessage(m);
 	    }
-	   var info = length>=1?" message was sent while you were offline":" messages were sent while you were offline";
+	    var info = length>1?" messages were sent while you were offline":" message was sent while you were offline";
 	    helpers.id("unread").innerHTML = length + info;
 	    socket.send(JSON.stringify({"delmsg":1}));
 	    return;
@@ -433,13 +433,13 @@ var search = function(e){
     var searchResult = helpers.id("searchResult");
     searchResult.innerHTML = '';
     if(term.charAt(0)==="@"&&term.length>=2){
-	console.log("search user");
+	
 	var res = searchTerm("sent",term.slice(1,term.length).trim());
 	searchResult.innerHTML = '<ul style="list-style:none">'+res+'</ul>';
     }
     if(term.charAt(0)==="#"&&term.length>=2){
 	var result = searchTerm("tags",term.slice(1,term.length).trim());
-	console.log(result);
+	
 	searchResult.innerHTML = '<ul style="list-style:none">'+result+'</ul>';
     }
 };
