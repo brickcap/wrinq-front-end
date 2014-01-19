@@ -510,7 +510,7 @@ function send(e){
 function reply(e){
     var parent = e.parentNode.parentNode.parentNode;
     var to = parent.getAttribute("data-to");
-    var tags = parent.getAttribute("data-tags");
+    var tags = parent.getAttribute("data-tag");
     var sendError = helpers.id("sendError");
     if(sendError)helpers.hide(sendError);
     var temp = document.createElement("div");
@@ -526,6 +526,7 @@ function reply(e){
     e.parentNode.parentNode.innerHTML = '<button  onclick = "addCommentBox(this)">reply</button>';
     var packet=  helpers.saveMessage(buildDate(messagePacket),to);
     messages.innerHTML = domElements.incomingMessage(packet)+messages.innerHTML;
+    showActivity();
     menu.scrollIntoView();
     return;
 };
@@ -740,7 +741,7 @@ function buildContactProfile(of,e){
 	    var temp = document.createElement("div");
 	    temp.innerHTML = about;   
 	    var sanatized = temp.innerText||temp.textContent;
-	    contactDiv.innerHTML = contactDiv.innerHTML + '<p>about: ' +helpers.output(sanatized)+'</p><hr>';
+	    contactDiv.innerHTML = contactDiv.innerHTML + '<p>about: '+helpers.output(sanatized)+'</p><hr>';
 	}
 	
     };

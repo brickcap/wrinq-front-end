@@ -23,7 +23,7 @@ function buildContactProfile(of,e){
 	    var temp = document.createElement("div");
 	    temp.innerHTML = about;   
 	    var sanatized = temp.innerText||temp.textContent;
-	    contactDiv.innerHTML = contactDiv.innerHTML + '<p>about: ' +helpers.output(sanatized)+'</p><hr>';
+	    contactDiv.innerHTML = contactDiv.innerHTML + '<p>about: '+helpers.output(sanatized)+'</p><hr>';
 	}
 	
     };
