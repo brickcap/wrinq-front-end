@@ -55,7 +55,12 @@ function reply(e){
     e.parentNode.parentNode.innerHTML = '<button  onclick = "addCommentBox(this)">reply</button>';
     var packet=  helpers.saveMessage(buildDate(messagePacket),to);
     messages.innerHTML = domElements.incomingMessage(packet)+messages.innerHTML;
-    showActivity();
+    if(tagDiv.style.display==='block'){
+	tagDiv.innerHTML = domElements.incomingMessage(packet)+messages.innerHTML;
+    }
+    if(conversation.style.display==='block'){	
+	conversation.innerHTML = domElements.incomingMessage(packet)+messages.innerHTML;
+    }
     menu.scrollIntoView();
     return;
 };
