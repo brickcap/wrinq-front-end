@@ -18,7 +18,14 @@ function buildContactProfile(of,e){
 	if(item.m.p.hasOwnProperty("pic"))contactDiv.innerHTML = contactDiv.innerHTML+ "<img src = '"+item.m.p.pic+"'/>";
 	contactDiv.innerHTML = contactDiv.innerHTML+ '<p class="details" onclick="showConversation(this)" data-to="'+of+'">user: ' +of+'</p>';
 	if(item.m.p.hasOwnProperty("n")) contactDiv.innerHTML = contactDiv.innerHTML + '<p>Name: ' +item.m.p.n+'</p>';
-	if(item.m.p.hasOwnProperty("a")) contactDiv.innerHTML = contactDiv.innerHTML + '<p>about: ' +helpers.output(item.m.p.a)+'</p><hr>';
+	if(item.m.p.hasOwnProperty("a")){ 
+	    var about = item.m.p.a;
+	    var temp = document.createElement("div");
+	    temp.innerHTML = about;   
+	    var sanatized = temp.innerText||temp.textContent;
+	    contactDiv.innerHTML = contactDiv.innerHTML + '<p>about: ' +helpers.output(sanatized)+'</p><hr>';
+	}
 	
     };
 }
+
