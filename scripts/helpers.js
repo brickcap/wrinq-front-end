@@ -70,7 +70,7 @@ var helpers = {
 	var key = Object.keys(parsed)[0];
 	 var storeObject = addToStore({"session":key},"sess","application");
 	 storeObject.transaction.oncomplete = function(){
-	     localStorage.setItem("user",parsed.key);
+	     localStorage.setItem("user",parsed[key]);
 	     checkSession();
 	 };
     },
