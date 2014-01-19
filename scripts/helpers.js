@@ -65,10 +65,14 @@ var helpers = {
     },
 
     successCallback : function(responseText){
-	var storeObject = addToStore({"session":responseText},"sess","application");
-	storeObject.transaction.oncomplete = function(){
-	    checkSession();
-	};
+	console.log(responseText);
+	var parsed = JSON.parse(responseText);
+	var key = Object.keys(parsed)[0];
+	 var storeObject = addToStore({"session":key},"sess","application");
+	 storeObject.transaction.oncomplete = function(){
+	     localStorage.setItem("user",parsed.key);
+	     checkSession();
+	 };
     },
     output: function(input){
 	
