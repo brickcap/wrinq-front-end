@@ -93,8 +93,6 @@ function searchTerm(key,term){
     var i = 0;
     var li = '';
     for(i;i<length;i++){
-	console.log(items[i]);
-	console.log(term);
 	if(items[i].indexOf(term)!=-1&&key==="tags") li+='<li class="details" data-tag="'+items[i]+'"onclick="showTag(this)">'+items[i]+'</li>';
 
 	if(items[i].indexOf(term)!=-1&&key==="sent") li+='<li class="details" data-to="'+items[i]+'"onclick="showConversation(this)">'+items[i]+'</li>';

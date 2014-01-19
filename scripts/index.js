@@ -262,7 +262,7 @@ var checkSession = function(){
 
 var socketManager  = function(sess){
 
-    var socket = new WebSocket('ws://wrinq.com/websocket/'+sess);
+    var socket = new WebSocket('ws://localhost:3000/websocket/'+sess);
     socket.onopen = function(data){
 	socket.send(JSON.stringify({"ret":1}));
 	helpers.show(app);
@@ -455,8 +455,6 @@ function searchTerm(key,term){
     var i = 0;
     var li = '';
     for(i;i<length;i++){
-	console.log(items[i]);
-	console.log(term);
 	if(items[i].indexOf(term)!=-1&&key==="tags") li+='<li class="details" data-tag="'+items[i]+'"onclick="showTag(this)">'+items[i]+'</li>';
 
 	if(items[i].indexOf(term)!=-1&&key==="sent") li+='<li class="details" data-to="'+items[i]+'"onclick="showConversation(this)">'+items[i]+'</li>';
