@@ -26,12 +26,11 @@ var domElements = {
 	    if(m.m.p.hasOwnProperty("pic")) return '<img onclick="showContact(this)"  class="img-span" src="'+m.m.p.pic+'"/>' + name;
 	    return '';
 	};
-	var rBtn = m.hasOwnProperty("to")?'':"<p><button onclick='addCommentBox(this)'>reply</button>";
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
 	if(tag)save(tag,"tags");
 	save(m.f,"sent");
-	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff; margin-bottom:0px;"/><p><span>'+det()+'</span><span class="date">'+hDate+'</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span></p>'+rBtn+'</p></div></div>';
+	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff; margin-bottom:0px;"/><p><span>'+det()+'</span><span class="date">'+hDate+'</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span></p><p><button onclick="addCommentBox(this)">reply</button></p></div></div>';
 	return ms;
     }
 
