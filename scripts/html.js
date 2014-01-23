@@ -23,9 +23,13 @@ var domElements = {
 	    var name = m.hasOwnProperty("to")?"<span onclick='showConversation(this)'>me, <em class='details'>"+m.to+"</em></span>":"<span onclick='showConversation(this)' class='details'><em>"+m.f+"</em></span>";
 	    if(!m.m.p) return name;
 	    if(!m.m.p.hasOwnProperty("pic")) return name;
-	    if(m.m.p.hasOwnProperty("pic")) return '<img onclick="showContact(this)"  class="img-span" src="'+m.m.p.pic+'"/>' + name;
+	    if(m.m.p.hasOwnProperty("pic")){ 
+		if(m.hasOwnProperty("to"))return '<a href="/editprofile.html"><img  class="img-span" src="'+m.m.p.pic+'"/></a>' + name;
+		return '<img onclick="showContact(this)"  class="img-span" src="'+m.m.p.pic+'"/>' + name;
+	    }
 	    return '';
 	};
+	
 	var msg = helpers.output(m.m.m);
 	var tag = m.m.t?m.m.t:'';
 	if(tag)save(tag,"tags");
