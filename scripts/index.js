@@ -334,7 +334,7 @@ var domElements = {
 	var temp = '<div class="contacts"><h1 style="text-align:center;">contacts</h1></div>';
 	return temp;
     },
-    'sendMessage' : '<div  class="box"><p><input type="text" name="to" placeholder="to" onblur="check(this)"/></p><p><textarea rows="5" placeholder="your message" onkeyup="autoGrow(this)" name="message"></textarea></p><p><input type="text" name="tag" placeholder="tag"/></p></div> <span><button type="button" onclick="send(this)" id="btnSend" disabled>post</button></span>',
+    'sendMessage' : '<div  class="box"><p><input type="text" name="to" placeholder="to" onblur="check(this)"/></p><p><textarea rows="5" placeholder="your message" onkeyup="autoGrow(this)" name="message"></textarea></p></div> <span><button type="button" onclick="send(this)" id="btnSend" disabled>post</button></span>',
 
     'incomingMessage' : function(m){
 	// var mDate = m.day+'-'+m.month+'-'+m.year+" ";
@@ -355,10 +355,8 @@ var domElements = {
 	};
 	
 	var msg = helpers.output(m.m.m);
-	var tag = m.m.t?m.m.t:'';
-	if(tag)save(tag,"tags");
 	save(m.f,"sent");
-	var ms = '<div class="messageBody" data-to="'+m.f+'" data-tag="'+tag+'"><hr style="border-color:#fff; margin-bottom:0px;"/><p><span>'+det()+'</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span></p><p><button onclick="addCommentBox(this)">reply</button></p></div></div>';
+	var ms = '<div class="messageBody" data-to="'+m.f+'"><hr style="border-color:#fff; margin-bottom:0px;"/><p><span>'+det()+'</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span></p><p><button onclick="addCommentBox(this)">reply</button></p></div></div>';
 	return ms;
     }
 
@@ -482,7 +480,6 @@ function removeCommentBox(e){
 
 function send(e){
     var to = document.getElementsByName("to")[0].value;
-    var tags = document.getElementsByName("tag")[0].value;
     var temp = document.createElement("div");
     temp.innerHTML = document.getElementsByName("message")[0].value;
     var message = temp.innerText||temp.textContent;
@@ -490,12 +487,11 @@ function send(e){
 	e.parentNode.parentNode.innerHTML += '<p>The message can not be empty</p>';   
 	return;
     }
-    var messagePacket = {"to":to, "m":{'t':tags,m:message}};
+    var messagePacket = {"to":to, "m":{m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
     var packet =  helpers.saveMessage(buildDate(messagePacket),to);
     save(to,"sent");
-    if(tags)save(tags,"tags");
     messages.innerHTML = domElements.incomingMessage(packet)+messages.innerHTML; 
     showActivity();
     return;
@@ -505,7 +501,6 @@ function send(e){
 function reply(e){
     var parent = e.parentNode.parentNode.parentNode;
     var to = parent.getAttribute("data-to");
-    var tags = parent.getAttribute("data-tag");
     var sendError = helpers.id("sendError");
     if(sendError)helpers.hide(sendError);
     var temp = document.createElement("div");
@@ -515,7 +510,7 @@ function reply(e){
 	e.parentNode.parentNode.innerHTML += '<p>The message can not be empty</p>';
 	return;
     }
-    var messagePacket = {"to":to, "m":{'t':tags,m:message}};
+    var messagePacket = {"to":to, "m":{m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
     e.parentNode.parentNode.innerHTML = '<button  onclick = "addCommentBox(this)">reply</button>';

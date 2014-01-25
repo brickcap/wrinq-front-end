@@ -16,7 +16,6 @@ function removeCommentBox(e){
 
 function send(e){
     var to = document.getElementsByName("to")[0].value;
-    var tags = document.getElementsByName("tag")[0].value;
     var temp = document.createElement("div");
     temp.innerHTML = document.getElementsByName("message")[0].value;
     var message = temp.innerText||temp.textContent;
@@ -24,12 +23,11 @@ function send(e){
 	e.parentNode.parentNode.innerHTML += '<p>The message can not be empty</p>';   
 	return;
     }
-    var messagePacket = {"to":to, "m":{'t':tags,m:message}};
+    var messagePacket = {"to":to, "m":{m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
     var packet =  helpers.saveMessage(buildDate(messagePacket),to);
     save(to,"sent");
-    if(tags)save(tags,"tags");
     messages.innerHTML = domElements.incomingMessage(packet)+messages.innerHTML; 
     showActivity();
     return;
@@ -39,7 +37,6 @@ function send(e){
 function reply(e){
     var parent = e.parentNode.parentNode.parentNode;
     var to = parent.getAttribute("data-to");
-    var tags = parent.getAttribute("data-tag");
     var sendError = helpers.id("sendError");
     if(sendError)helpers.hide(sendError);
     var temp = document.createElement("div");
@@ -49,7 +46,7 @@ function reply(e){
 	e.parentNode.parentNode.innerHTML += '<p>The message can not be empty</p>';
 	return;
     }
-    var messagePacket = {"to":to, "m":{'t':tags,m:message}};
+    var messagePacket = {"to":to, "m":{m:message}};
     var messageProfile = buildProfile(to,messagePacket);
     socket.send(JSON.stringify(messageProfile));
     e.parentNode.parentNode.innerHTML = '<button  onclick = "addCommentBox(this)">reply</button>';
