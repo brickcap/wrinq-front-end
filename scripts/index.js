@@ -65,14 +65,14 @@ var helpers = {
     },
 
     successCallback : function(responseText){
-	console.log(responseText);
+	
 	var parsed = JSON.parse(responseText);
 	var key = Object.keys(parsed)[0];
-	 var storeObject = addToStore({"session":key},"sess","application");
-	 storeObject.transaction.oncomplete = function(){
-	     localStorage.setItem("user",parsed[key]);
-	     checkSession();
-	 };
+	var storeObject = addToStore({"session":key},"sess","application");
+	storeObject.transaction.oncomplete = function(){
+	    localStorage.setItem("user",parsed[key]);
+	    checkSession();
+	};
     },
     output: function(input){
 	
@@ -307,14 +307,10 @@ var socketManager  = function(sess){
 
 
 var logincallback = {
-    successCallback: function(responseText){
-        helpers.hide(formDiv);
-        addToAppStore({"session":responseText},"sess");
-        checkSession();
-    },
+    successCallback: helpers.successCallback,
     errorCallback : function(){
-        var message = helpers.id("message");
-        message.innerHTML = "Login failed.";
+	var message = helpers.id("message");
+	message.innerHTML = "Login failed.";
     }
 };
 
