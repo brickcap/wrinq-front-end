@@ -77,7 +77,7 @@ var search = function(e){
     searchResult.innerHTML = '';
     if(term.length>=2){
 	
-	var res = searchTerm("sent",term.trim());
+	var res = searchTerm("sent",term.slice(1,term.length).trim());
 	searchResult.innerHTML = '<ul style="list-style:none">'+res+'</ul>';
     }
     
@@ -89,7 +89,7 @@ function searchTerm(key,term){
     var i = 0;
     var li = '';
     for(i;i<length;i++){	
-	li+='<li class="details" data-to="'+items[i]+'"onclick="showConversation(this)">'+items[i]+'</li>';
+	if(items[i].indexOf(term)!=-1) li+='<li class="details" data-to="'+items[i]+'"onclick="showConversation(this)">'+items[i]+'</li>';
     }
     return li;
 }
