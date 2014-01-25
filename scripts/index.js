@@ -445,16 +445,12 @@ var search = function(e){
     var term = e.value;
     var searchResult = helpers.id("searchResult");
     searchResult.innerHTML = '';
-    if(term.charAt(0)==="@"&&term.length>=2){
+    if(term.length>=2){
 	
-	var res = searchTerm("sent",term.slice(1,term.length).trim());
+	var res = searchTerm("sent",term.trim());
 	searchResult.innerHTML = '<ul style="list-style:none">'+res+'</ul>';
     }
-    if(term.charAt(0)==="#"&&term.length>=2){
-	var result = searchTerm("tags",term.slice(1,term.length).trim());
-	
-	searchResult.innerHTML = '<ul style="list-style:none">'+result+'</ul>';
-    }
+    
 };
 
 function searchTerm(key,term){
@@ -462,10 +458,8 @@ function searchTerm(key,term){
     var length = items.length;
     var i = 0;
     var li = '';
-    for(i;i<length;i++){
-	if(items[i].indexOf(term)!=-1&&key==="tags") li+='<li class="details" data-tag="'+items[i]+'"onclick="showTag(this)">'+items[i]+'</li>';
-
-	if(items[i].indexOf(term)!=-1&&key==="sent") li+='<li class="details" data-to="'+items[i]+'"onclick="showConversation(this)">'+items[i]+'</li>';
+    for(i;i<length;i++){	
+	li+='<li class="details" data-to="'+items[i]+'"onclick="showConversation(this)">'+items[i]+'</li>';
     }
     return li;
 }
