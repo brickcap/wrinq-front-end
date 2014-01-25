@@ -1,9 +1,8 @@
 
 openRequest.onupgradeneeded = function(e){
     database = e.target.result;
-    createObjectStore(database,"profile",false).createIndex("name","u",{unique:true});
+    createObjectStore(database,"profile",false);
     var ms= createObjectStore(database,"messages",false);
-    ms.createIndex("tag","m.t",{unique:false});
     ms.createIndex("between",'f');
     ms.createIndex("profile",'m.p.u');
     createObjectStore(database,"application",true);
