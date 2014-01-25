@@ -5,7 +5,7 @@ function showConversation(e){
 
     sIn.value='';
     helpers.id("searchResult").innerHTML='';
-    helpers.hideM([sendMessage,messages,tagDiv,contactDiv]);
+    helpers.hideM([sendMessage,messages,contactDiv]);
     helpers.show(conversation);   
     buildMessages(to);
 };
