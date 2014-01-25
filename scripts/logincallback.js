@@ -1,11 +1,7 @@
 var logincallback = {
-    successCallback: function(responseText){
-        helpers.hide(formDiv);
-        addToAppStore({"session":responseText},"sess");
-        checkSession();
-    },
+    successCallback: helpers.successCallback,
     errorCallback : function(){
-        var message = helpers.id("message");
-        message.innerHTML = "Login failed.";
+	var message = helpers.id("message");
+	message.innerHTML = "Login failed.";
     }
 };
