@@ -53,7 +53,7 @@ function moreBIndex(end,to,e){
 	    console.log(cursor);
 	    var needMore = count>=nextCount?function(){
 		end++;
-		return '<p style="text-align:center" class="details" onclick="moreTagsIndex('+end+",'"+to+"',this)"+'">more</p>';
+		return '<p style="text-align:center" class="details" onclick="moreBIndex('+end+",'"+to+"',this)"+'">more</p>';
 	    }():'';
 	    conversation.innerHTML =  conversation.innerHTML+ mStr.join('')+needMore;
 	    return;

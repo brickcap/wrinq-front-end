@@ -356,7 +356,7 @@ var domElements = {
 	
 	var msg = helpers.output(m.m.m);
 	save(m.f,"sent");
-	var ms = '<div class="messageBody" data-to="'+m.f+'"><hr style="border-color:#fff; margin-bottom:0px;"/><p><span>'+det()+'</span></p><span>'+msg+'</span><p><span class="details" onclick="showTag(this)">'+tag +'</span></p><p><button onclick="addCommentBox(this)">reply</button></p></div></div>';
+	var ms = '<div class="messageBody" data-to="'+m.f+'"><hr style="border-color:#fff; margin-bottom:0px;"/><p><span>'+det()+'</span></p><span>'+msg+'</span><p><button onclick="addCommentBox(this)">reply</button></p></div></div>';
 	return ms;
     }
 
@@ -620,7 +620,7 @@ function moreBIndex(end,to,e){
 	    console.log(cursor);
 	    var needMore = count>=nextCount?function(){
 		end++;
-		return '<p style="text-align:center" class="details" onclick="moreTagsIndex('+end+",'"+to+"',this)"+'">more</p>';
+		return '<p style="text-align:center" class="details" onclick="moreBIndex('+end+",'"+to+"',this)"+'">more</p>';
 	    }():'';
 	    conversation.innerHTML =  conversation.innerHTML+ mStr.join('')+needMore;
 	    return;
@@ -670,7 +670,7 @@ function buildContactProfile(of,e){
 
 
 function messageBox(){
-helpers.hideM([messages,conversation,tagDiv,contactDiv]);
+helpers.hideM([messages,conversation,contactDiv]);
 sendMessage.innerHTML = domElements.sendMessage;
 helpers.show(sendMessage);
 };
